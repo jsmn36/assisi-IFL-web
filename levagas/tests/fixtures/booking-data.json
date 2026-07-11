@@ -1,0 +1,10 @@
+{
+  "guest": {
+    "firstName": "Test",
+    "lastName": "Guest",
+    "email": "test@levagas.com",
+    "phone": "+919876543210"
+  },
+  "cottages": ["mist-valley","emerald-hills","golden-peak","cloud-breeze","celeste-honeymoon-villa"],
+  "cottageNames": ["Mist Valley Cottage","Emerald Hills Cottage","Golden Peak Cottage","Cloud Breeze Cottage","Celeste Honeymoon Villa"]
+}

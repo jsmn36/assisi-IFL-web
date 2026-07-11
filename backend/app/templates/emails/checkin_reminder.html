@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Check-in Reminder - {{ confirmation_code }}{% endblock %}
+
+{% block header %}Your Check-in is Tomorrow!{% endblock %}
+
+{% block content %}
+<h2>Hello, {{ guest_name }}!</h2>
+<p>This is a friendly reminder that your check-in is tomorrow. We can't wait to welcome you!</p>
+
+<h3>Check-in Information</h3>
+<table>
+  <tr><td><strong>Confirmation Number:</strong></td><td>{{ confirmation_code }}</td></tr>
+  <tr><td><strong>Check-in Date:</strong></td><td>{{ check_in_date|date }}</td></tr>
+  <tr><td><strong>Check-in Time:</strong></td><td>3:00 PM</td></tr>
+  <tr><td><strong>Room Type:</strong></td><td>{{ room_type }}</td></tr>
+</table>
+
+<h3>Check-in Process:</h3>
+<ol>
+  <li>Arrive at the front desk with your confirmation number</li>
+  <li>Present a valid photo ID and credit card</li>
+  <li>Review and sign the registration card</li>
+  <li>Receive your room key and welcome packet</li>
+</ol>
+
+<h3>Early Check-in:</h3>
+<p>If you'd like to check in before 3:00 PM, please let us know. We'll do our best to accommodate you based on room availability.</p>
+
+<p><a href="{{ reservation_url }}">View Reservation</a></p>
+
+<p>Have a safe journey, and we'll see you soon!</p>
+
+<p>Best regards,<br>The Assisi Social Team</p>
+{% endblock %}

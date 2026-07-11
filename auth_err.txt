@@ -1,0 +1,662 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-7.4.3, pluggy-1.6.0 -- C:\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\akash\pms-hotel-desktop\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, mock-3.15.1, requests-mock-1.12.1
+asyncio: mode=Mode.STRICT
+collecting ... collected 1 item
+
+tests/test_services/test_auth_service.py::test_create_user FAILED        [100%]
+
+================================== FAILURES ===================================
+______________________________ test_create_user _______________________________
+
+test_db = <sqlalchemy.orm.session.Session object at 0x0000022CC62DBB90>
+
+    def test_create_user(test_db):
+        """Test creating user"""
+        service = AuthService(test_db)
+>       user = service.create_user(
+            username="testuser",
+            email="test@example.com",
+            password="password123",
+            role="staff",
+            created_by="admin"
+        )
+
+tests\test_services\test_auth_service.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.services.auth_service.AuthService object at 0x0000022CC63DEE70>
+username = 'testuser', email = 'test@example.com', password = 'password123'
+role = 'staff', first_name = None, last_name = None, created_by = 'admin'
+
+    def create_user(
+        self,
+        username: str,
+        email: str,
+        password: str,
+        role: str = "staff",
+        first_name: Optional[str] = None,
+        last_name: Optional[str] = None,
+        created_by: Optional[str] = None
+    ) -> User:
+        """Create new user"""
+        existing = self.db.query(User).filter(
+            (User.username == username) | (User.email == email)
+        ).first()
+    
+        if existing:
+            raise ValueError("Username or email already exists")
+    
+        user = User(
+            username=username,
+            email=email,
+>           hashed_password=get_password_hash(password),
+            role=role,
+            first_name=first_name,
+            last_name=last_name,
+            created_by=created_by,
+            last_password_change=datetime.now(timezone.utc)
+        )
+
+app\services\auth_service.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+password = 'password123'
+
+    def get_password_hash(password: str) -> str:
+        """Hash password"""
+>       return pwd_context.hash(password)
+
+app\core\security.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <CryptContext at 0x22cc6069610>, secret = 'password123', scheme = None
+category = None, kwds = {}
+record = <class 'passlib.handlers.bcrypt.<customized bcrypt hasher>'>
+strip_unused = None
+
+    def hash(self, secret, scheme=None, category=None, **kwds):
+        """run secret through selected algorithm, returning resulting hash.
+    
+        :type secret: unicode or bytes
+        :arg secret:
+            the password to hash.
+    
+        :type scheme: str or None
+        :param scheme:
+    
+            Optional scheme to use. Scheme must be one of the ones
+            configured for this context (see the
+            :ref:`schemes <context-schemes-option>` option).
+            If no scheme is specified, the configured default
+            will be used.
+    
+            .. deprecated:: 1.7
+    
+                Support for this keyword is deprecated, and will be removed in Passlib 2.0.
+    
+        :type category: str or None
+        :param category:
+            Optional :ref:`user category <user-categories>`.
+            If specified, this will cause any category-specific defaults to
+            be used when hashing the password (e.g. different default scheme,
+            different default rounds values, etc).
+    
+        :param \\*\\*kwds:
+            All other keyword options are passed to the selected algorithm's
+            :meth:`PasswordHash.hash() <passlib.ifc.PasswordHash.hash>` method.
+    
+        :returns:
+            The secret as encoded by the specified algorithm and options.
+            The return value will always be a :class:`!str`.
+    
+        :raises TypeError, ValueError:
+            * If any of the arguments have an invalid type or value.
+              This includes any keywords passed to the underlying hash's
+              :meth:`PasswordHash.hash() <passlib.ifc.PasswordHash.hash>` method.
+    
+        .. seealso:: the :ref:`context-basic-example` example in the tutorial
+        """
+        # XXX: could insert normalization to preferred unicode encoding here
+        if scheme is not None:
+            # TODO: offer replacement alternative.
+            #       ``context.handler(scheme).hash()`` would work,
+            #       but may deprecate .handler() in passlib 1.8.
+            warn("CryptContext.hash(): 'scheme' keyword is deprecated as of "
+                 "Passlib 1.7, and will be removed in Passlib 2.0",
+                 DeprecationWarning)
+        record = self._get_record(scheme, category)
+        strip_unused = self._strip_unused_context_kwds
+        if strip_unused:
+            strip_unused(kwds, record)
+>       return record.hash(secret, **kwds)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\context.py:2258: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.<customized bcrypt hasher>'>
+secret = 'password123', kwds = {}
+self = <passlib.handlers.bcrypt.<customized bcrypt hasher> object at 0x0000022CC672BB30>
+
+    @classmethod
+    def hash(cls, secret, **kwds):
+        if kwds:
+            # Deprecating passing any settings keywords via .hash() as of passlib 1.7; everything
+            # should use .using().hash() instead.  If any keywords are specified, presume they're
+            # context keywords by default (the common case), and extract out any settings kwds.
+            # Support for passing settings via .hash() will be removed in Passlib 2.0, along with
+            # this block of code.
+            settings = extract_settings_kwds(cls, kwds)
+            if settings:
+                warn_hash_settings_deprecation(cls, settings)
+                return cls.using(**settings).hash(secret, **kwds)
+        # NOTE: at this point, 'kwds' should just contain context_kwds subset
+        validate_secret(secret)
+        self = cls(use_defaults=True, **kwds)
+>       self.checksum = self._calc_checksum(secret)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:779: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <passlib.handlers.bcrypt.<customized bcrypt hasher> object at 0x0000022CC672BB30>
+secret = 'password123'
+
+    def _calc_checksum(self, secret):
+>       self._stub_requires_backend()
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\handlers\bcrypt.py:591: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.<customized bcrypt hasher>'>
+
+    @classmethod
+    def _stub_requires_backend(cls):
+        """
+        helper for subclasses to create stub methods which auto-load backend.
+        """
+        if cls.__backend:
+            raise AssertionError("%s: _finalize_backend(%r) failed to replace lazy loader" %
+                                 (cls.name, cls.__backend))
+>       cls.set_backend()
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:2254: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.<customized bcrypt hasher>'>, name = 'any'
+dryrun = False
+
+    @classmethod
+    def set_backend(cls, name="any", dryrun=False):
+        """
+        Load specified backend.
+    
+        :arg name:
+            name of backend to load, can be any of the following:
+    
+            * ``"any"`` -- use current backend if one is loaded,
+              otherwise load the first available backend.
+    
+            * ``"default"`` -- use the first available backend.
+    
+            * any string in :attr:`backends`, loads specified backend.
+    
+        :param dryrun:
+            If True, this perform all setup actions *except* switching over to the new backend.
+            (this flag is used to implement :meth:`has_backend`).
+    
+            .. versionadded:: 1.7
+    
+        :raises ValueError:
+            If backend name is unknown.
+    
+        :raises passlib.exc.MissingBackendError:
+            If specific backend is missing;
+            or in the case of ``"any"`` / ``"default"``, if *no* backends are available.
+    
+        :raises passlib.exc.PasslibSecurityError:
+    
+            If ``"any"`` or ``"default"`` was specified,
+            but the only backend available has a PasslibSecurityError.
+        """
+        # check if active backend is acceptable
+        if (name == "any" and cls.__backend) or (name and name == cls.__backend):
+            return cls.__backend
+    
+        # if this isn't the final subclass, whose bases we can modify,
+        # find that class, and recursively call this method for the proper class.
+        owner = cls._get_backend_owner()
+        if owner is not cls:
+>           return owner.set_backend(name, dryrun=dryrun)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:2156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.bcrypt'>, name = 'bcrypt', dryrun = False
+
+    @classmethod
+    def set_backend(cls, name="any", dryrun=False):
+        """
+        Load specified backend.
+    
+        :arg name:
+            name of backend to load, can be any of the following:
+    
+            * ``"any"`` -- use current backend if one is loaded,
+              otherwise load the first available backend.
+    
+            * ``"default"`` -- use the first available backend.
+    
+            * any string in :attr:`backends`, loads specified backend.
+    
+        :param dryrun:
+            If True, this perform all setup actions *except* switching over to the new backend.
+            (this flag is used to implement :meth:`has_backend`).
+    
+            .. versionadded:: 1.7
+    
+        :raises ValueError:
+            If backend name is unknown.
+    
+        :raises passlib.exc.MissingBackendError:
+            If specific backend is missing;
+            or in the case of ``"any"`` / ``"default"``, if *no* backends are available.
+    
+        :raises passlib.exc.PasslibSecurityError:
+    
+            If ``"any"`` or ``"default"`` was specified,
+            but the only backend available has a PasslibSecurityError.
+        """
+        # check if active backend is acceptable
+        if (name == "any" and cls.__backend) or (name and name == cls.__backend):
+            return cls.__backend
+    
+        # if this isn't the final subclass, whose bases we can modify,
+        # find that class, and recursively call this method for the proper class.
+        owner = cls._get_backend_owner()
+        if owner is not cls:
+            return owner.set_backend(name, dryrun=dryrun)
+    
+        # pick first available backend
+        if name == "any" or name == "default":
+            default_error = None
+            for name in cls.backends:
+                try:
+>                   return cls.set_backend(name, dryrun=dryrun)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:2163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.bcrypt'>, name = 'bcrypt', dryrun = False
+
+    @classmethod
+    def set_backend(cls, name="any", dryrun=False):
+        """
+        Load specified backend.
+    
+        :arg name:
+            name of backend to load, can be any of the following:
+    
+            * ``"any"`` -- use current backend if one is loaded,
+              otherwise load the first available backend.
+    
+            * ``"default"`` -- use the first available backend.
+    
+            * any string in :attr:`backends`, loads specified backend.
+    
+        :param dryrun:
+            If True, this perform all setup actions *except* switching over to the new backend.
+            (this flag is used to implement :meth:`has_backend`).
+    
+            .. versionadded:: 1.7
+    
+        :raises ValueError:
+            If backend name is unknown.
+    
+        :raises passlib.exc.MissingBackendError:
+            If specific backend is missing;
+            or in the case of ``"any"`` / ``"default"``, if *no* backends are available.
+    
+        :raises passlib.exc.PasslibSecurityError:
+    
+            If ``"any"`` or ``"default"`` was specified,
+            but the only backend available has a PasslibSecurityError.
+        """
+        # check if active backend is acceptable
+        if (name == "any" and cls.__backend) or (name and name == cls.__backend):
+            return cls.__backend
+    
+        # if this isn't the final subclass, whose bases we can modify,
+        # find that class, and recursively call this method for the proper class.
+        owner = cls._get_backend_owner()
+        if owner is not cls:
+            return owner.set_backend(name, dryrun=dryrun)
+    
+        # pick first available backend
+        if name == "any" or name == "default":
+            default_error = None
+            for name in cls.backends:
+                try:
+                    return cls.set_backend(name, dryrun=dryrun)
+                except exc.MissingBackendError:
+                    continue
+                except exc.PasslibSecurityError as err:
+                    # backend is available, but refuses to load due to security issue.
+                    if default_error is None:
+                        default_error = err
+                    continue
+            if default_error is None:
+                msg = "%s: no backends available" % cls.name
+                if cls._no_backend_suggestion:
+                    msg += cls._no_backend_suggestion
+                default_error = exc.MissingBackendError(msg)
+            raise default_error
+    
+        # validate name
+        if name not in cls.backends:
+            raise exc.UnknownBackendError(cls, name)
+    
+        # hand off to _set_backend()
+        with _backend_lock:
+            orig = cls._pending_backend, cls._pending_dry_run
+            try:
+                cls._pending_backend = name
+                cls._pending_dry_run = dryrun
+>               cls._set_backend(name, dryrun)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:2188: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.bcrypt'>, name = 'bcrypt', dryrun = False
+
+    @classmethod
+    def _set_backend(cls, name, dryrun):
+        # invoke backend loader (will throw error if fails)
+>       super(SubclassBackendMixin, cls)._set_backend(name, dryrun)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:2311: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt.bcrypt'>, name = 'bcrypt', dryrun = False
+
+    @classmethod
+    def _set_backend(cls, name, dryrun):
+        """
+        Internal method invoked by :meth:`set_backend`.
+        handles actual loading of specified backend.
+    
+        global _backend_lock will be held for duration of this method,
+        and _pending_dry_run & _pending_backend will also be set.
+    
+        should return True / False.
+        """
+        loader = cls._get_backend_loader(name)
+        kwds = {}
+        if accepts_keyword(loader, "name"):
+            kwds['name'] = name
+        if accepts_keyword(loader, "dryrun"):
+            kwds['dryrun'] = dryrun
+>       ok = loader(**kwds)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:2224: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+mixin_cls = <class 'passlib.handlers.bcrypt._BcryptBackend'>, name = 'bcrypt'
+dryrun = False
+
+    @classmethod
+    def _load_backend_mixin(mixin_cls, name, dryrun):
+        # try to import bcrypt
+        global _bcrypt
+        if _detect_pybcrypt():
+            # pybcrypt was installed instead
+            return False
+        try:
+            import bcrypt as _bcrypt
+        except ImportError: # pragma: no cover
+            return False
+        try:
+            version = _bcrypt.__about__.__version__
+        except:
+            log.warning("(trapped) error reading bcrypt version", exc_info=True)
+            version = '<unknown>'
+    
+        log.debug("detected 'bcrypt' backend, version %r", version)
+>       return mixin_cls._finalize_backend_mixin(name, dryrun)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\handlers\bcrypt.py:626: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+mixin_cls = <class 'passlib.handlers.bcrypt._BcryptBackend'>, backend = 'bcrypt'
+dryrun = False
+
+    @classmethod
+    def _finalize_backend_mixin(mixin_cls, backend, dryrun):
+        """
+        helper called by from backend mixin classes' _load_backend_mixin() --
+        invoked after backend imports have been loaded, and performs
+        feature detection & testing common to all backends.
+        """
+        #----------------------------------------------------------------
+        # setup helpers
+        #----------------------------------------------------------------
+        assert mixin_cls is bcrypt._backend_mixin_map[backend], \
+            "_configure_workarounds() invoked from wrong class"
+    
+        if mixin_cls._workrounds_initialized:
+            return True
+    
+        verify = mixin_cls.verify
+    
+        err_types = (ValueError, uh.exc.MissingBackendError)
+        if _bcryptor:
+            err_types += (_bcryptor.engine.SaltError,)
+    
+        def safe_verify(secret, hash):
+            """verify() wrapper which traps 'unknown identifier' errors"""
+            try:
+                return verify(secret, hash)
+            except err_types:
+                # backends without support for given ident will throw various
+                # errors about unrecognized version:
+                #   os_crypt -- internal code below throws
+                #       - PasswordValueError if there's encoding issue w/ password.
+                #       - InternalBackendError if crypt fails for unknown reason
+                #         (trapped below so we can debug it)
+                #   pybcrypt, bcrypt -- raises ValueError
+                #   bcryptor -- raises bcryptor.engine.SaltError
+                return NotImplemented
+            except uh.exc.InternalBackendError:
+                # _calc_checksum() code may also throw CryptBackendError
+                # if correct hash isn't returned (e.g. 2y hash converted to 2b,
+                # such as happens with bcrypt 3.0.0)
+                log.debug("trapped unexpected response from %r backend: verify(%r, %r):",
+                          backend, secret, hash, exc_info=True)
+                return NotImplemented
+    
+        def assert_lacks_8bit_bug(ident):
+            """
+            helper to check for cryptblowfish 8bit bug (fixed in 2y/2b);
+            even though it's not known to be present in any of passlib's backends.
+            this is treated as FATAL, because it can easily result in seriously malformed hashes,
+            and we can't correct for it ourselves.
+    
+            test cases from <http://cvsweb.openwall.com/cgi/cvsweb.cgi/Owl/packages/glibc/crypt_blowfish/wrapper.c.diff?r1=1.9;r2=1.10>
+            reference hash is the incorrectly generated $2x$ hash taken from above url
+            """
+            # NOTE: passlib 1.7.2 and earlier used the commented-out LATIN-1 test vector to detect
+            #       this bug; but python3's crypt.crypt() only supports unicode inputs (and
+            #       always encodes them as UTF8 before passing to crypt); so passlib 1.7.3
+            #       switched to the UTF8-compatible test vector below.  This one's bug_hash value
+            #       ("$2x$...rcAS") was drawn from the same openwall source (above); and the correct
+            #       hash ("$2a$...X6eu") was generated by passing the raw bytes to python2's
+            #       crypt.crypt() using OpenBSD 6.7 (hash confirmed as same for $2a$ & $2b$).
+    
+            # LATIN-1 test vector
+            # secret = b"\xA3"
+            # bug_hash = ident.encode("ascii") + b"05$/OK.fbVrR/bpIqNJ5ianF.CE5elHaaO4EbggVDjb8P19RukzXSM3e"
+            # correct_hash = ident.encode("ascii") + b"05$/OK.fbVrR/bpIqNJ5ianF.Sa7shbm4.OzKpvFnX1pQLmQW96oUlCq"
+    
+            # UTF-8 test vector
+            secret = b"\xd1\x91"  # aka "\u0451"
+            bug_hash = ident.encode("ascii") + b"05$6bNw2HLQYeqHYyBfLMsv/OiwqTymGIGzFsA4hOTWebfehXHNprcAS"
+            correct_hash = ident.encode("ascii") + b"05$6bNw2HLQYeqHYyBfLMsv/OUcZd0LKP39b87nBw3.S2tVZSqiQX6eu"
+    
+            if verify(secret, bug_hash):
+                # NOTE: this only EVER be observed in (broken) 2a and (backward-compat) 2x hashes
+                #       generated by crypt_blowfish library. 2y/2b hashes should not have the bug
+                #       (but we check w/ them anyways).
+                raise PasslibSecurityError(
+                    "passlib.hash.bcrypt: Your installation of the %r backend is vulnerable to "
+                    "the crypt_blowfish 8-bit bug (CVE-2011-2483) under %r hashes, "
+                    "and should be upgraded or replaced with another backend" % (backend, ident))
+    
+            # it doesn't have wraparound bug, but make sure it *does* verify against the correct
+            # hash, or we're in some weird third case!
+            if not verify(secret, correct_hash):
+                raise RuntimeError("%s backend failed to verify %s 8bit hash" % (backend, ident))
+    
+        def detect_wrap_bug(ident):
+            """
+            check for bsd wraparound bug (fixed in 2b)
+            this is treated as a warning, because it's rare in the field,
+            and pybcrypt (as of 2015-7-21) is unpatched, but some people may be stuck with it.
+    
+            test cases from <http://www.openwall.com/lists/oss-security/2012/01/02/4>
+    
+            NOTE: reference hash is of password "0"*72
+    
+            NOTE: if in future we need to deliberately create hashes which have this bug,
+                  can use something like 'hashpw(repeat_string(secret[:((1+secret) % 256) or 1]), 72)'
+            """
+            # check if it exhibits wraparound bug
+            secret = (b"0123456789"*26)[:255]
+            bug_hash = ident.encode("ascii") + b"04$R1lJ2gkNaoPGdafE.H.16.nVyh2niHsGJhayOHLMiXlI45o8/DU.6"
+            if verify(secret, bug_hash):
+                return True
+    
+            # if it doesn't have wraparound bug, make sure it *does* handle things
+            # correctly -- or we're in some weird third case.
+            correct_hash = ident.encode("ascii") + b"04$R1lJ2gkNaoPGdafE.H.16.1MKHPvmKwryeulRe225LKProWYwt9Oi"
+            if not verify(secret, correct_hash):
+                raise RuntimeError("%s backend failed to verify %s wraparound hash" % (backend, ident))
+    
+            return False
+    
+        def assert_lacks_wrap_bug(ident):
+            if not detect_wrap_bug(ident):
+                return
+            # should only see in 2a, later idents should NEVER exhibit this bug:
+            # * 2y implementations should have been free of it
+            # * 2b was what (supposedly) fixed it
+            raise RuntimeError("%s backend unexpectedly has wraparound bug for %s" % (backend, ident))
+    
+        #----------------------------------------------------------------
+        # check for old 20 support
+        #----------------------------------------------------------------
+        test_hash_20 = b"$2$04$5BJqKfqMQvV7nS.yUguNcuRfMMOXK0xPWavM7pOzjEi5ze5T1k8/S"
+        result = safe_verify("test", test_hash_20)
+        if result is NotImplemented:
+            mixin_cls._lacks_20_support = True
+            log.debug("%r backend lacks $2$ support, enabling workaround", backend)
+        elif not result:
+            raise RuntimeError("%s incorrectly rejected $2$ hash" % backend)
+    
+        #----------------------------------------------------------------
+        # check for 2a support
+        #----------------------------------------------------------------
+        result = safe_verify("test", TEST_HASH_2A)
+        if result is NotImplemented:
+            # 2a support is required, and should always be present
+            raise RuntimeError("%s lacks support for $2a$ hashes" % backend)
+        elif not result:
+            raise RuntimeError("%s incorrectly rejected $2a$ hash" % backend)
+        else:
+            assert_lacks_8bit_bug(IDENT_2A)
+>           if detect_wrap_bug(IDENT_2A):
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\handlers\bcrypt.py:421: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+ident = '$2a$'
+
+    def detect_wrap_bug(ident):
+        """
+        check for bsd wraparound bug (fixed in 2b)
+        this is treated as a warning, because it's rare in the field,
+        and pybcrypt (as of 2015-7-21) is unpatched, but some people may be stuck with it.
+    
+        test cases from <http://www.openwall.com/lists/oss-security/2012/01/02/4>
+    
+        NOTE: reference hash is of password "0"*72
+    
+        NOTE: if in future we need to deliberately create hashes which have this bug,
+              can use something like 'hashpw(repeat_string(secret[:((1+secret) % 256) or 1]), 72)'
+        """
+        # check if it exhibits wraparound bug
+        secret = (b"0123456789"*26)[:255]
+        bug_hash = ident.encode("ascii") + b"04$R1lJ2gkNaoPGdafE.H.16.nVyh2niHsGJhayOHLMiXlI45o8/DU.6"
+>       if verify(secret, bug_hash):
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\handlers\bcrypt.py:380: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'passlib.handlers.bcrypt._BcryptBackend'>
+secret = b'01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345...7890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234'
+hash = b'$2a$04$R1lJ2gkNaoPGdafE.H.16.nVyh2niHsGJhayOHLMiXlI45o8/DU.6'
+context = {}
+self = <passlib.handlers.bcrypt._BcryptBackend object at 0x0000022CC677CDA0>
+chk = 'nVyh2niHsGJhayOHLMiXlI45o8/DU.6'
+
+    @classmethod
+    def verify(cls, secret, hash, **context):
+        # NOTE: classes with multiple checksum encodings should either
+        # override this method, or ensure that from_string() / _norm_checksum()
+        # ensures .checksum always uses a single canonical representation.
+        validate_secret(secret)
+        self = cls.from_string(hash, **context)
+        chk = self.checksum
+        if chk is None:
+            raise exc.MissingDigestError(cls)
+>       return consteq(self._calc_checksum(secret), chk)
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\utils\handlers.py:792: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <passlib.handlers.bcrypt._BcryptBackend object at 0x0000022CC677CDA0>
+secret = b'01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345...7890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234'
+
+    def _calc_checksum(self, secret):
+        # bcrypt behavior:
+        #   secret must be bytes
+        #   config must be ascii bytes
+        #   returns ascii bytes
+        secret, ident = self._prepare_digest_args(secret)
+        config = self._get_config(ident)
+        if isinstance(config, unicode):
+            config = config.encode("ascii")
+>       hash = _bcrypt.hashpw(secret, config)
+E       ValueError: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
+
+..\..\AppData\Roaming\Python\Python312\site-packages\passlib\handlers\bcrypt.py:655: ValueError
+------------------------------ Captured log call ------------------------------
+WARNING  passlib.handlers.bcrypt:bcrypt.py:622 (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+============================== warnings summary ===============================
+..\..\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268
+..\..\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268
+..\..\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268
+..\..\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268
+  C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_services/test_auth_service.py::test_create_user - ValueErro...
+======================== 1 failed, 4 warnings in 0.69s ========================

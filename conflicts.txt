@@ -1,0 +1,6 @@
+backend/requirements.txt
+frontend/src/App.tsx
+frontend/src/components/RateCalendar.tsx
+frontend/src/pages/Analytics.tsx
+levagas/src/app/checkout/page.tsx
+levagas/src/components/layout/Header.tsx

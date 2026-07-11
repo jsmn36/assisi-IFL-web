@@ -1,0 +1,1519 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-7.4.3, pluggy-1.6.0 -- C:\Users\akash\pms-hotel-desktop\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\akash\pms-hotel-desktop\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, mock-3.15.1, requests-mock-1.12.1
+asyncio: mode=Mode.STRICT
+collecting ... collected 21 items
+
+backend\tests\test_models\test_reservation.py::test_create_reservation ERROR [  4%]
+backend\tests\test_models\test_reservation.py::test_confirmation_number_unique ERROR [  9%]
+backend\tests\test_models\test_reservation.py::test_calculate_nights ERROR [ 14%]
+backend\tests\test_models\test_reservation.py::test_calculate_total_amount ERROR [ 19%]
+backend\tests\test_models\test_reservation.py::test_full_lifecycle ERROR [ 23%]
+backend\tests\test_models\test_reservation.py::test_cancellation ERROR   [ 28%]
+backend\tests\test_models\test_reservation.py::test_no_show ERROR        [ 33%]
+backend\tests\test_models\test_reservation.py::test_date_properties_future ERROR [ 38%]
+backend\tests\test_models\test_reservation.py::test_date_properties_past ERROR [ 42%]
+backend\tests\test_models\test_reservation.py::test_date_properties_current ERROR [ 47%]
+backend\tests\test_models\test_reservation.py::test_arriving_departing_today ERROR [ 52%]
+backend\tests\test_models\test_reservation.py::test_relationships ERROR  [ 57%]
+backend\tests\test_models\test_reservation.py::test_to_dict ERROR        [ 61%]
+backend\tests\test_models\test_reservation.py::test_cancel_blocked_for_checked_out ERROR [ 66%]
+backend\tests\test_models\test_reservation.py::test_confirm_blocked_for_non_pending ERROR [ 71%]
+backend\tests\test_models\test_reservation.py::test_check_in_requires_confirmed ERROR [ 76%]
+backend\tests\test_models\test_reservation.py::test_check_out_requires_checked_in ERROR [ 80%]
+backend\tests\test_models\test_reservation.py::test_no_show_blocked_for_future ERROR [ 85%]
+backend\tests\test_models\test_reservation.py::test_special_fields ERROR [ 90%]
+backend\tests\test_models\test_reservation.py::test_default_source ERROR [ 95%]
+backend\tests\test_models\test_reservation.py::test_ota_source_and_promo ERROR [100%]C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\coverage\inorout.py:561: CoverageWarning: Module app/gates was never imported. (module-not-imported); see https://coverage.readthedocs.io/en/7.13.4/messages.html#warning-module-not-imported
+  self.warn(f"Module {pkg} was never imported.", slug="module-not-imported")
+C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\coverage\inorout.py:561: CoverageWarning: Module app/models was never imported. (module-not-imported); see https://coverage.readthedocs.io/en/7.13.4/messages.html#warning-module-not-imported
+  self.warn(f"Module {pkg} was never imported.", slug="module-not-imported")
+C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\coverage\control.py:958: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.13.4/messages.html#warning-no-data-collected
+  self._warn("No data was collected.", slug="no-data-collected")
+C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\pytest_cov\plugin.py:312: CovReportWarning: Failed to generate report: No data to report.
+
+  warnings.warn(CovReportWarning(message))
+WARNING: Failed to generate report: No data to report.
+
+
+
+=================================== ERRORS ====================================
+__________________ ERROR at setup of test_create_reservation __________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+______________ ERROR at setup of test_confirmation_number_unique ______________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+___________________ ERROR at setup of test_calculate_nights ___________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+________________ ERROR at setup of test_calculate_total_amount ________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+____________________ ERROR at setup of test_full_lifecycle ____________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_____________________ ERROR at setup of test_cancellation _____________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_______________________ ERROR at setup of test_no_show ________________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+________________ ERROR at setup of test_date_properties_future ________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_________________ ERROR at setup of test_date_properties_past _________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_______________ ERROR at setup of test_date_properties_current ________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_______________ ERROR at setup of test_arriving_departing_today _______________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+____________________ ERROR at setup of test_relationships _____________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_______________________ ERROR at setup of test_to_dict ________________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+____________ ERROR at setup of test_cancel_blocked_for_checked_out ____________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+___________ ERROR at setup of test_confirm_blocked_for_non_pending ____________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_____________ ERROR at setup of test_check_in_requires_confirmed ______________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+____________ ERROR at setup of test_check_out_requires_checked_in _____________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+______________ ERROR at setup of test_no_show_blocked_for_future ______________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+____________________ ERROR at setup of test_special_fields ____________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+____________________ ERROR at setup of test_default_source ____________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+_________________ ERROR at setup of test_ota_source_and_promo _________________
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   NameError: name 'timezone' is not defined
+
+The above exception was the direct cause of the following exception:
+backend\tests\test_models\test_reservation.py:15: in setup_reservation_data
+    test_db.commit()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv\Lib\site-packages\sqlalchemy\orm\state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:1231: in _prepare_impl
+    self.session.flush()
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4312: in flush
+    self._flush(objects)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4447: in _flush
+    with util.safe_reraise():
+venv\Lib\site-packages\sqlalchemy\util\langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv\Lib\site-packages\sqlalchemy\orm\session.py:4408: in _flush
+    flush_context.execute()
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:466: in execute
+    rec.execute(self)
+venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv\Lib\site-packages\sqlalchemy\orm\persistence.py:1226: in _emit_insert_statements
+    result = connection.execute(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1820: in _execute_context
+    self._handle_dbapi_exception(
+venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv\Lib\site-packages\sqlalchemy\engine\base.py:1814: in _execute_context
+    context = constructor(
+venv\Lib\site-packages\sqlalchemy\engine\default.py:1402: in _init_compiled
+    self._process_execute_defaults()
+venv\Lib\site-packages\sqlalchemy\engine\default.py:2314: in _process_execute_defaults
+    param[param_key] = arg(self)
+venv\Lib\site-packages\sqlalchemy\sql\schema.py:3598: in <lambda>
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+backend\app\models\property.py:24: in <lambda>
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+E   sqlalchemy.exc.StatementError: (builtins.NameError) name 'timezone' is not defined
+E   [SQL: INSERT INTO properties (name, code, address_line1, address_line2, city, state, postal_code, country, phone, email, website, timezone, currency, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: [{'city': 'Test City', 'postal_code': '12345', 'state': 'TC', 'code': 'TEST001', 'name': 'Test Hotel', 'address_line1': '123 Test St', 'email': None, 'country': None, 'website': None, 'address_line2': None, 'phone': None}]]
+
+---------- coverage: platform win32, python 3.12.10-final-0 ----------
+
+FAIL Required test coverage of 80% not reached. Total coverage: 0.00%
+=========================== short test summary info ===========================
+ERROR backend\tests\test_models\test_reservation.py::test_create_reservation
+ERROR backend\tests\test_models\test_reservation.py::test_confirmation_number_unique
+ERROR backend\tests\test_models\test_reservation.py::test_calculate_nights - ...
+ERROR backend\tests\test_models\test_reservation.py::test_calculate_total_amount
+ERROR backend\tests\test_models\test_reservation.py::test_full_lifecycle - sq...
+ERROR backend\tests\test_models\test_reservation.py::test_cancellation - sqla...
+ERROR backend\tests\test_models\test_reservation.py::test_no_show - sqlalchem...
+ERROR backend\tests\test_models\test_reservation.py::test_date_properties_future
+ERROR backend\tests\test_models\test_reservation.py::test_date_properties_past
+ERROR backend\tests\test_models\test_reservation.py::test_date_properties_current
+ERROR backend\tests\test_models\test_reservation.py::test_arriving_departing_today
+ERROR backend\tests\test_models\test_reservation.py::test_relationships - sql...
+ERROR backend\tests\test_models\test_reservation.py::test_to_dict - sqlalchem...
+ERROR backend\tests\test_models\test_reservation.py::test_cancel_blocked_for_checked_out
+ERROR backend\tests\test_models\test_reservation.py::test_confirm_blocked_for_non_pending
+ERROR backend\tests\test_models\test_reservation.py::test_check_in_requires_confirmed
+ERROR backend\tests\test_models\test_reservation.py::test_check_out_requires_checked_in
+ERROR backend\tests\test_models\test_reservation.py::test_no_show_blocked_for_future
+ERROR backend\tests\test_models\test_reservation.py::test_special_fields - sq...
+ERROR backend\tests\test_models\test_reservation.py::test_default_source - sq...
+ERROR backend\tests\test_models\test_reservation.py::test_ota_source_and_promo
+============================= 21 errors in 43.52s =============================

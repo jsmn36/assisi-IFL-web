@@ -1,0 +1,42 @@
+# Gitleaks config for the PMS monorepo.
+#
+# The default ruleset already covers AWS keys, Stripe keys, JWTs, generic
+# high-entropy secrets, etc. We add an allowlist for known-safe strings
+# that match patterns but are intentionally placeholders (e.g. the leaked
+# dev JWT we explicitly *reject* via config validators).
+
+title = "PMS Hotel Desktop — gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlisted patterns: dev placeholders, test fixtures"
+
+# Don't scan generated assets, lockfiles, or compiled output.
+paths = [
+    '''(^|/)node_modules/''',
+    '''(^|/)dist/''',
+    '''(^|/)htmlcov/''',
+    '''(^|/)\.venv/''',
+    '''(^|/)venv/''',
+    '''(^|/)__pycache__/''',
+    '''package-lock\.json$''',
+    '''^backend/.*_test\.db$''',
+    '''^backend/.*\.db$''',
+]
+
+# String allowlist — these are *placeholders* the codebase intentionally
+# rejects at runtime via app/config.py model_validator. Putting them
+# here keeps the commit-time scan from blocking edits to that validator
+# itself or the .env.example template.
+regexes = [
+    '''a_very_secure_random_string_12345''',
+    '''pos-inv-sync-secret''',
+    '''ci-secret-must-be-at-least-thirty-two-chars''',
+    '''ci-jwt-secret-must-be-at-least-thirty-two-chars''',
+    '''dummy-test-key-for-pytest''',
+    # Tokens used in test fixtures
+    '''test-secret-key''',
+    '''test-key''',
+]

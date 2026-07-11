@@ -1,0 +1,244 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-7.4.3, pluggy-1.6.0
+rootdir: C:\Users\akash\pms-hotel-desktop\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, mock-3.15.1, requests-mock-1.12.1
+asyncio: mode=Mode.STRICT
+collected 735 items / 2 errors
+
+=================================== ERRORS ====================================
+____________________ ERROR collecting tests/test_tasks.py _____________________
+ImportError while importing test module 'C:\Users\akash\pms-hotel-desktop\backend\tests\test_tasks.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_tasks.py:7: in <module>
+    from app.tasks.core import (
+app\tasks\core.py:9: in <module>
+    raise ImportError(
+E   ImportError: Celery tasks require PostgreSQL mode. Set DATABASE_URL to enable.
+______ ERROR collecting tests/test_integration/test_week5_integration.py ______
+ImportError while importing test module 'C:\Users\akash\pms-hotel-desktop\backend\tests\test_integration\test_week5_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_integration\test_week5_integration.py:10: in <module>
+    from app.tasks.core import test_task
+app\tasks\core.py:9: in <module>
+    raise ImportError(
+E   ImportError: Celery tasks require PostgreSQL mode. Set DATABASE_URL to enable.
+============================== warnings summary ===============================
+..\..\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268: 11 warnings
+  C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\pydantic\_internal\_config.py:268: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+app\api\schemas.py:72
+  C:\Users\akash\pms-hotel-desktop\backend\app\api\schemas.py:72: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('check_out_date')
+
+app\api\v1\analytics.py:74
+  C:\Users\akash\pms-hotel-desktop\backend\app\api\v1\analytics.py:74: DeprecationWarning: `regex` has been deprecated, please use `pattern` instead
+    granularity: str = Query("daily", regex="^(daily|weekly|monthly)$")
+
+app\api\v1\audit.py:92
+  C:\Users\akash\pms-hotel-desktop\backend\app\api\v1\audit.py:92: DeprecationWarning: `regex` has been deprecated, please use `pattern` instead
+    format: str = Query("csv", regex="^(csv|json)$"),
+
+..\..\AppData\Roaming\Python\Python312\site-packages\dateutil\tz\tz.py:37
+  C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\dateutil\tz\tz.py:37: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    EPOCH = datetime.datetime.utcfromtimestamp(0)
+
+tests\test_gates\test_base_gate.py:6
+  C:\Users\akash\pms-hotel-desktop\backend\tests\test_gates\test_base_gate.py:6: PytestCollectionWarning: cannot collect test class 'TestGate' because it has a __init__ constructor (from: tests/test_gates/test_base_gate.py)
+    class TestGate(BaseGate):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+---------- coverage: platform win32, python 3.12.10-final-0 ----------
+Name                                              Stmts   Miss   Cover   Missing
+--------------------------------------------------------------------------------
+app\__init__.py                                       0      0 100.00%
+app\analytics_database.py                            40     18  55.00%   28-32, 45-56, 71-75, 79-80, 89-90
+app\cm\api\admin.py                                  43     18  58.14%   32-40, 55-67, 73-86
+app\cm\api\egress.py                                 46     34  26.09%   24-78, 94-138
+app\cm\api\webhooks.py                               26     18  30.77%   17-36, 51-69
+app\cm\database.py                                   23      7  69.57%   16, 26-28, 37-41
+app\cm\gates\base.py                                  8      1  87.50%   20
+app\cm\gates\channel_mapping.py                      31     23  25.81%   26-90
+app\cm\gates\channel_sync.py                         50     36  28.00%   29-99
+app\cm\gates\forwarding_gate.py                      58     45  22.41%   26-131
+app\cm\gates\inbound_ingestion.py                    51     34  33.33%   21, 24-29, 38-40, 43-44, 49-53, 59-104
+app\cm\gates\intent_validation.py                    46     32  30.43%   24-28, 31-102
+app\cm\gates\pms_verdict_gate.py                     30     20  33.33%   22-69
+app\cm\gates\projection_publish.py                   76     62  18.42%   23-26, 29-30, 34-168
+app\cm\metrics.py                                     5      0 100.00%
+app\cm\models.py                                    105     11  89.52%   15, 18-23, 26-30
+app\cm\normalizers\base.py                            7      1  85.71%   19
+app\cm\normalizers\booking_com.py                     6      1  83.33%   14
+app\cm\normalizers\generic.py                         6      1  83.33%   12
+app\cm\schemas.py                                    35      0 100.00%
+app\config.py                                        30      1  96.67%   35
+app\core\__init__.py                                  0      0 100.00%
+app\core\cache.py                                    58     30  48.28%   16-22, 25, 28, 31-34, 37-38, 45, 48-50, 53, 56, 59-60, 63-64, 73-80
+app\core\celery_app.py                               11     11   0.00%   1-38
+app\core\celery_config.py                            12     12   0.00%   1-60
+app\core\config.py                                   24     24   0.00%   1-36
+app\core\email\__init__.py                            0      0 100.00%
+app\core\email\email_service.py                       7      2  71.43%   7-8
+app\core\email\template_renderer.py                   4      1  75.00%   5
+app\core\permissions.py                              59      7  88.14%   175, 189-197
+app\core\rate_limit_config.py                        24      8  66.67%   81-90, 96-104
+app\core\rate_limiter.py                             64     52  18.75%   29-71, 82-100, 107-116, 126-151
+app\core\security.py                                 74     42  43.24%   24, 33, 38, 43-50, 55-63, 68-72, 77-87, 92, 97-100, 106, 109, 115, 118, 124, 127
+app\core\transaction_coordinator.py                  24     15  37.50%   16-17, 37-59
+app\crm\__init__.py                                   0      0 100.00%
+app\crm\api\__init__.py                               0      0 100.00%
+app\crm\api\v1\__init__.py                            0      0 100.00%
+app\crm\api\v1\analytics.py                          32     16  50.00%   14-22, 34, 42, 52-56
+app\crm\api\v1\campaigns.py                          56     29  48.21%   22, 27, 32, 37-40, 45, 54-115
+app\crm\api\v1\guests.py                             24      6  75.00%   26, 40, 50-52, 69
+app\crm\api\v1\router.py                             14      0 100.00%
+app\crm\api\v1\segments.py                           22      9  59.09%   24-41, 51
+app\crm\api\v1\webhooks.py                           86     68  20.93%   21-24, 33-71, 75-115
+app\crm\database.py                                  32     13  59.38%   10-12, 20-21, 32-33, 48-52, 56-57
+app\crm\gates\__init__.py                             2      0 100.00%
+app\crm\gates\consent_gate.py                         7      4  42.86%   18-28
+app\crm\gates\identity_gate.py                       12      8  33.33%   16-31
+app\crm\gates\immutability_gate.py                    8      4  50.00%   17-18, 31-32
+app\crm\models\__init__.py                           11      0 100.00%
+app\crm\models\campaign_send.py                      12      0 100.00%
+app\crm\models\crm_audit_log.py                      12      0 100.00%
+app\crm\models\crm_charge.py                         13      0 100.00%
+app\crm\models\crm_guest.py                          22      0 100.00%
+app\crm\models\crm_stay.py                           16      0 100.00%
+app\crm\models\email_campaign.py                     17      0 100.00%
+app\crm\models\guest_note.py                         11      0 100.00%
+app\crm\models\guest_preference.py                   11      0 100.00%
+app\crm\models\guest_segment.py                      10      0 100.00%
+app\crm\models\sync_log.py                           11      0 100.00%
+app\crm\schemas\__init__.py                           0      0 100.00%
+app\crm\schemas\analytics.py                         25     25   0.00%   1-33
+app\crm\schemas\campaign.py                          41      0 100.00%
+app\crm\schemas\guest.py                             69      0 100.00%
+app\crm\schemas\note.py                              38     12  68.42%   17-19, 24-29, 34-36
+app\crm\schemas\segment.py                           10      0 100.00%
+app\crm\services\__init__.py                          0      0 100.00%
+app\crm\services\analytics_service.py                49     49   0.00%   1-136
+app\crm\services\campaign_send_service.py            59     49  16.95%   19-111
+app\crm\services\campaign_service.py                 31     21  32.26%   12-17, 21-44, 48-66
+app\crm\services\email_service.py                    54     34  37.04%   25-35, 39-74, 78
+app\crm\services\email_templates.py                  16      5  68.75%   87, 95-99
+app\crm\services\guest_service.py                    76     57  25.00%   28-32, 56-66, 80-117, 123-154, 168-182, 190-211
+app\crm\services\segment_service.py                  54     38  29.63%   25-30, 39-89, 93-96
+app\crm\services\template_service.py                  7      4  42.86%   37-38, 45-46
+app\crm\sync\__init__.py                              0      0 100.00%
+app\crm\sync\loader.py                               30     19  36.67%   12-25, 29-32, 36-39, 43-46
+app\crm\sync\pms_client.py                           38     26  31.58%   16-29, 33-36, 40-43, 47-50
+app\crm\sync\scheduler.py                            53     40  24.53%   19-26, 31-60, 64-69
+app\crm\sync\transformer.py                          25     20  20.00%   10-27, 31-50, 54-61
+app\crm\verifier\__init__.py                          2      0 100.00%
+app\crm\verifier\verifier.py                         78     55  29.49%   21, 25, 29-39, 43-54, 58-69, 73-79, 83-90, 94-102, 108-160
+app\db\__init__.py                                    0      0 100.00%
+app\db\base.py                                        4      0 100.00%
+app\db\session.py                                    11     11   0.00%   1-20
+app\middleware\__init__.py                            0      0 100.00%
+app\middleware\cache.py                              42     30  28.57%   30-82, 85-88, 91-100
+app\middleware\rate_limit.py                         54     42  22.22%   20, 24-71, 77-90, 95-100, 105
+app\middleware\request_logger.py                     19     12  36.84%   22-49
+app\models\__init__.py                               27      0 100.00%
+app\models\analytics.py                             252      0 100.00%
+app\models\business_day.py                           92     38  58.70%   105, 109-113, 117-120, 124-134, 138-146, 153-158, 172-187, 195
+app\models\charge.py                                109     40  63.30%   72-75, 78-84, 87-91, 94-100, 103-111, 114-117, 120, 124, 128, 131
+app\models\compliance.py                             48      0 100.00%
+app\models\enums.py                                  64      0 100.00%
+app\models\gate_execution_history.py                 23      0 100.00%
+app\models\gate_history.py                           11      0 100.00%
+app\models\group_reservation.py                      28      0 100.00%
+app\models\guest.py                                  79     18  77.22%   63-65, 69-73, 76-77, 80-81, 84-88, 91
+app\models\housekeeping.py                          110      0 100.00%
+app\models\init.py                                    5      5   0.00%   1-8
+app\models\notification.py                           57     12  78.95%   83-85, 90-92, 100-102, 106-108
+app\models\notification_preference.py                24      0 100.00%
+app\models\property.py                               28      1  96.43%   32
+app\models\rate_plan.py                             155     27  82.58%   110, 113-119, 123-133, 136-144, 147, 183-188
+app\models\reservation.py                           121     45  62.81%   72, 76, 80, 84, 88, 92, 96-98, 101-103, 106-108, 111-116, 119-123, 126-129, 132-139, 142-147, 150
+app\models\room.py                                   86     33  61.63%   57, 64-66, 69-71, 74-76, 79-84, 87-91, 94-98, 101-106, 109
+app\models\room_type.py                              25      1  96.00%   30
+app\models\search.py                                 42      0 100.00%
+app\models\state_transition_history.py               37     10  72.97%   30-31, 34-40, 43
+app\models\stay.py                                  126     58  53.97%   49, 53, 57, 68-70, 74, 78-81, 85-88, 91-98, 101-109, 112-116, 119-127, 130-138, 141-142, 145-146, 149
+app\models\task_history.py                           22      0 100.00%
+app\models\user.py                                   70     11  84.29%   44-46, 49, 52-77, 99, 102
+app\scheduler.py                                     15     15   0.00%   5-22
+app\schemas.py                                       70      0 100.00%
+app\services\__init__.py                             27      0 100.00%
+app\services\abuse_detection_service.py              46     28  39.13%   25-36, 41-42, 47-51, 56-64, 74-75, 94-109, 114
+app\services\activity_service.py                     36     36   0.00%   5-164
+app\services\analytics\queries.py                    51     38  25.49%   13-26, 29-62, 65-78, 81-100, 105-138
+app\services\analytics\transform.py                  91     83   8.79%   17-45, 48-77, 80-97, 103-154
+app\services\analytics_service.py                    41     31  24.39%   24-47, 65-90, 105-127
+app\services\auth_service.py                         95     78  17.89%   24, 27, 30, 40-143, 156-185, 194-226, 230-249, 253-274, 289-305
+app\services\base_service.py                         29     14  51.72%   9-10, 18, 21-25, 28, 31-34, 38
+app\services\cache_invalidation_service.py           23      9  60.87%   18-21, 25-28, 32
+app\services\cached_dashboard_service.py             26     15  42.31%   17, 20-27, 30-35
+app\services\check_in_service.py                     81     63  22.22%   39-43, 72-197, 209-220
+app\services\check_out_service.py                   113     96  15.04%   35-37, 66-190, 205-251, 280-289
+app\services\discount_code_service.py                92     76  17.39%   63-114, 133-143, 166-211, 235-239, 248-257, 265-272, 280-285
+app\services\email_service.py                        54     43  20.37%   22-27, 38-82, 92-108
+app\services\enhanced_audit_service.py               74     60  18.92%   33-49, 67-83, 102-138, 156-205, 216-242, 257-278, 300-304
+app\services\enhanced_email_service.py               59     43  27.12%   20-21, 37-82, 93-116, 131-153, 169-188
+app\services\filter_service.py                       60     47  21.67%   50-65, 73-92, 96, 116-135, 142-186
+app\services\group_reservation_service.py            85     70  17.65%   38-70, 86-122, 133-165, 177-205, 217-236, 247-253
+app\services\guest_service.py                        57     46  19.30%   8-17, 20-27, 30-37, 42-49, 52-53, 56-60, 63-67
+app\services\housekeeping.py                         26     26   0.00%   2-77
+app\services\housekeeping_service.py                118    102  13.56%   34-74, 83-96, 104-118, 127-148, 158-183, 192-198, 206-210, 226-253, 267-294
+app\services\init.py                                  4      4   0.00%   1-4
+app\services\kpi_service.py                          92     79  14.13%   22, 30-158, 162, 170-234, 238-239
+app\services\maintenance_service.py                  88     71  19.32%   35-69, 79-95, 99-112, 122-142, 146-159, 168-179, 186-188, 201-214
+app\services\night_audit_service.py                  68     59  13.24%   10-95, 98, 104-129
+app\services\no_show_service.py                      39     27  30.77%   25-61, 64, 67-68, 75-91
+app\services\notification_preference_service.py      33     23  30.30%   22, 26-36, 40-48, 52-60, 64-66
+app\services\notification_service.py                102     80  21.57%   33-34, 52-80, 109-125, 143-173, 193-219, 237-277, 300-311, 338-364, 381, 403-420
+app\services\performance_service.py                  89     76  14.61%   25-55, 85-92, 96-130, 150-186, 206-238
+app\services\pricing_engine.py                       99     84  15.15%   16-17, 32-63, 78-96, 115-145, 163-183, 195-228, 241-278
+app\services\query_optimizer.py                      30     30   0.00%   5-58
+app\services\rate_plan_service.py                   106     91  14.15%   31-62, 71-81, 92-145, 163-196, 206-243, 247-260, 270-284
+app\services\report_builder_service.py              218    187  14.22%   18-20, 24, 54-55, 59-64, 67-77, 80-83, 91-125, 128-149, 167-206, 209-235, 238-243, 254-265, 268-274, 277-283, 286-298, 301-313, 316-343, 355-364, 377-399, 402-413, 416-424
+app\services\report_service.py                       42     42   0.00%   5-142
+app\services\reservation_service.py                 131    111  15.27%   24-25, 45-94, 116-139, 148-160, 179-192, 207, 233-271, 292-324, 333-342
+app\services\room_change_service.py                  64     52  18.75%   32, 50-127, 142-177, 208-237
+app\services\room_service.py                        114     97  14.91%   44-55, 76-105, 124-143, 160-168, 185-193, 210-218, 237-252, 269-283, 298-330, 340-371
+app\services\search_service.py                      156    134  14.10%   18, 31-71, 85-111, 123-144, 157-177, 190-212, 228-252, 266-278, 288-301, 312-325, 336-343, 351-363, 371-381, 390-397, 411-431
+app\services\seasonal_rate_service.py                45     34  24.44%   31-101, 113-128, 140-156
+app\services\stay_service.py                         48     36  25.00%   11-14, 17-25, 28-34, 37-43, 47-58, 61-78
+app\services\task_monitoring_service.py              49     34  30.61%   20, 32-44, 48-59, 63-75, 79, 89-92, 96-123, 133
+app\services\template_service.py                     76     51  32.89%   46-60, 68-73, 77-84, 88, 100-103, 108-122, 127-139
+app\services\user_management_service.py             115     93  19.13%   19-20, 31-58, 62-65, 79-108, 112-125, 129-137, 141-142, 146-162, 166-175, 179, 189-209, 228-245, 262-274
+app\services\waitlist_service.py                     15      4  73.33%   14, 17, 20, 23
+app\services\workflow_automation_service.py          88     74  15.91%   30-32, 43-129, 135-171, 178-200, 211-255, 262-290
+app\tasks\__init__.py                                12      5  58.33%   14-18
+app\tasks\base.py                                    41     41   0.00%   6-66
+app\tasks\core.py                                    51     48   5.88%   14-109
+app\tasks\email_tasks.py                             95     95   0.00%   5-222
+app\tasks\emails.py                                  53     53   0.00%   1-197
+app\tasks\maintenance.py                             67     67   0.00%   1-136
+app\tasks\notifications.py                           35     35   0.00%   1-80
+app\tasks\reports.py                                 88     88   0.00%   5-206
+app\tasks\template_emails.py                         47     47   0.00%   1-120
+app\utils\__init__.py                                 0      0 100.00%
+app\utils\cache_headers.py                           13      7  46.15%   11-14, 19-22, 26
+app\utils\cache_patterns.py                          58     58   0.00%   1-149
+app\utils\db_optimization.py                         20     12  40.00%   17-27, 37-39, 54
+app\utils\query_optimizer.py                         32     32   0.00%   1-68
+--------------------------------------------------------------------------------
+TOTAL                                              7942   4752  40.17%
+Coverage HTML written to dir htmlcov
+
+FAIL Required test coverage of 80% not reached. Total coverage: 40.17%
+=========================== short test summary info ===========================
+ERROR tests/test_tasks.py
+ERROR tests/test_integration/test_week5_integration.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+======================= 16 warnings, 2 errors in 7.60s ========================

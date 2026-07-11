@@ -1,0 +1,44 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-7.4.3, pluggy-1.6.0 -- C:\Users\akash\pms-hotel-desktop\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\akash\pms-hotel-desktop\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, mock-3.15.1, requests-mock-1.12.1
+asyncio: mode=Mode.STRICT
+collecting ... collected 20 items
+
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_valid_transition_pending_to_confirmed PASSED [  5%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_invalid_transition_pending_to_checked_in PASSED [ 10%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_complete_lifecycle PASSED [ 15%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_cancellation_from_pending PASSED [ 20%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_cancellation_from_confirmed PASSED [ 25%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_no_show_marking PASSED [ 30%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_cannot_mark_no_show_for_future_reservation PASSED [ 35%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_get_valid_transitions PASSED [ 40%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_terminal_states_no_transitions PASSED [ 45%]
+backend\tests\test_state_machines\test_reservation_state_machine.py::test_emergency_cancellation_after_check_in PASSED [ 50%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_valid_transition_reserved_to_checked_in PASSED [ 55%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_invalid_transition_reserved_to_checked_out PASSED [ 60%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_complete_lifecycle PASSED [ 65%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_cancellation_before_check_in PASSED [ 70%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_cannot_cancel_after_check_in PASSED [ 75%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_get_valid_transitions PASSED [ 80%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_terminal_states_no_transitions PASSED [ 85%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_room_status_updates_on_check_in PASSED [ 90%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_room_status_updates_on_check_out PASSED [ 95%]
+backend\tests\test_state_machines\test_stay_state_machine.py::test_inactive_room_prevents_check_in PASSED [100%]C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\coverage\inorout.py:561: CoverageWarning: Module app/state_machines was never imported. (module-not-imported); see https://coverage.readthedocs.io/en/7.13.4/messages.html#warning-module-not-imported
+  self.warn(f"Module {pkg} was never imported.", slug="module-not-imported")
+C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\coverage\control.py:958: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.13.4/messages.html#warning-no-data-collected
+  self._warn("No data was collected.", slug="no-data-collected")
+C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\pytest_cov\plugin.py:312: CovReportWarning: Failed to generate report: No data to report.
+
+  warnings.warn(CovReportWarning(message))
+WARNING: Failed to generate report: No data to report.
+
+
+
+---------- coverage: platform win32, python 3.12.10-final-0 ----------
+
+FAIL Required test coverage of 80% not reached. Total coverage: 0.00%
+
+============================= 20 passed in 1.90s ==============================

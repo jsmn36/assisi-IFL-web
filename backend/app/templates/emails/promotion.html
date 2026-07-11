@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Special Offer - {{ promotion_title }}{% endblock %}
+
+{% block header %}{{ promotion_title }}{% endblock %}
+
+{% block content %}
+<p>Exclusive Offer for You!</p>
+
+<p>Dear {{ guest_name }},</p>
+
+<p>{{ promotion_description }}</p>
+
+<h3>Offer Details</h3>
+<ul>
+    <li><strong>Discount:</strong> {{ discount_percentage }}% OFF</li>
+    <li><strong>Promo Code:</strong> {{ promo_code }}</li>
+    <li><strong>Valid Until:</strong> {{ expiry_date|date }}</li>
+
+    {% if min_nights %}
+    <li><strong>Minimum Stay:</strong> {{ min_nights }} nights</li>
+    {% endif %}
+</ul>
+
+<h3>How to Redeem</h3>
+<ul>
+    <li>Visit our website or call to make a reservation</li>
+    <li>Enter promo code <strong>{{ promo_code }}</strong> at checkout</li>
+    <li>Enjoy your discounted stay!</li>
+</ul>
+
+<p><a href="#">Book Now</a></p>
+
+<p style="font-size: 12px; color: #777;">
+Terms and conditions apply. Offer valid for new bookings only. Cannot be combined with other offers. Subject to availability.
+</p>
+
+<p>Don't miss out on this limited-time offer!</p>
+
+<p>Best regards,<br>The Assisi Social Team</p>
+{% endblock %}

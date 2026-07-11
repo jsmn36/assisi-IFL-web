@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Assisi Social{% endblock %}
+
+{% block header %}Welcome!{% endblock %}
+
+{% block content %}
+<p>Dear {{ guest_name }},</p>
+
+<p>Welcome to Assisi Social! We're thrilled to have you staying with us.</p>
+
+<p>Your comfort and satisfaction are our top priorities. Here's some important information for your stay:</p>
+
+<h3>Community Information</h3>
+<ul>
+    <li><strong>WiFi Network:</strong> {{ wifi_network }}</li>
+    <li><strong>WiFi Password:</strong> {{ wifi_password }}</li>
+    <li><strong>Front Desk:</strong> Dial 0 from your room phone</li>
+    <li><strong>Checkout Time:</strong> 11:00 AM</li>
+</ul>
+
+<h3>Amenities</h3>
+<ul>
+    <li>24/7 Front Desk Service</li>
+    <li>Complimentary WiFi</li>
+    <li>Fitness Center (6 AM - 10 PM)</li>
+    <li>Business Center</li>
+    <li>On-site Restaurant & Bar</li>
+</ul>
+
+<h3>Need Assistance?</h3>
+<p>Our team is here to help! Contact the front desk anytime for:</p>
+<ul>
+    <li>Extra towels or amenities</li>
+    <li>Restaurant recommendations</li>
+    <li>Transportation arrangements</li>
+    <li>Any other requests</li>
+</ul>
+
+<p>We hope you enjoy your stay!</p>
+
+<p>Best regards,<br>The Assisi Social Team</p>
+{% endblock %}

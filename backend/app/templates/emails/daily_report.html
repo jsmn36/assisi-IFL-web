@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Daily Report - {{ report_date|date }}{% endblock %}
+
+{% block header %}Daily Report{% endblock %}
+
+{% block content %}
+<h3>Daily Summary for {{ report_date|date }}</h3>
+
+<p>Here's your daily performance summary:</p>
+
+<h4>Occupancy</h4>
+<ul>
+    <li><strong>Occupancy Rate:</strong> {{ occupancy_rate }}%</li>
+    <li><strong>Occupied Rooms:</strong> {{ occupied_rooms }} / {{ total_rooms }}</li>
+</ul>
+
+<h4>Revenue</h4>
+<ul>
+    <li><strong>Total Revenue:</strong> {{ revenue|currency }}</li>
+    <li><strong>Average Daily Rate:</strong> {{ adr|currency }}</li>
+</ul>
+
+<h4>Reservations</h4>
+<ul>
+    <li><strong>Check-ins Today:</strong> {{ checkins }}</li>
+    <li><strong>Check-outs Today:</strong> {{ checkouts }}</li>
+    <li><strong>New Reservations:</strong> {{ new_reservations }}</li>
+</ul>
+
+<p>
+    <a href="{{ dashboard_url }}" style="display:inline-block;padding:10px 20px;background:#17a2b8;color:#fff;text-decoration:none;border-radius:5px;">
+        View Full Dashboard
+    </a>
+</p>
+
+<p>This is an automated daily report. To unsubscribe, update your notification preferences.</p>
+
+<p>Best regards,<br>The Assisi Social Team</p>
+{% endblock %}

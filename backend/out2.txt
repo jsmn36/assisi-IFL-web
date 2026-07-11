@@ -1,0 +1,546 @@
+🧪 Running tests → Forcing SQLite test database
+🧪 Running tests → Forcing SQLite test database for analytics
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-7.4.3, pluggy-1.6.0 -- C:\Users\akash\pms-hotel-desktop\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\akash\pms-hotel-desktop\backend
+configfile: pytest.ini
+plugins: anyio-3.7.1, asyncio-0.21.1, cov-4.1.0, mock-3.15.1, requests-mock-1.12.1
+asyncio: mode=Mode.STRICT
+collecting ... [CRM DB] Using Test SQLite: sqlite:///./crm_test.db
+collected 2 items
+
+tests/test_cm_admin_api.py::test_admin_create_mapping_and_read CM URL: sqlite:///:memory:
+CM Tables: ['availability_cache', 'channel_mappings', 'channel_sync_log', 'cm_processing_states', 'external_events', 'idempotency_records', 'pricing_cache']
+FAILED
+tests/test_cm_admin_api.py::test_admin_delete_mapping FAILEDC:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\_pytest\main.py:325: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.
+Plugin: _cov, Hook: pytest_runtestloop
+KeyboardInterrupt: 
+For more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning
+  config.hook.pytest_runtestloop(session=session)
+
+
+================================== FAILURES ===================================
+_____________________ test_admin_create_mapping_and_read ______________________
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+..\venv\Lib\site-packages\sqlalchemy\engine\default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlite3.OperationalError: no such table: channel_mappings
+
+The above exception was the direct cause of the following exception:
+tests\test_cm_admin_api.py:23: in test_admin_create_mapping_and_read
+    create_resp = client.post("/cm/admin/mappings", json=req_payload)
+..\venv\Lib\site-packages\starlette\testclient.py:590: in post
+    return super().post(
+..\venv\Lib\site-packages\httpx\_client.py:1132: in post
+    return self.request(
+..\venv\Lib\site-packages\starlette\testclient.py:465: in request
+    return super().request(
+..\venv\Lib\site-packages\httpx\_client.py:814: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+..\venv\Lib\site-packages\httpx\_client.py:901: in send
+    response = self._send_handling_auth(
+..\venv\Lib\site-packages\httpx\_client.py:929: in _send_handling_auth
+    response = self._send_handling_redirects(
+..\venv\Lib\site-packages\httpx\_client.py:966: in _send_handling_redirects
+    response = self._send_single_request(request)
+..\venv\Lib\site-packages\httpx\_client.py:1002: in _send_single_request
+    response = transport.handle_request(request)
+..\venv\Lib\site-packages\starlette\testclient.py:342: in handle_request
+    raise exc
+..\venv\Lib\site-packages\starlette\testclient.py:339: in handle_request
+    portal.call(self.app, scope, receive, send)
+..\venv\Lib\site-packages\anyio\from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+c:\python312\Lib\concurrent\futures\_base.py:456: in result
+    return self.__get_result()
+c:\python312\Lib\concurrent\futures\_base.py:401: in __get_result
+    raise self._exception
+..\venv\Lib\site-packages\anyio\from_thread.py:217: in _call_func
+    retval = await retval
+..\venv\Lib\site-packages\fastapi\applications.py:1106: in __call__
+    await super().__call__(scope, receive, send)
+..\venv\Lib\site-packages\starlette\applications.py:122: in __call__
+    await self.middleware_stack(scope, receive, send)
+..\venv\Lib\site-packages\starlette\middleware\errors.py:184: in __call__
+    raise exc
+..\venv\Lib\site-packages\starlette\middleware\errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+..\venv\Lib\site-packages\starlette\middleware\base.py:108: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\middleware\request_logger.py:29: in dispatch
+    raise e
+app\middleware\request_logger.py:26: in dispatch
+    response = await call_next(request)
+..\venv\Lib\site-packages\starlette\middleware\base.py:84: in call_next
+    raise app_exc
+..\venv\Lib\site-packages\starlette\middleware\base.py:70: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+..\venv\Lib\site-packages\starlette\middleware\base.py:108: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\middleware\rate_limit.py:67: in dispatch
+    response = await call_next(request)
+..\venv\Lib\site-packages\starlette\middleware\base.py:84: in call_next
+    raise app_exc
+..\venv\Lib\site-packages\starlette\middleware\base.py:70: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+app\core\security.py:127: in __call__
+    await self.app(scope, receive, send)
+app\core\security.py:118: in __call__
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\middleware\cors.py:83: in __call__
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\middleware\base.py:108: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\middleware\cache.py:31: in dispatch
+    return await call_next(request)
+..\venv\Lib\site-packages\starlette\middleware\base.py:84: in call_next
+    raise app_exc
+..\venv\Lib\site-packages\starlette\middleware\base.py:70: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+..\venv\Lib\site-packages\starlette\middleware\exceptions.py:79: in __call__
+    raise exc
+..\venv\Lib\site-packages\starlette\middleware\exceptions.py:68: in __call__
+    await self.app(scope, receive, sender)
+..\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:20: in __call__
+    raise e
+..\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:17: in __call__
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\routing.py:718: in __call__
+    await route.handle(scope, receive, send)
+..\venv\Lib\site-packages\starlette\routing.py:276: in handle
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\routing.py:66: in app
+    response = await func(request)
+..\venv\Lib\site-packages\fastapi\routing.py:274: in app
+    raw_response = await run_endpoint_function(
+..\venv\Lib\site-packages\fastapi\routing.py:191: in run_endpoint_function
+    return await dependant.call(**values)
+app\cm\api\admin.py:56: in create_mapping
+    result = gate.execute(
+app\cm\gates\channel_mapping.py:33: in execute
+    ).first()
+..\venv\Lib\site-packages\sqlalchemy\orm\query.py:2748: in first
+    return self.limit(1)._iter().first()  # type: ignore
+..\venv\Lib\site-packages\sqlalchemy\orm\query.py:2847: in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+..\venv\Lib\site-packages\sqlalchemy\orm\session.py:2308: in execute
+    return self._execute_internal(
+..\venv\Lib\site-packages\sqlalchemy\orm\session.py:2190: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+..\venv\Lib\site-packages\sqlalchemy\orm\context.py:293: in orm_execute_statement
+    result = conn.execute(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+..\venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1848: in _execute_context
+    return self._exec_single_context(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+..\venv\Lib\site-packages\sqlalchemy\engine\default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: channel_mappings
+E   [SQL: SELECT channel_mappings.mapping_id AS channel_mappings_mapping_id, channel_mappings.property_id AS channel_mappings_property_id, channel_mappings.channel AS channel_mappings_channel, channel_mappings.external_room_type_id AS channel_mappings_external_room_type_id, channel_mappings.pms_room_type_id AS channel_mappings_pms_room_type_id, channel_mappings.is_active AS channel_mappings_is_active, channel_mappings.notes AS channel_mappings_notes, channel_mappings.created_at AS channel_mappings_created_at, channel_mappings.updated_at AS channel_mappings_updated_at, channel_mappings.created_by AS channel_mappings_created_by 
+E   FROM channel_mappings 
+E   WHERE channel_mappings.channel = ? AND channel_mappings.property_id = ? AND channel_mappings.external_room_type_id = ?
+E    LIMIT ? OFFSET ?]
+E   [parameters: ('booking_com', 'c94e9df3e22e4262983d3f6b55240760', 'test_ota_rm_1', 1, 0)]
+E   (Background on this error at: https://sqlalche.me/e/20/e3q8)
+------------------------------ Captured log call ------------------------------
+ERROR    app.middleware.request_logger:request_logger.py:28 Error processing request: POST /cm/admin/mappings
+Traceback (most recent call last):
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: channel_mappings
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\middleware\request_logger.py", line 26, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\middleware\rate_limit.py", line 67, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\core\security.py", line 127, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\core\security.py", line 118, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\middleware\cache.py", line 31, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\cm\api\admin.py", line 56, in create_mapping
+    result = gate.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\cm\gates\channel_mapping.py", line 33, in execute
+    ).first()
+      ^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2748, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: channel_mappings
+[SQL: SELECT channel_mappings.mapping_id AS channel_mappings_mapping_id, channel_mappings.property_id AS channel_mappings_property_id, channel_mappings.channel AS channel_mappings_channel, channel_mappings.external_room_type_id AS channel_mappings_external_room_type_id, channel_mappings.pms_room_type_id AS channel_mappings_pms_room_type_id, channel_mappings.is_active AS channel_mappings_is_active, channel_mappings.notes AS channel_mappings_notes, channel_mappings.created_at AS channel_mappings_created_at, channel_mappings.updated_at AS channel_mappings_updated_at, channel_mappings.created_by AS channel_mappings_created_by 
+FROM channel_mappings 
+WHERE channel_mappings.channel = ? AND channel_mappings.property_id = ? AND channel_mappings.external_room_type_id = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('booking_com', 'c94e9df3e22e4262983d3f6b55240760', 'test_ota_rm_1', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+__________________________ test_admin_delete_mapping __________________________
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+..\venv\Lib\site-packages\sqlalchemy\engine\default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlite3.OperationalError: no such table: channel_mappings
+
+The above exception was the direct cause of the following exception:
+tests\test_cm_admin_api.py:51: in test_admin_delete_mapping
+    create_resp = client.post("/cm/admin/mappings", json=req_payload)
+..\venv\Lib\site-packages\starlette\testclient.py:590: in post
+    return super().post(
+..\venv\Lib\site-packages\httpx\_client.py:1132: in post
+    return self.request(
+..\venv\Lib\site-packages\starlette\testclient.py:465: in request
+    return super().request(
+..\venv\Lib\site-packages\httpx\_client.py:814: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+..\venv\Lib\site-packages\httpx\_client.py:901: in send
+    response = self._send_handling_auth(
+..\venv\Lib\site-packages\httpx\_client.py:929: in _send_handling_auth
+    response = self._send_handling_redirects(
+..\venv\Lib\site-packages\httpx\_client.py:966: in _send_handling_redirects
+    response = self._send_single_request(request)
+..\venv\Lib\site-packages\httpx\_client.py:1002: in _send_single_request
+    response = transport.handle_request(request)
+..\venv\Lib\site-packages\starlette\testclient.py:342: in handle_request
+    raise exc
+..\venv\Lib\site-packages\starlette\testclient.py:339: in handle_request
+    portal.call(self.app, scope, receive, send)
+..\venv\Lib\site-packages\anyio\from_thread.py:277: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+c:\python312\Lib\concurrent\futures\_base.py:456: in result
+    return self.__get_result()
+c:\python312\Lib\concurrent\futures\_base.py:401: in __get_result
+    raise self._exception
+..\venv\Lib\site-packages\anyio\from_thread.py:217: in _call_func
+    retval = await retval
+..\venv\Lib\site-packages\fastapi\applications.py:1106: in __call__
+    await super().__call__(scope, receive, send)
+..\venv\Lib\site-packages\starlette\applications.py:122: in __call__
+    await self.middleware_stack(scope, receive, send)
+..\venv\Lib\site-packages\starlette\middleware\errors.py:184: in __call__
+    raise exc
+..\venv\Lib\site-packages\starlette\middleware\errors.py:162: in __call__
+    await self.app(scope, receive, _send)
+..\venv\Lib\site-packages\starlette\middleware\base.py:108: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\middleware\request_logger.py:29: in dispatch
+    raise e
+app\middleware\request_logger.py:26: in dispatch
+    response = await call_next(request)
+..\venv\Lib\site-packages\starlette\middleware\base.py:84: in call_next
+    raise app_exc
+..\venv\Lib\site-packages\starlette\middleware\base.py:70: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+..\venv\Lib\site-packages\starlette\middleware\base.py:108: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\middleware\rate_limit.py:67: in dispatch
+    response = await call_next(request)
+..\venv\Lib\site-packages\starlette\middleware\base.py:84: in call_next
+    raise app_exc
+..\venv\Lib\site-packages\starlette\middleware\base.py:70: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+app\core\security.py:127: in __call__
+    await self.app(scope, receive, send)
+app\core\security.py:118: in __call__
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\middleware\cors.py:83: in __call__
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\middleware\base.py:108: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\middleware\cache.py:31: in dispatch
+    return await call_next(request)
+..\venv\Lib\site-packages\starlette\middleware\base.py:84: in call_next
+    raise app_exc
+..\venv\Lib\site-packages\starlette\middleware\base.py:70: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+..\venv\Lib\site-packages\starlette\middleware\exceptions.py:79: in __call__
+    raise exc
+..\venv\Lib\site-packages\starlette\middleware\exceptions.py:68: in __call__
+    await self.app(scope, receive, sender)
+..\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:20: in __call__
+    raise e
+..\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:17: in __call__
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\routing.py:718: in __call__
+    await route.handle(scope, receive, send)
+..\venv\Lib\site-packages\starlette\routing.py:276: in handle
+    await self.app(scope, receive, send)
+..\venv\Lib\site-packages\starlette\routing.py:66: in app
+    response = await func(request)
+..\venv\Lib\site-packages\fastapi\routing.py:274: in app
+    raw_response = await run_endpoint_function(
+..\venv\Lib\site-packages\fastapi\routing.py:191: in run_endpoint_function
+    return await dependant.call(**values)
+app\cm\api\admin.py:56: in create_mapping
+    result = gate.execute(
+app\cm\gates\channel_mapping.py:33: in execute
+    ).first()
+..\venv\Lib\site-packages\sqlalchemy\orm\query.py:2748: in first
+    return self.limit(1)._iter().first()  # type: ignore
+..\venv\Lib\site-packages\sqlalchemy\orm\query.py:2847: in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+..\venv\Lib\site-packages\sqlalchemy\orm\session.py:2308: in execute
+    return self._execute_internal(
+..\venv\Lib\site-packages\sqlalchemy\orm\session.py:2190: in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+..\venv\Lib\site-packages\sqlalchemy\orm\context.py:293: in orm_execute_statement
+    result = conn.execute(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+..\venv\Lib\site-packages\sqlalchemy\sql\elements.py:516: in _execute_on_connection
+    return connection._execute_clauseelement(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1848: in _execute_context
+    return self._exec_single_context(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:2343: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+..\venv\Lib\site-packages\sqlalchemy\engine\base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+..\venv\Lib\site-packages\sqlalchemy\engine\default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+E   sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: channel_mappings
+E   [SQL: SELECT channel_mappings.mapping_id AS channel_mappings_mapping_id, channel_mappings.property_id AS channel_mappings_property_id, channel_mappings.channel AS channel_mappings_channel, channel_mappings.external_room_type_id AS channel_mappings_external_room_type_id, channel_mappings.pms_room_type_id AS channel_mappings_pms_room_type_id, channel_mappings.is_active AS channel_mappings_is_active, channel_mappings.notes AS channel_mappings_notes, channel_mappings.created_at AS channel_mappings_created_at, channel_mappings.updated_at AS channel_mappings_updated_at, channel_mappings.created_by AS channel_mappings_created_by 
+E   FROM channel_mappings 
+E   WHERE channel_mappings.channel = ? AND channel_mappings.property_id = ? AND channel_mappings.external_room_type_id = ?
+E    LIMIT ? OFFSET ?]
+E   [parameters: ('generic', '6f0e559d72d149a2a7a47d38d3000a40', 'generic_rm_1', 1, 0)]
+E   (Background on this error at: https://sqlalche.me/e/20/e3q8)
+------------------------------ Captured log call ------------------------------
+ERROR    app.middleware.request_logger:request_logger.py:28 Error processing request: POST /cm/admin/mappings
+Traceback (most recent call last):
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: channel_mappings
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\middleware\request_logger.py", line 26, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\middleware\rate_limit.py", line 67, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\core\security.py", line 127, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\core\security.py", line 118, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 108, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\middleware\cache.py", line 31, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 84, in call_next
+    raise app_exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\base.py", line 70, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 20, in __call__
+    raise e
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\fastapi\routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\cm\api\admin.py", line 56, in create_mapping
+    result = gate.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\cm\gates\channel_mapping.py", line 33, in execute
+    ).first()
+      ^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2748, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: channel_mappings
+[SQL: SELECT channel_mappings.mapping_id AS channel_mappings_mapping_id, channel_mappings.property_id AS channel_mappings_property_id, channel_mappings.channel AS channel_mappings_channel, channel_mappings.external_room_type_id AS channel_mappings_external_room_type_id, channel_mappings.pms_room_type_id AS channel_mappings_pms_room_type_id, channel_mappings.is_active AS channel_mappings_is_active, channel_mappings.notes AS channel_mappings_notes, channel_mappings.created_at AS channel_mappings_created_at, channel_mappings.updated_at AS channel_mappings_updated_at, channel_mappings.created_by AS channel_mappings_created_by 
+FROM channel_mappings 
+WHERE channel_mappings.channel = ? AND channel_mappings.property_id = ? AND channel_mappings.external_room_type_id = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('generic', '6f0e559d72d149a2a7a47d38d3000a40', 'generic_rm_1', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+============================== warnings summary ===============================
+..\venv\Lib\site-packages\pydantic\_internal\_config.py:268: 10 warnings
+  C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\pydantic\_internal\_config.py:268: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+app\api\schemas.py:72
+  C:\Users\akash\pms-hotel-desktop\backend\app\api\schemas.py:72: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.5/migration/
+    @validator('check_out_date')
+
+..\venv\Lib\site-packages\dateutil\tz\tz.py:37
+  C:\Users\akash\pms-hotel-desktop\venv\Lib\site-packages\dateutil\tz\tz.py:37: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    EPOCH = datetime.datetime.utcfromtimestamp(0)
+
+app\api\v1\analytics.py:74
+  C:\Users\akash\pms-hotel-desktop\backend\app\api\v1\analytics.py:74: DeprecationWarning: `regex` has been deprecated, please use `pattern` instead
+    granularity: str = Query("daily", regex="^(daily|weekly|monthly)$")
+
+app\api\v1\audit.py:92
+  C:\Users\akash\pms-hotel-desktop\backend\app\api\v1\audit.py:92: DeprecationWarning: `regex` has been deprecated, please use `pattern` instead
+    format: str = Query("csv", regex="^(csv|json)$"),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_cm_admin_api.py::test_admin_create_mapping_and_read - sqlal...
+FAILED tests/test_cm_admin_api.py::test_admin_delete_mapping - sqlalchemy.exc...
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<frozen codecs>:309: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+======================= 2 failed, 14 warnings in 15.50s =======================

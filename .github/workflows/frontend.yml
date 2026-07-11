@@ -1,0 +1,61 @@
+name: Frontend
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: ./frontend
+
+jobs:
+  # ─── Lint + type-check + test + build (single fast job) ─────────────
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint (eslint)
+        run: npm run lint
+        continue-on-error: true   # advisory while baseline is being cleaned up
+
+      - name: Type-check (tsc -b)
+        run: npx tsc -b
+
+      - name: Test (vitest)
+        run: npm run test
+
+      - name: Build (vite)
+        run: npm run build
+        env:
+          VITE_API_URL: /api/v1
+
+  # ─── Docker image builds (smoke test, not pushed) ───────────────────
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: [ci]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: false
+          tags: pms-frontend:ci
+          build-args: |
+            VITE_API_URL=/api/v1
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

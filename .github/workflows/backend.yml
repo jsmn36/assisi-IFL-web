@@ -1,0 +1,153 @@
+name: Backend
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+# Coverage gate is enforced by pytest.ini (--cov-fail-under=80). Tenant
+# isolation runs as a dedicated job so a regression there fails loudly
+# even if the rest of the suite is green.
+
+defaults:
+  run:
+    working-directory: ./backend
+
+env:
+  # CI uses dummy creds — the model_validator in app/config.py only
+  # hard-fails when APP_ENV=production. Both must be 32+ chars.
+  SECRET_KEY: ci-secret-must-be-at-least-thirty-two-chars
+  JWT_SECRET_KEY: ci-jwt-secret-must-be-at-least-thirty-two-chars
+  APP_ENV: test
+  PYTHONDONTWRITEBYTECODE: '1'
+  PIP_DISABLE_PIP_VERSION_CHECK: '1'
+
+jobs:
+  # ─── Lint + type-check ────────────────────────────────────────────────
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff mypy
+
+      - name: Ruff (lint)
+        run: ruff check app
+        continue-on-error: true   # advisory while baseline is being cleaned up; flip after pass
+
+      - name: Mypy (strict-optional only)
+        run: mypy --strict-optional --ignore-missing-imports app
+        continue-on-error: true
+
+  # ─── Unit + integration tests ────────────────────────────────────────
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run pytest with coverage gate
+        run: pytest --cov=app --cov-report=xml --cov-fail-under=80
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./backend/coverage.xml
+          fail_ci_if_error: false   # don't block on Codecov outage
+
+  # ─── Tenant isolation harness — the most important test in the plan ──
+  tenant-isolation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tenant isolation harness
+        run: pytest tests/test_tenant_isolation.py -v --no-cov
+
+  # ─── Alembic migrations apply cleanly on an empty Postgres DB ────────
+  migrate-empty:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: pms
+          POSTGRES_PASSWORD: pms
+          POSTGRES_DB: pms_test
+        options: >-
+          --health-cmd "pg_isready -U pms"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgresql+psycopg2://pms:pms@localhost:5432/pms_test
+      SECRET_KEY: ci-secret-must-be-at-least-thirty-two-chars
+      JWT_SECRET_KEY: ci-jwt-secret-must-be-at-least-thirty-two-chars
+      APP_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: alembic upgrade head (empty DB)
+        run: alembic upgrade head
+
+      - name: alembic downgrade base then upgrade head (round-trip)
+        run: |
+          alembic downgrade base
+          alembic upgrade head
+
+  # ─── Docker image builds (smoke test, not pushed) ────────────────────
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: false
+          tags: pms-backend:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

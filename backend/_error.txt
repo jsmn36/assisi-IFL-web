@@ -1,0 +1,83 @@
+Traceback (most recent call last):
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: NOT NULL constraint failed: rate_plans.room_type_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\services\base_service.py", line 24, in commit
+    self.db.commit()
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\session.py", line 1969, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\session.py", line 4312, in flush
+    self._flush(objects)
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\session.py", line 4447, in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\session.py", line 4408, in _flush
+    flush_context.execute()
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\orm\persistence.py", line 1226, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\akash\AppData\Roaming\Python\Python312\site-packages\sqlalchemy\engine\default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: rate_plans.room_type_id
+[SQL: INSERT INTO rate_plans (property_id, room_type_id, code, name, description, plan_type, rate_type, base_rate, weekend_rate, adjustment_type, adjustment_value, version, is_superseded, superseded_by_id, supersedes_id, is_public, is_corporate, is_government, is_active, valid_from, valid_to, available_monday, available_tuesday, available_wednesday, available_thursday, available_friday, available_saturday, available_sunday, min_length_of_stay, max_length_of_stay, min_advance_booking, max_advance_booking, cancellation_policy, cancellation_hours, cancellation_fee_percent, created_at, created_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: (1, None, 'TSTZZ3', 'Test Plan', None, 'STANDARD', 'FIXED', 100.0, None, None, None, 1, 0, None, None, 1, 0, 0, 1, None, None, 1, 1, 1, 1, 1, 1, 1, 1, None, None, None, None, None, None, '2026-04-07 10:16:49.809678', '1', None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\akash\pms-hotel-desktop\backend\_test_rate.py", line 10, in <module>
+    plan = svc.create_rate_plan(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\services\rate_plan_service.py", line 58, in create_rate_plan
+    self.commit()
+  File "C:\Users\akash\pms-hotel-desktop\backend\app\services\base_service.py", line 27, in commit
+    raise ServiceError(f"Database error: {str(e)}")
+app.services.base_service.ServiceError: Database error: (sqlite3.IntegrityError) NOT NULL constraint failed: rate_plans.room_type_id
+[SQL: INSERT INTO rate_plans (property_id, room_type_id, code, name, description, plan_type, rate_type, base_rate, weekend_rate, adjustment_type, adjustment_value, version, is_superseded, superseded_by_id, supersedes_id, is_public, is_corporate, is_government, is_active, valid_from, valid_to, available_monday, available_tuesday, available_wednesday, available_thursday, available_friday, available_saturday, available_sunday, min_length_of_stay, max_length_of_stay, min_advance_booking, max_advance_booking, cancellation_policy, cancellation_hours, cancellation_fee_percent, created_at, created_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: (1, None, 'TSTZZ3', 'Test Plan', None, 'STANDARD', 'FIXED', 100.0, None, None, None, 1, 0, None, None, 1, 0, 0, 1, None, None, 1, 1, 1, 1, 1, 1, 1, 1, None, None, None, None, None, None, '2026-04-07 10:16:49.809678', '1', None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

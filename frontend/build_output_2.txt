@@ -1,0 +1,33 @@
+
+> pms-hotel-frontend@0.0.0 build
+> tsc -b && vite build
+
+src/components/NotificationCenter.tsx(44,57): error TS2554: Expected 0 arguments, but got 3.
+src/components/NotificationCenter.tsx(45,33): error TS2339: Property 'notifications' does not exist on type 'any[]'.
+src/components/RateCalendar.tsx(36,85): error TS2554: Expected 3 arguments, but got 4.
+src/pages/AuditLogs.tsx(62,24): error TS2339: Property 'logs' does not exist on type 'AuditLog[]'.
+src/pages/AuditLogs.tsx(63,25): error TS2339: Property 'total' does not exist on type 'AuditLog[]'.
+src/pages/AuditLogs.tsx(79,54): error TS2554: Expected 0-1 arguments, but got 2.
+src/pages/ComplianceDashboard.tsx(41,32): error TS2554: Expected 0 arguments, but got 1.
+src/pages/ComplianceDashboard.tsx(43,27): error TS2554: Expected 0 arguments, but got 1.
+src/pages/GlobalSearch.tsx(47,33): error TS2339: Property 'searches' does not exist on type 'SavedSearch[]'.
+src/pages/GlobalSearch.tsx(55,51): error TS2554: Expected 0 arguments, but got 2.
+src/pages/GlobalSearch.tsx(56,33): error TS2339: Property 'history' does not exist on type 'any[]'.
+src/pages/GlobalSearch.tsx(72,9): error TS2554: Expected 1 arguments, but got 3.
+src/pages/GlobalSearch.tsx(89,64): error TS2554: Expected 1 arguments, but got 2.
+src/pages/GlobalSearch.tsx(90,33): error TS2339: Property 'suggestions' does not exist on type 'SearchSuggestion[]'.
+src/pages/MobileDashboard.tsx(40,46): error TS2339: Property 'reservations' does not exist on type 'Reservation[]'.
+src/pages/MobileReservations.tsx(46,32): error TS2339: Property 'reservations' does not exist on type 'Reservation[]'.
+src/pages/Notifications.tsx(32,57): error TS2554: Expected 0 arguments, but got 3.
+src/pages/Notifications.tsx(33,33): error TS2339: Property 'notifications' does not exist on type 'any[]'.
+src/pages/Operations.tsx(64,9): error TS2554: Expected 1 arguments, but got 3.
+src/pages/Operations.tsx(80,50): error TS2554: Expected 1 arguments, but got 2.
+src/pages/Operations.tsx(100,9): error TS2554: Expected 2 arguments, but got 4.
+src/pages/PerformanceDashboard.tsx(55,28): error TS2554: Expected 0 arguments, but got 1.
+src/pages/RatesManagement.tsx(48,54): error TS2554: Expected 0-1 arguments, but got 2.
+src/pages/RatesManagement.tsx(49,33): error TS2339: Property 'discount_codes' does not exist on type 'DiscountCode[]'.
+src/pages/UserManagement.tsx(53,49): error TS2554: Expected 0-1 arguments, but got 2.
+src/pages/UserManagement.tsx(54,25): error TS2339: Property 'users' does not exist on type 'User[]'.
+src/pages/UserProfile.tsx(69,59): error TS2554: Expected 1 arguments, but got 2.
+src/pages/UserProfile.tsx(70,30): error TS2339: Property 'activities' does not exist on type 'UserActivity[]'.
+src/pages/UserProfile.tsx(89,45): error TS2554: Expected 1 arguments, but got 2.
