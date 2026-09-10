@@ -1,8 +1,0 @@
-node_modules
-dist
-coverage
-.vite
-.eslintcache
-
-# Generated translation tables don't need reformatting on save.
-src/i18n/locales/*.json
