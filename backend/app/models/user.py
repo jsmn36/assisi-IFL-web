@@ -23,6 +23,7 @@ class User(Base):
     role = Column(String(50), nullable=False, default="staff")
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
+    is_email_verified = Column(Boolean, default=True, server_default="1", nullable=False)
     failed_login_attempts = Column(Integer, default=0)
     locked_until = Column(DateTime, nullable=True)
     last_login = Column(DateTime, nullable=True)

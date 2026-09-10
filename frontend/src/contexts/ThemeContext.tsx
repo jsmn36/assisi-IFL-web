@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { setCurrencyPreference } from '@/lib/utils';
 
 export type Theme = 'light' | 'dark' | 'system';
@@ -59,7 +59,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
   }, [settings]);
 
-  // Re-apply when OS dark mode changes and theme is 'system'
   useEffect(() => {
     if (settings.theme !== 'system') return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');

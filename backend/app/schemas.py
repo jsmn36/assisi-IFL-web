@@ -39,6 +39,7 @@ class Token(BaseModel):
 # Institution Profile Schemas
 class InstitutionProfileCreate(BaseModel):
     name: str
+    location: Optional[str] = None
     about: Optional[str] = None
     contact_email: Optional[EmailStr] = None
     phone: Optional[str] = None
@@ -48,6 +49,7 @@ class InstitutionProfileCreate(BaseModel):
 
 class InstitutionProfileUpdate(BaseModel):
     name: Optional[str] = None
+    location: Optional[str] = None
     about: Optional[str] = None
     contact_email: Optional[EmailStr] = None
     phone: Optional[str] = None
@@ -61,6 +63,7 @@ class InstitutionProfileResponse(BaseModel):
     id: int
     user_id: int
     name: str
+    location: Optional[str] = None
     logo_url: Optional[str] = None
     banner_url: Optional[str] = None
     about: Optional[str] = None

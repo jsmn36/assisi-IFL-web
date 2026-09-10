@@ -60,8 +60,10 @@ function DefaultFallback({ error, onReset }: { error: Error; onReset: () => void
           </p>
         </div>
         {isDev && (
-          <pre className="text-xs bg-gray-100 border border-gray-200 rounded p-3 overflow-auto max-h-48 text-red-700">
+          <pre className="text-xs bg-gray-100 border border-gray-200 rounded p-3 overflow-auto max-h-64 text-red-700 whitespace-pre-wrap">
             {error.message}
+            {'\n\n'}
+            {error.stack}
           </pre>
         )}
         <div className="flex gap-2">

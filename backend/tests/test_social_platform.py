@@ -196,7 +196,7 @@ def test_admin_provision_and_analytics(test_db: Session, seed_data):
 
 def test_student_registration_and_flow(test_db: Session, seed_data):
     # Register valid admission number
-    from app.models.student import StudentAdmission
+    from app.models.student import StudentAdmission, StudentOTP
     test_db.add(StudentAdmission(admission_number="2026-001", student_name="Alice Student", is_registered=False))
     test_db.commit()
 
@@ -210,6 +210,7 @@ def test_student_registration_and_flow(test_db: Session, seed_data):
         "class_or_department": "Computer Science"
     })
     assert response.status_code == 200
+    assert response.json()["status"] == "otp_sent"
     
     # Registration creates user in pending state. Log in should fail initially
     response = client.post("/api/v1/auth/login", json={
@@ -219,11 +220,29 @@ def test_student_registration_and_flow(test_db: Session, seed_data):
     assert response.status_code == 401
     assert "Incorrect username or password" in response.json()["detail"]
 
-    # Let Admin approve student
+    # Let Admin approve student - but wait, the student is not email verified yet!
     admin_token = create_access_token(data={"sub": str(seed_data["admin"].id), "role": "admin"})
     admin_headers = {"Authorization": f"Bearer {admin_token}"}
     
-    # List pending
+    # List pending should show 0 because email is not verified yet
+    response = client.get("/api/v1/admin/pending-students", headers=admin_headers)
+    assert response.status_code == 200
+    assert len(response.json()) == 0
+
+    # Retrieve the OTP from DB to verify it
+    otp_record = test_db.query(StudentOTP).filter(StudentOTP.email == "alice@assisi.edu").first()
+    assert otp_record is not None
+    assert otp_record.is_verified is False
+
+    # Verify the OTP
+    response = client.post("/api/v1/auth/verify-otp", json={
+        "email": "alice@assisi.edu",
+        "otp_code": otp_record.otp_code
+    })
+    assert response.status_code == 200
+    assert "Email verified successfully" in response.json()["message"]
+
+    # Now the student should be in the pending list!
     response = client.get("/api/v1/admin/pending-students", headers=admin_headers)
     assert response.status_code == 200
     pending_list = response.json()
@@ -259,6 +278,17 @@ def test_student_registration_and_flow(test_db: Session, seed_data):
         "admission_number": "2026-002",
         "student_name": "Bob Student"
     })
+    assert response.status_code == 200
+
+    # Verify Bob's OTP
+    bob_otp = test_db.query(StudentOTP).filter(StudentOTP.email == "bob@assisi.edu").first()
+    assert bob_otp is not None
+    response = client.post("/api/v1/auth/verify-otp", json={
+        "email": "bob@assisi.edu",
+        "otp_code": bob_otp.otp_code
+    })
+    assert response.status_code == 200
+
     # Query Bob user ID directly from DB
     bob_user = test_db.query(User).filter(User.username == "bob").first()
     bob_user_id = bob_user.id

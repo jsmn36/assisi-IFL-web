@@ -119,9 +119,12 @@ export function Layout({ children }: LayoutProps) {
         {/* Logo */}
         <div className={`flex h-16 items-center border-b border-gray-800 ${compactSidebar ? 'justify-center px-2' : 'px-6'}`}>
           {compactSidebar ? (
-            <span className="text-white font-bold text-lg">A</span>
+            <img src="/logo.png" alt="ASSISI IFL" className="h-8 w-auto bg-white p-0.5 rounded-lg" />
           ) : (
-            <h1 className="text-xl font-bold text-white">Assisi Social</h1>
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="ASSISI IFL Logo" className="h-8 w-auto bg-white p-0.5 rounded-lg" />
+              <h1 className="text-lg font-extrabold text-white tracking-tight">ASSISI IFL</h1>
+            </div>
           )}
         </div>
 

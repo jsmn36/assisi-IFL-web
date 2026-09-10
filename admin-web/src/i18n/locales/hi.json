@@ -1,0 +1,63 @@
+{
+  "app": {
+    "name": "पीएमएस होटल सिस्टम",
+    "tagline": "होटल संपत्ति प्रबंधन"
+  },
+  "common": {
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएँ",
+    "edit": "संपादित करें",
+    "create": "बनाएँ",
+    "loading": "लोड हो रहा है…",
+    "search": "खोजें",
+    "back": "वापस",
+    "next": "अगला",
+    "submit": "जमा करें",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "confirm": "पुष्टि करें",
+    "actions": "क्रियाएँ",
+    "status": "स्थिति",
+    "date": "तारीख़",
+    "amount": "राशि",
+    "currency": "मुद्रा",
+    "tryAgain": "पुनः प्रयास करें"
+  },
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "reservations": "आरक्षण",
+    "guests": "अतिथि",
+    "rooms": "कमरे",
+    "rates": "दरें",
+    "housekeeping": "हाउसकीपिंग",
+    "analytics": "विश्लेषण",
+    "reports": "रिपोर्ट",
+    "users": "उपयोगकर्ता",
+    "settings": "सेटिंग्स",
+    "accounting": "लेखा",
+    "inventory": "इन्वेंटरी",
+    "pos": "पीओएस",
+    "crm": "सीआरएम"
+  },
+  "auth": {
+    "signIn": "साइन इन",
+    "signingIn": "साइन इन हो रहा है…",
+    "username": "उपयोगकर्ता नाम या ईमेल",
+    "password": "पासवर्ड",
+    "usernamePlaceholder": "अपना उपयोगकर्ता नाम दर्ज करें",
+    "passwordPlaceholder": "अपना पासवर्ड दर्ज करें",
+    "loginFailed": "लॉगिन विफल। कृपया अपनी जानकारी जाँचें।",
+    "logout": "साइन आउट",
+    "selectWorkspace": "कार्यक्षेत्र चुनें",
+    "selectWorkspaceHint": "आपके खाते को कई टेनेंट तक पहुँच है। जारी रखने के लिए एक चुनें।",
+    "default": "डिफ़ॉल्ट"
+  },
+  "errors": {
+    "somethingWrong": "कुछ गड़बड़ हो गई",
+    "somethingWrongDetail": "इस पृष्ठ में अप्रत्याशित त्रुटि आई। पुनः प्रयास करें या डैशबोर्ड पर लौटें।",
+    "goToDashboard": "डैशबोर्ड पर जाएँ",
+    "networkError": "नेटवर्क त्रुटि",
+    "sessionExpired": "आपका सत्र समाप्त हो गया है। कृपया फिर से साइन इन करें।"
+  }
+}

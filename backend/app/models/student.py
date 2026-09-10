@@ -45,3 +45,17 @@ class StudentProfile(Base):
 
     def __repr__(self):
         return f"<StudentProfile for User ID {self.user_id}>"
+
+
+class StudentOTP(Base):
+    """Student OTP Verification Model"""
+
+    __tablename__ = "student_otps"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(200), unique=True, nullable=False, index=True)
+    otp_code = Column(String(10), nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    is_verified = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+

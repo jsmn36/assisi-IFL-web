@@ -15,20 +15,12 @@ export function PopOutAlert({ message, type = 'info', onClose }: AlertProps) {
     info: <Info className="h-12 w-12 text-blue-500" />,
   };
 
-  const gradientColors = {
-    success: 'from-green-50 to-emerald-50',
-    error: 'from-red-50 to-rose-50',
-    info: 'from-blue-50 to-indigo-50',
-  };
-
   const accentColors = {
     success: 'bg-green-500',
     error: 'bg-red-500',
     info: 'bg-blue-500',
   };
 
-  // Auto close after 5 seconds if not an error, or just let users close it?
-  // Let's do 4 seconds for success/info, but keep errors for 7s.
   useEffect(() => {
     const duration = type === 'error' ? 7000 : 4000;
     const timer = setTimeout(onClose, duration);
@@ -37,45 +29,31 @@ export function PopOutAlert({ message, type = 'info', onClose }: AlertProps) {
 
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 pointer-events-none">
-      {/* Backdrop blur (minimal to not fully block interaction if multiple alerts arrive, but enough for aesthetic) */}
       <div className="absolute inset-0 bg-black/5 backdrop-blur-[2px] pointer-events-auto" onClick={onClose} />
-      
-      {/* Alert Window */}
       <div className={`
         relative w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-white/50
         p-8 flex flex-col items-center text-center overflow-hidden animate-in zoom-in-95 fade-in duration-300 slide-in-from-bottom-10
         pointer-events-auto
       `}>
-        {/* Top Accent Bar */}
         <div className={`absolute top-0 inset-x-0 h-2 ${accentColors[type]}`} />
-        
-        {/* Floating Bell Icon for premium feel */}
         <div className="absolute -top-3 -right-3 opacity-5 rotate-12">
           <BellRing className="h-24 w-24" />
         </div>
-
-        {/* Status Icon */}
         <div className="mb-6 bg-white p-4 rounded-3xl shadow-inner border border-gray-100 flex items-center justify-center">
           {icons[type]}
         </div>
-
-        {/* Message */}
         <div className="space-y-4">
           <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] pl-1">NOTIFICATION</h3>
           <p className="text-xl font-bold text-gray-900 leading-tight">
             {message}
           </p>
         </div>
-
-        {/* Close Button UI */}
         <button 
           onClick={onClose}
           className="mt-8 px-8 py-3 bg-gray-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-gray-200"
         >
           DISMISS
         </button>
-
-        {/* Small Close Icon top-right */}
         <button 
           onClick={onClose}
           className="absolute top-6 right-6 text-gray-300 hover:text-gray-900 transition-colors"
@@ -98,9 +76,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = Date.now();
-    // For "Pop Out Window", we might only want to show one at a time to keep it clean, 
-    // or stack them. Stacked centered popups are messy. Let's show the most recent one.
-    // Or stack them with a z-index offset.
     setAlerts((prev) => [...prev, { id, message, type }]);
   };
 
@@ -111,7 +86,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {/* Display alerts (stacked in center) */}
       <div className="fixed inset-0 pointer-events-none z-[1000]">
         {alerts.map((alert, index) => (
           <div key={alert.id} style={{ zIndex: 1000 + index }}>

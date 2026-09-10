@@ -15,6 +15,7 @@ class InstitutionProfile(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), unique=True, nullable=False)
     name = Column(String(200), nullable=False, index=True)
+    location = Column(String(200), nullable=True, index=True)
     logo_url = Column(String(500), nullable=True)
     banner_url = Column(String(500), nullable=True)
     about = Column(Text, nullable=True)

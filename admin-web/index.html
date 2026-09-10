@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assisi Social - Admin Panel</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Assisi Social" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <style>
+      @keyframes shimmer {
+        0%   { background-position: -200% 0; }
+        100% { background-position:  200% 0; }
+      }
+    </style>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener('error', function(event) {
+        document.body.innerHTML += '<div style="color:red;z-index:9999;position:fixed;top:0;left:0;background:white;padding:20px;width:100%;"><pre>' + event.message + '\n' + event.filename + ':' + event.lineno + '</pre></div>';
+      });
+      window.addEventListener('unhandledrejection', function(event) {
+        document.body.innerHTML += '<div style="color:red;z-index:9999;position:fixed;top:60px;left:0;background:white;padding:20px;width:100%;"><pre>Promise Rejection: ' + (event.reason && event.reason.message ? event.reason.message : event.reason) + '</pre></div>';
+      });
+    </script>
+  </body>
+</html>

@@ -37,8 +37,8 @@ class Settings(BaseSettings):
     # CORS — comma-separated list of allowed origins.
     # In production, set this to explicit allowed domains (no wildcards).
     CORS_ORIGINS: str = (
-        "http://localhost:5173,http://localhost:3000,"
-        "http://127.0.0.1:5173,http://127.0.0.1:3000"
+        "http://localhost:5173,http://localhost:3000,http://localhost:3001,http://localhost:3002,"
+        "http://127.0.0.1:5173,http://127.0.0.1:3000,http://127.0.0.1:3001,http://127.0.0.1:3002"
     )
 
     # Email (optional)

@@ -11,7 +11,9 @@ import {
   LogOut, 
   Sun, 
   Moon,
-  GraduationCap
+  GraduationCap,
+  ShieldAlert,
+  Building
 } from 'lucide-react';
 
 interface StudentLayoutProps {
@@ -24,13 +26,15 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     try {
-      await logout();
-      navigate('/login');
+      logout();
     } catch (e) {
       console.error(e);
     }
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate('/login', { replace: true });
   };
 
   const toggleTheme = () => {
@@ -90,6 +94,30 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
               );
             })}
           </nav>
+
+          {/* Quick Cross-Portal Switcher */}
+          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 block">
+              System Control
+            </span>
+            <a
+              href="http://localhost:3001"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 hover:bg-rose-500/20 transition-all group"
+            >
+              <ShieldAlert className="h-4.5 w-4.5 text-rose-500 flex-shrink-0" />
+              <div className="overflow-hidden">
+                <span className="block truncate">Super Admin Center</span>
+                <span className="text-[9px] text-slate-500 dark:text-slate-400 font-normal truncate block">Main Admin Panel</span>
+              </div>
+            </a>
+            <a
+              href="http://localhost:3002"
+              className="flex items-center gap-3 px-3 py-2 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all"
+            >
+              <Building className="h-4.5 w-4.5 text-emerald-500 flex-shrink-0" />
+              <span>Branch Space</span>
+            </a>
+          </div>
         </div>
 
         {/* Footer controls & Profile preview */}

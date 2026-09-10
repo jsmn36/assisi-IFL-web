@@ -265,7 +265,7 @@ export default function StudentProfilePage() {
                       )}
                     </button>
                     <Link
-                      to="/chat"
+                      to={`/chat?userId=${profile.user_id}&username=${profile.username}&name=${encodeURIComponent(profile.student_name)}&avatar=${encodeURIComponent(profile.profile_pic_url || '')}`}
                       className="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-bold text-xs px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 transition"
                     >
                       Message

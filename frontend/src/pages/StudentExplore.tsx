@@ -2,29 +2,39 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import StudentLayout from '@/components/StudentLayout';
 import api from '@/lib/api';
-import { Search, Compass, User as UserIcon, Grid, Calendar } from 'lucide-react';
+import { Search, Compass, Grid, MessageSquare } from 'lucide-react';
 import { useToast } from '@/components/Toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function StudentExplore() {
   const { showToast } = useToast();
+  const { user: currentUser } = useAuth();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [explorePosts, setExplorePosts] = useState<any[]>([]);
-
-  const loadExplorePosts = async () => {
-    try {
-      // Get general posts
-      const posts = await api.getPosts({ limit: 18 });
-      setExplorePosts(posts);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const [followingIds, setFollowingIds] = useState<number[]>([]);
 
   useEffect(() => {
-    loadExplorePosts();
-  }, []);
+    const loadData = async () => {
+      try {
+        const posts = await api.getPosts({ limit: 18 });
+        setExplorePosts(posts);
+      } catch (e) {
+        console.error(e);
+      }
+
+      if (currentUser) {
+        try {
+          const followingList = await api.getFollowing(currentUser.id);
+          setFollowingIds(followingList.map((f: any) => f.id));
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+    loadData();
+  }, [currentUser]);
 
   const handleSearchSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,8 +45,25 @@ export default function StudentExplore() {
     try {
       const results = await api.searchSocial(searchTerm);
       setSearchResults(results.users || []);
-    } catch (err) {
+    } catch {
       showToast('Search failed.', 'error');
+    }
+  };
+
+  const handleFollowToggle = async (targetUserId: number) => {
+    try {
+      const isFollowing = followingIds.includes(targetUserId);
+      if (isFollowing) {
+        await api.unfollowUser(targetUserId);
+        setFollowingIds(prev => prev.filter(id => id !== targetUserId));
+        showToast('Unfollowed user', 'success');
+      } else {
+        await api.followUser(targetUserId);
+        setFollowingIds(prev => [...prev, targetUserId]);
+        showToast('Following user', 'success');
+      }
+    } catch {
+      showToast('Action failed.', 'error');
     }
   };
 
@@ -83,27 +110,49 @@ export default function StudentExplore() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {searchResults.map((user) => (
-                  <Link
+                  <div
                     key={user.id}
-                    to={`/students/profile/${user.username}`}
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl flex items-center justify-between hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-900/50 transition shadow-sm"
+                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl flex items-center justify-between hover:shadow-md transition shadow-sm"
                   >
-                    <div className="flex items-center gap-3">
+                    <Link to={`/students/profile/${user.username}`} className="flex items-center gap-3 hover:opacity-90 transition">
                       <img
                         src={user.profile_pic_url || `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.username}`}
                         alt={user.username}
-                        className="h-11 w-11 rounded-full bg-slate-100 dark:bg-slate-800"
+                        className="h-11 w-11 rounded-full bg-slate-100 dark:bg-slate-800 border"
                       />
                       <div>
-                        <h4 className="font-bold text-xs text-slate-900 dark:text-white">{user.name}</h4>
+                        <h4 className="font-bold text-xs text-slate-900 dark:text-white hover:text-indigo-600 transition">{user.name}</h4>
                         <p className="text-[10px] text-slate-400">@{user.username}</p>
                         <p className="text-[9px] text-indigo-500 dark:text-indigo-400 font-semibold mt-0.5">{user.class_or_department || 'General major'}</p>
                       </div>
+                    </Link>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleFollowToggle(user.id)}
+                        className={`px-3 py-1.5 rounded-xl font-bold text-[10px] transition ${
+                          followingIds.includes(user.id)
+                            ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-750'
+                            : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-sm'
+                        }`}
+                      >
+                        {followingIds.includes(user.id) ? 'Following' : 'Follow'}
+                      </button>
+                      <Link
+                        to={`/chat?userId=${user.id}&username=${user.username}&name=${encodeURIComponent(user.name)}&avatar=${encodeURIComponent(user.profile_pic_url || '')}`}
+                        className="p-2 bg-slate-50 dark:bg-slate-850 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 transition"
+                        title="Send Message"
+                      >
+                        <MessageSquare className="h-4.5 w-4.5" />
+                      </Link>
+                      <Link
+                        to={`/students/profile/${user.username}`}
+                        className="text-[9px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-750 font-bold px-2.5 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 uppercase tracking-wider transition"
+                      >
+                        Profile
+                      </Link>
                     </div>
-                    <span className="text-[9px] bg-slate-100 dark:bg-slate-800 font-bold px-2.5 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                      View Profile
-                    </span>
-                  </Link>
+                  </div>
                 ))}
               </div>
             )}

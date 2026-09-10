@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import StudentLayout from '@/components/StudentLayout';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/lib/api';
@@ -11,7 +12,10 @@ import {
   Check, 
   Clock, 
   X,
-  Volume2
+  Volume2,
+  ShieldAlert,
+  ArrowRight,
+  Building
 } from 'lucide-react';
 import { useToast } from '@/components/Toast';
 
@@ -387,22 +391,22 @@ export default function StudentHome() {
               {suggestions.length === 0 ? (
                 <p className="text-xs text-slate-400 italic">No new suggestions.</p>
               ) : (
-                suggestions.map((s) => (
-                  <div key={s.id} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
+                 suggestions.map((s) => (
+                  <div key={s.id} className="flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/40 p-1.5 -mx-1.5 rounded-xl transition">
+                    <Link to={`/students/profile/${s.username}`} className="flex items-center gap-2.5 hover:opacity-80 transition overflow-hidden">
                       <img
                         src={s.profile_pic_url || `https://api.dicebear.com/7.x/adventurer/svg?seed=${s.username}`}
                         alt={s.username}
-                        className="h-8.5 w-8.5 rounded-full bg-slate-100 dark:bg-slate-800"
+                        className="h-8.5 w-8.5 rounded-full bg-slate-100 dark:bg-slate-800 flex-shrink-0"
                       />
-                      <div className="overflow-hidden max-w-[120px]">
-                        <h4 className="font-bold text-xs truncate">{s.name}</h4>
+                      <div className="overflow-hidden max-w-[100px]">
+                        <h4 className="font-bold text-xs truncate text-slate-900 dark:text-white">{s.name}</h4>
                         <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate">@{s.username}</p>
                       </div>
-                    </div>
+                    </Link>
                     <button
                       onClick={() => handleFollowSuggestion(s.id)}
-                      className="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition"
+                      className="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition flex-shrink-0"
                     >
                       Follow
                     </button>
@@ -440,6 +444,26 @@ export default function StudentHome() {
                 ))
               )}
             </div>
+          </div>
+
+          {/* Super Admin Center Quick Access Card */}
+          <div className="bg-gradient-to-b from-rose-950/30 via-slate-900 to-slate-900 border border-rose-500/30 rounded-2xl p-5 shadow-sm relative overflow-hidden group hover:border-rose-500/50 transition">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-1.5 rounded-lg bg-rose-500/10 text-rose-400">
+                <ShieldAlert className="h-5 w-5" />
+              </div>
+              <h2 className="font-extrabold text-sm text-white">Super Admin Center</h2>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed mb-4">
+              Platform-wide control panel. Create new educational institutions, manage tenant databases, audit system activities, and review system-wide analytics.
+            </p>
+            <a
+              href="http://localhost:3001"
+              className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold text-xs shadow-lg shadow-rose-600/20 transition-all hover:scale-[1.02]"
+            >
+              <span>Enter Super Admin Panel</span>
+              <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
         </div>
       </div>

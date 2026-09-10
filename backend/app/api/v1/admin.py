@@ -20,6 +20,7 @@ class InstitutionRegisterPayload(BaseModel):
     email: EmailStr
     password: str
     name: str
+    location: str = ""
     about: str = ""
     contact_email: EmailStr = None
     phone: str = ""
@@ -60,6 +61,7 @@ async def register_institution_account(
     profile = InstitutionProfile(
         user_id=user.id,
         name=payload.name,
+        location=payload.location,
         about=payload.about,
         contact_email=payload.contact_email or payload.email,
         phone=payload.phone,
@@ -122,7 +124,8 @@ async def list_pending_students(
     with bypass_tenant_filter():
         pending_users = db.query(User).filter(
             User.role == "student",
-            User.is_active == False
+            User.is_active == False,
+            User.is_email_verified.is_(True)
         ).all()
 
         results = []

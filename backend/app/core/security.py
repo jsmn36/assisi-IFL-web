@@ -10,6 +10,13 @@ import secrets
 
 import os
 import sys
+import bcrypt
+
+# Passlib / bcrypt 4.x compatibility patch
+if not hasattr(bcrypt, "__about__"):
+    bcrypt.__about__ = type("About", (), {"__version__": getattr(bcrypt, "__version__", "4.0.0")})
+_orig_hashpw = bcrypt.hashpw
+bcrypt.hashpw = lambda password, salt: _orig_hashpw(password[:72], salt)
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -34,12 +41,12 @@ REFRESH_TOKEN_EXPIRE_DAYS = 7
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password against hash"""
-    return pwd_context.verify(plain_password, hashed_password)
+    return pwd_context.verify(plain_password[:72], hashed_password)
 
 
 def get_password_hash(password: str) -> str:
     """Hash password"""
-    return pwd_context.hash(password)
+    return pwd_context.hash(password[:72])
 
 
 def create_access_token(

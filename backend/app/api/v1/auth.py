@@ -72,6 +72,15 @@ class StudentRegisterRequest(BaseModel):
     class_or_department: Optional[str] = None
 
 
+class VerifyOTPRequest(BaseModel):
+    email: str
+    otp_code: str
+
+
+class LogoutRequest(BaseModel):
+    refresh_token: str
+
+
 class UserResponse(BaseModel):
     id: int
     username: str
@@ -190,7 +199,9 @@ async def register_student(
     payload: StudentRegisterRequest,
     db: Session = Depends(get_db),
 ):
-    from app.models.student import StudentAdmission, StudentProfile
+    import random
+    from datetime import datetime, timezone, timedelta
+    from app.models.student import StudentAdmission, StudentProfile, StudentOTP
     from app.models import User, UserTenant, DEFAULT_TENANT_ID
     from app.core.security import get_password_hash
     from app.core.tenant_context import bypass_tenant_filter
@@ -230,6 +241,7 @@ async def register_student(
             hashed_password=get_password_hash(payload.password),
             role="student",
             is_active=False,  # Inactive pending administrator approval!
+            is_email_verified=False,
             first_name=first_name,
             last_name=last_name,
         )
@@ -253,9 +265,73 @@ async def register_student(
             privacy_settings="public"
         )
         db.add(profile)
+
+        # 7. Create or update Student OTP
+        otp_code = f"{random.randint(100000, 999999)}"
+        otp_record = db.query(StudentOTP).filter(StudentOTP.email == payload.email).first()
+        if otp_record:
+            otp_record.otp_code = otp_code
+            otp_record.expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
+            otp_record.is_verified = False
+        else:
+            otp_record = StudentOTP(
+                email=payload.email,
+                otp_code=otp_code,
+                expires_at=datetime.now(timezone.utc) + timedelta(minutes=10),
+                is_verified=False
+            )
+            db.add(otp_record)
+
         db.commit()
 
-    return {"message": "Registration successful! Your account is pending institutional approval. Please contact your administrator."}
+    return {"status": "otp_sent", "message": "OTP verification code sent to your email."}
+
+
+@router.post("/verify-otp", summary="Verify student registration OTP")
+async def verify_otp(
+    payload: VerifyOTPRequest,
+    db: Session = Depends(get_db)
+):
+    from datetime import datetime, timezone
+    from app.models.student import StudentOTP
+    from app.models import User
+    from app.core.tenant_context import bypass_tenant_filter
+
+    with bypass_tenant_filter():
+        # Look up OTP record
+        otp_record = db.query(StudentOTP).filter(
+            StudentOTP.email == payload.email,
+            StudentOTP.otp_code == payload.otp_code
+        ).first()
+
+        if not otp_record:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid OTP code or email."
+            )
+
+        # Check expiration
+        expires_at = otp_record.expires_at
+        if expires_at.tzinfo is None:
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+
+        if datetime.now(timezone.utc) > expires_at:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="OTP code has expired."
+            )
+
+        # Mark OTP as verified
+        otp_record.is_verified = True
+
+        # Find the user and set is_email_verified = True
+        user = db.query(User).filter(User.email == payload.email).first()
+        if user:
+            user.is_email_verified = True
+
+        db.commit()
+
+    return {"message": "Email verified successfully. Your account is pending institutional approval."}
 
 
 @router.post("/select-tenant", summary="Select tenant after multi-tenant login")
@@ -358,12 +434,16 @@ async def refresh_token(
 
 @router.post("/logout", summary="Logout user")
 async def logout(
-    refresh_token: str,
+    payload: LogoutRequest,
     response: Response,
     current_user=Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     """Logout user"""
+    from app.services.auth_service import AuthService
+    service = AuthService(db)
+    service.logout(current_user.id, payload.refresh_token)
+
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
     return {"message": "Successfully logged out"}

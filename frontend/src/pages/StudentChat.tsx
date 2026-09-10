@@ -1,13 +1,15 @@
 import { useEffect, useState, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import StudentLayout from '@/components/StudentLayout';
 import api from '@/lib/api';
-import { Send, Search, User as UserIcon, MessageCircle } from 'lucide-react';
+import { Send, Search, MessageCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/Toast';
 
 export default function StudentChat() {
   const { user } = useAuth();
   const { showToast } = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [conversations, setConversations] = useState<any[]>([]);
   const [activePartner, setActivePartner] = useState<any | null>(null);
@@ -17,6 +19,25 @@ export default function StudentChat() {
   const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const messageEndRef = useRef<HTMLDivElement>(null);
+
+  const queryUserId = searchParams.get('userId');
+  const queryUsername = searchParams.get('username');
+  const queryName = searchParams.get('name');
+  const queryAvatar = searchParams.get('avatar');
+
+  useEffect(() => {
+    if (queryUserId && queryUsername) {
+      setTimeout(() => {
+        setActivePartner({
+          id: parseInt(queryUserId, 10),
+          username: queryUsername,
+          name: queryName || queryUsername,
+          profile_pic_url: queryAvatar || null
+        });
+        setSearchParams({});
+      }, 0);
+    }
+  }, [queryUserId, queryUsername, queryName, queryAvatar, setSearchParams]);
 
   const loadConversations = async () => {
     try {
@@ -37,13 +58,17 @@ export default function StudentChat() {
   };
 
   useEffect(() => {
-    loadConversations();
+    setTimeout(() => {
+      loadConversations();
+    }, 0);
   }, []);
 
   // Poll chat history every 3 seconds for real-time update feel
   useEffect(() => {
     if (!activePartner) return;
-    loadChatHistory(activePartner.id);
+    setTimeout(() => {
+      loadChatHistory(activePartner.id);
+    }, 0);
 
     const interval = setInterval(() => {
       loadChatHistory(activePartner.id);
@@ -86,7 +111,7 @@ export default function StudentChat() {
       setMessages(prev => [...prev, sentMsg]);
       setNewMessageText('');
       loadConversations();
-    } catch (err) {
+    } catch {
       showToast('Failed to send message.', 'error');
     }
   };

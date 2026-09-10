@@ -172,11 +172,13 @@ from app.api.v1 import permissions
 
 # Legacy routes deleted for social platform transition
 
-# Mount Prometheus metrics endpoint
-from prometheus_client import make_asgi_app
-
-metrics_app = make_asgi_app()
-app.mount("/metrics", metrics_app)
+# Mount Prometheus metrics endpoint if available
+try:
+    from prometheus_client import make_asgi_app
+    metrics_app = make_asgi_app()
+    app.mount("/metrics", metrics_app)
+except ImportError:
+    pass
 
 if __name__ == "__main__":
     import os
