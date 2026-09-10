@@ -1,6 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Users, ShieldAlert, Newspaper, ArrowRight, Activity, Calendar, Film, Play } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
 
 export default function VisitorLanding() {
   return (
@@ -40,7 +54,13 @@ export default function VisitorLanding() {
       <section className="relative px-6 pt-24 pb-20 max-w-7xl mx-auto text-center">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="relative z-10">
+        <motion.div 
+          className="relative z-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
           <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-indigo-300 mb-8 backdrop-blur-md">
             <Activity className="h-3.5 w-3.5 text-indigo-400" />
             <span>Assisi Social Platform • Multi-Campus Network</span>
@@ -72,22 +92,34 @@ export default function VisitorLanding() {
               <span>📚 Free Student Notes</span>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Portals Grid Section */}
       <section id="portals" className="px-6 py-20 bg-slate-950/40 relative border-y border-white/5">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
             <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Dedicated System Portals</h2>
             <p className="text-slate-400 max-w-md mx-auto text-sm md:text-base">
               Choose your dedicated workspace and access specialized workflows.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
             {/* Student Notes Card (100% Free & No Login) */}
-            <div className="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5 p-8 hover:border-emerald-500/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/5 duration-300">
+            <motion.div variants={fadeInUp} className="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5 p-8 hover:border-emerald-500/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/5 duration-300">
               <div className="bg-emerald-500/10 p-4 rounded-2xl w-14 h-14 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Users className="h-7 w-7 text-emerald-400" />
               </div>
@@ -102,10 +134,10 @@ export default function VisitorLanding() {
                 <span>Browse Student Notes</span>
                 <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
               </Link>
-            </div>
+            </motion.div>
 
             {/* Institution Space Card */}
-            <div className="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5 p-8 hover:border-indigo-500/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/5 duration-300">
+            <motion.div variants={fadeInUp} className="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5 p-8 hover:border-indigo-500/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/5 duration-300">
               <div className="bg-emerald-500/10 p-4 rounded-2xl w-14 h-14 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <BookOpen className="h-7 w-7 text-emerald-400" />
               </div>
@@ -120,10 +152,10 @@ export default function VisitorLanding() {
                 <span>Go to Institution Space</span>
                 <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
               </a>
-            </div>
+            </motion.div>
 
             {/* Admin Center Card */}
-            <div className="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5 p-8 hover:border-indigo-500/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/5 duration-300">
+            <motion.div variants={fadeInUp} className="group relative rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5 p-8 hover:border-indigo-500/40 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/5 duration-300">
               <div className="bg-rose-500/10 p-4 rounded-2xl w-14 h-14 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <ShieldAlert className="h-7 w-7 text-rose-400" />
               </div>
@@ -138,23 +170,35 @@ export default function VisitorLanding() {
                 <span>Enter Super Admin Panel</span>
                 <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Gurukula Branches Section */}
       <section id="branches" className="px-6 py-20 bg-slate-900/60 relative border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
             <span className="text-xs font-bold text-emerald-400 tracking-wider uppercase mb-3 block">Multi-Campus Network</span>
             <h2 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">Our 11 Gurukula Institution Branches</h2>
             <p className="text-slate-400 max-w-xl mx-auto text-sm md:text-base">
               Empowering students across 11 premier Gurukula branches with holistic education, discipline, and modern facilities.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
             {[
               { name: "Liebhaus Gurukula", location: "Kidangoor", code: "liebhaus", tag: "Design & Mentoring" },
               { name: "Bethsleeha Gurukula", location: "Kaduthuruthy", code: "bethsleeha", tag: "Value Education" },
@@ -168,7 +212,8 @@ export default function VisitorLanding() {
               { name: "Mitraniketan Boys Gurukula", location: "Vagamon", code: "assisivagamon", tag: "Residential Campus" },
               { name: "Thopramkudy Gurukula", location: "Thopramkudy", code: "thopramkudy", tag: "Digital & Technical" },
             ].map((branch, idx) => (
-              <div
+              <motion.div
+                variants={fadeInUp}
                 key={idx}
                 className="group p-6 rounded-2xl bg-slate-900/90 border border-white/5 hover:border-emerald-500/40 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/5"
               >
@@ -192,16 +237,21 @@ export default function VisitorLanding() {
                   <span>View Branch Updates</span>
                   <ArrowRight className="h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Overview Statistics Section */}
       <section id="about" className="px-6 py-20 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
             <span className="text-xs font-bold text-indigo-400 tracking-wider uppercase mb-3 block">Integrated Platform</span>
             <h2 className="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">The Modern Campus Network</h2>
             <p className="text-slate-400 text-base mb-6 leading-relaxed">
@@ -227,15 +277,21 @@ export default function VisitorLanding() {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="relative">
+          </motion.div>
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-3xl blur-[40px] opacity-25" />
             <img
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
               alt="Campus Teamwork"
               className="rounded-3xl border border-white/10 relative z-10 shadow-2xl"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
 
