@@ -7,6 +7,10 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import PublicFeed from '@/pages/PublicFeed';
 import VisitorLanding from '@/pages/VisitorLanding';
 import InstitutionProfilePage from '@/pages/InstitutionProfilePage';
+import AdminLogin from '@/pages/AdminLogin';
+import BranchLogin from '@/pages/BranchLogin';
+import AdminDashboard from '@/pages/AdminDashboard';
+import BranchDashboard from '@/pages/BranchDashboard';
 
 // Lazy-loaded private student social platform pages
 const CampusReels = lazy(() => import('@/pages/CampusReels'));
@@ -73,11 +77,34 @@ function AppRoutes() {
         <Route path="/notes" element={<PublicFeed />} />
         <Route path="/reels" element={<CampusReels />} />
         <Route path="/institutions/:id" element={<InstitutionProfilePage />} />
-        <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/branch-login" element={<BranchLogin />} />
+        <Route path="/branch-login/:branchCode" element={<BranchLogin />} />
+        <Route path="/login" element={<Navigate to="/branch-login" replace />} />
 
-        {/* External Portal Redirects */}
-        <Route path="/dashboard" element={<ExternalRedirect url="http://localhost:3002" />} />
-        <Route path="/admin-panel" element={<ExternalRedirect url="http://localhost:3001" />} />
+        {/* Dashboard Portals */}
+        <Route path="/dashboard" element={<Navigate to="/branch-login" replace />} />
+        <Route path="/admin-panel" element={<Navigate to="/admin-login" replace />} />
+
+        {/* Platform Administration */}
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute roles={['admin']}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        
+        {/* Branch Management */}
+        <Route
+          path="/branch-dashboard"
+          element={
+            <ProtectedRoute roles={['manager']}>
+              <BranchDashboard />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Private Student Social Platform Pages */}
         <Route

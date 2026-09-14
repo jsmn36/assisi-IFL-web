@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import StudentLayout from '@/components/StudentLayout';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/lib/api';
+import { mockBranches } from '@/lib/mockData';
 import { 
   Heart, 
   MessageCircle, 
@@ -74,7 +75,7 @@ export default function StudentHome() {
       const searchRes = await api.searchSocial('');
       // Filter out self and followed
       const allUsers = searchRes.users || [];
-      const following = await api.getFollowing(user?.id || 0);
+      const following = await api.getFollowing(user?.id || '');
       const followingIds = following.map(f => f.id);
       
       const filtered = allUsers.filter(
@@ -382,37 +383,31 @@ export default function StudentHome() {
 
         {/* Right Column: Suggested followers & Pinned campus notices */}
         <div className="space-y-6">
-          {/* Suggested Followers */}
+          {/* Explore Campuses */}
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
-            <h2 className="font-bold text-sm mb-4 text-slate-500 uppercase tracking-wider text-[11px]">
-              Suggested Accounts
+            <h2 className="font-bold text-sm mb-4 text-slate-500 uppercase tracking-wider text-[11px] flex items-center gap-2">
+              <Building className="h-4 w-4 text-indigo-500" />
+              Explore Campuses
             </h2>
-            <div className="space-y-4">
-              {suggestions.length === 0 ? (
-                <p className="text-xs text-slate-400 italic">No new suggestions.</p>
-              ) : (
-                 suggestions.map((s) => (
-                  <div key={s.id} className="flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/40 p-1.5 -mx-1.5 rounded-xl transition">
-                    <Link to={`/students/profile/${s.username}`} className="flex items-center gap-2.5 hover:opacity-80 transition overflow-hidden">
-                      <img
-                        src={s.profile_pic_url || `https://api.dicebear.com/7.x/adventurer/svg?seed=${s.username}`}
-                        alt={s.username}
-                        className="h-8.5 w-8.5 rounded-full bg-slate-100 dark:bg-slate-800 flex-shrink-0"
-                      />
-                      <div className="overflow-hidden max-w-[100px]">
-                        <h4 className="font-bold text-xs truncate text-slate-900 dark:text-white">{s.name}</h4>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate">@{s.username}</p>
-                      </div>
-                    </Link>
-                    <button
-                      onClick={() => handleFollowSuggestion(s.id)}
-                      className="bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition flex-shrink-0"
-                    >
-                      Follow
-                    </button>
+            <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800">
+              {mockBranches.map((b) => (
+                <div key={b.id} className="flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/40 p-1.5 -mx-1.5 rounded-xl transition">
+                  <div className="flex items-center gap-2.5 overflow-hidden">
+                    <div className="h-8.5 w-8.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center flex-shrink-0 border border-indigo-100 dark:border-indigo-800">
+                      <Building className="h-4 w-4 text-indigo-500" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <h4 className="font-bold text-xs truncate text-slate-900 dark:text-white">{b.name}</h4>
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 truncate">{b.tag}</p>
+                    </div>
                   </div>
-                ))
-              )}
+                  <button
+                    className="bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold px-3 py-1.5 rounded-lg transition flex-shrink-0"
+                  >
+                    View
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 

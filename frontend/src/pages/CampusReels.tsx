@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import api from '@/lib/api';
 import { useToast } from '@/components/Toast';
+import { useTheme } from '@/contexts/ThemeContext';
+import { getUploads } from '@/lib/storage';
 
 interface ReelPost {
   id: number;
@@ -102,20 +104,34 @@ export default function CampusReels() {
   const fetchReels = async () => {
     try {
       const posts = await api.getPosts({ type: 'video' });
+      let finalReels = [...INITIAL_SEED_REELS];
+      
       if (Array.isArray(posts) && posts.length > 0) {
         // Filter valid video posts
         const videoPosts = posts.filter(p => p.media_url && p.media_url.trim().length > 0);
         if (videoPosts.length > 0) {
-          setReels(videoPosts);
-          initCounts(videoPosts);
-          return;
+          finalReels = videoPosts;
         }
       }
-      setReels(INITIAL_SEED_REELS);
-      initCounts(INITIAL_SEED_REELS);
+
+      // Check for locally uploaded reels from persistent storage
+      const localContents = await getUploads();
+      const localReels = localContents.filter(c => c.type === 'video');
+      if (localReels.length > 0) {
+        finalReels = [...localReels, ...finalReels];
+      }
+
+      setReels(finalReels);
+      initCounts(finalReels);
     } catch {
-      setReels(INITIAL_SEED_REELS);
-      initCounts(INITIAL_SEED_REELS);
+      let finalReels = [...INITIAL_SEED_REELS];
+      const localContents = await getUploads();
+      const localReels = localContents.filter(c => c.type === 'video');
+      if (localReels.length > 0) {
+        finalReels = [...localReels, ...finalReels];
+      }
+      setReels(finalReels);
+      initCounts(finalReels);
     }
   };
 
@@ -270,14 +286,7 @@ export default function CampusReels() {
             <option value="thopramkudy">Thopramkudy Gurukula</option>
           </select>
 
-          {/* Upload Reel Button */}
-          <button
-            onClick={() => setShowUploadModal(true)}
-            className="bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white p-2 rounded-xl text-xs font-bold shadow-lg flex items-center gap-1 transition-all"
-            title="Upload Branch Reel"
-          >
-            <Plus className="h-4 w-4" />
-          </button>
+
         </div>
       </header>
 
@@ -503,91 +512,7 @@ export default function CampusReels() {
         </div>
       )}
 
-      {/* Upload Reel Modal */}
-      {showUploadModal && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700/80 rounded-3xl p-6 text-white shadow-2xl relative">
-            <button
-              onClick={() => setShowUploadModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
-            >
-              <X className="h-5 w-5" />
-            </button>
 
-            <div className="flex items-center gap-2 mb-4">
-              <div className="p-2 rounded-xl bg-rose-500/20 text-rose-400">
-                <Sparkles className="h-5 w-5" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">Publish Campus Video Reel</h3>
-                <p className="text-xs text-slate-400">Upload video updates across 11 Gurukula branches</p>
-              </div>
-            </div>
-
-            <form onSubmit={handleCreateReel} className="space-y-3 text-xs">
-              <div>
-                <label className="block text-slate-300 font-semibold mb-1">Reel Title *</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Science Exhibition & Lab Demonstration"
-                  value={uploadTitle}
-                  onChange={(e) => setUploadTitle(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:border-indigo-500 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-semibold mb-1">Select Gurukula Branch *</label>
-                <select
-                  value={uploadBranch}
-                  onChange={(e) => setUploadBranch(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:border-indigo-500 focus:outline-none"
-                >
-                  <option value="Liebhaus Gurukula">Liebhaus Gurukula (Kidangoor)</option>
-                  <option value="Mitraniketan Boys Gurukula">Mitraniketan Boys Gurukula (Vagamon)</option>
-                  <option value="Pala Gurukula">Pala Gurukula (Pala)</option>
-                  <option value="Bethsleeha Gurukula">Bethsleeha Gurukula (Kaduthuruthy)</option>
-                  <option value="St.Alphonsa Gurukula">St.Alphonsa Gurukula (Bharanaganam)</option>
-                  <option value="Thopramkudy Gurukula">Thopramkudy Gurukula (Thopramkudy)</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-semibold mb-1">Video URL (.mp4 or video link) *</label>
-                <input
-                  type="url"
-                  required
-                  placeholder="https://assets.mixkit.co/videos/preview/mixkit-..."
-                  value={uploadVideoUrl}
-                  onChange={(e) => setUploadVideoUrl(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white font-mono text-[11px] focus:border-indigo-500 focus:outline-none"
-                />
-                <p className="text-[10px] text-slate-500 mt-1">Paste any direct MP4 video link or hosted video stream URL.</p>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-semibold mb-1">Hashtags</label>
-                <input
-                  type="text"
-                  placeholder="#Gurukula #CampusLife #AssisiSocial"
-                  value={uploadHashtags}
-                  onChange={(e) => setUploadHashtags(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:border-indigo-500 focus:outline-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg mt-2 transition"
-              >
-                {isSubmitting ? 'Publishing Reel...' : 'Publish Campus Reel 🎬'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

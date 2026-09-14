@@ -38,7 +38,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
   };
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'light' : 'dark');
   };
 
   const navItems = [
@@ -127,7 +127,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
             onClick={toggleTheme}
             className="w-full flex items-center gap-4 px-4 py-3 rounded-xl font-medium text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all"
           >
-            {theme === 'dark' ? (
+            {theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? (
               <>
                 <Sun className="h-5 w-5 text-amber-500" />
                 <span>Light Mode</span>
