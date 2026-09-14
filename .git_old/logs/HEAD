@@ -1,0 +1,19 @@
+0000000000000000000000000000000000000000 652fcccfdb61bc8fdb2eeba75ea7163c768c60cd jsmn36 <josemontomy2029@mca.ajce.in> 1783752774 +0530	commit (initial): Initial commit of program folder
+652fcccfdb61bc8fdb2eeba75ea7163c768c60cd 0000000000000000000000000000000000000000 jsmn36 <josemontomy2029@mca.ajce.in> 1783752779 +0530	Branch: renamed refs/heads/main to refs/heads/main
+652fcccfdb61bc8fdb2eeba75ea7163c768c60cd 652fcccfdb61bc8fdb2eeba75ea7163c768c60cd jsmn36 <josemontomy2029@mca.ajce.in> 1783752779 +0530	Branch: renamed refs/heads/main to refs/heads/main
+652fcccfdb61bc8fdb2eeba75ea7163c768c60cd 83c533c04ac4aab95dadc26e436582865e064dc1 jsmn36 <josemontomy2029@mca.ajce.in> 1789014770 +0530	commit: Initial commit
+83c533c04ac4aab95dadc26e436582865e064dc1 0000000000000000000000000000000000000000 jsmn36 <josemontomy2029@mca.ajce.in> 1789014856 +0530	Branch: renamed refs/heads/main to refs/heads/main
+83c533c04ac4aab95dadc26e436582865e064dc1 83c533c04ac4aab95dadc26e436582865e064dc1 jsmn36 <josemontomy2029@mca.ajce.in> 1789014856 +0530	Branch: renamed refs/heads/main to refs/heads/main
+83c533c04ac4aab95dadc26e436582865e064dc1 453eb77b58645ce718a3ba6d34b573ff1a3b3b2e jsmn36 <josemontomy2029@mca.ajce.in> 1789015842 +0530	commit: Initial commit
+453eb77b58645ce718a3ba6d34b573ff1a3b3b2e 0000000000000000000000000000000000000000 jsmn36 <josemontomy2029@mca.ajce.in> 1789015842 +0530	Branch: renamed refs/heads/main to refs/heads/main
+453eb77b58645ce718a3ba6d34b573ff1a3b3b2e 453eb77b58645ce718a3ba6d34b573ff1a3b3b2e jsmn36 <josemontomy2029@mca.ajce.in> 1789015842 +0530	Branch: renamed refs/heads/main to refs/heads/main
+453eb77b58645ce718a3ba6d34b573ff1a3b3b2e 2c8426e48ddfed4f2f57e9b946850c2a2bf3a325 jsmn36 <josemontomy2029@mca.ajce.in> 1789016535 +0530	commit: chore: remove unnecessary portals and background job scripts
+2c8426e48ddfed4f2f57e9b946850c2a2bf3a325 6484b2b61c77bb751336a34c312c3ffbe8b23f14 jsmn36 <josemontomy2029@mca.ajce.in> 1789016605 +0530	pull origin main --rebase (start): checkout 6484b2b61c77bb751336a34c312c3ffbe8b23f14
+6484b2b61c77bb751336a34c312c3ffbe8b23f14 1438a22e2f2e667b08df296fb365c1a0f456cdb0 jsmn36 <josemontomy2029@mca.ajce.in> 1789016605 +0530	pull origin main --rebase (pick): chore: remove unnecessary portals and background job scripts
+1438a22e2f2e667b08df296fb365c1a0f456cdb0 1438a22e2f2e667b08df296fb365c1a0f456cdb0 jsmn36 <josemontomy2029@mca.ajce.in> 1789016605 +0530	pull origin main --rebase (finish): returning to refs/heads/main
+1438a22e2f2e667b08df296fb365c1a0f456cdb0 b543f1ffd2820664a8e4af5ad31535e51b93dcb7 jsmn36 <josemontomy2029@mca.ajce.in> 1789041304 +0530	commit: Update project
+b543f1ffd2820664a8e4af5ad31535e51b93dcb7 0000000000000000000000000000000000000000 jsmn36 <josemontomy2029@mca.ajce.in> 1789041304 +0530	Branch: renamed refs/heads/main to refs/heads/main
+b543f1ffd2820664a8e4af5ad31535e51b93dcb7 b543f1ffd2820664a8e4af5ad31535e51b93dcb7 jsmn36 <josemontomy2029@mca.ajce.in> 1789041304 +0530	Branch: renamed refs/heads/main to refs/heads/main
+b543f1ffd2820664a8e4af5ad31535e51b93dcb7 0000000000000000000000000000000000000000 jsmn36 <josemontomy2029@mca.ajce.in> 1789041501 +0530	Branch: renamed refs/heads/main to refs/heads/main
+b543f1ffd2820664a8e4af5ad31535e51b93dcb7 b543f1ffd2820664a8e4af5ad31535e51b93dcb7 jsmn36 <josemontomy2029@mca.ajce.in> 1789041501 +0530	Branch: renamed refs/heads/main to refs/heads/main
+b543f1ffd2820664a8e4af5ad31535e51b93dcb7 0a20bf046a88e92b78dd55ebd64215059828d436 jsmn36 <josemontomy2029@mca.ajce.in> 1789354386 +0530	commit: Update frontend with routing, auth, and layout changes
