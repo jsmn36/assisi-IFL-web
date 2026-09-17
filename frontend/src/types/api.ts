@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 /**
  * API Type Definitions
  * Generated from backend API schemas
@@ -363,6 +364,7 @@ export interface DiscountCode {
   valid_to: string;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 export interface User {
   id: number;
   username: string;

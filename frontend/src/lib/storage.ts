@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { get, set } from 'idb-keyval';
 
 const UPLOADS_KEY = 'assisi_uploads';

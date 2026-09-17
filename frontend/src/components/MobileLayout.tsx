@@ -25,7 +25,7 @@ import {
 export function MobileLayout({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { user, logout, hasRole } = (useAuth as any)(); // Avoiding strict type errors if context not fully ready
+  const { user, logout, hasRole } = useAuth(); // Avoiding strict type errors if context not fully ready
   const location = useLocation();
 
   // Detect mobile

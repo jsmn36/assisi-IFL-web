@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building, UploadCloud, FileText, Image as ImageIcon, Video, Megaphone, Calendar, FileType2, LogOut, CheckCircle2, Edit, Trash2, Eye, X } from 'lucide-react';

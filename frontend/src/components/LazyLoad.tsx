@@ -40,11 +40,12 @@ export function LazyLoad({
       }
     );
 
-    observer.observe(containerRef.current);
+    const currentContainer = containerRef.current;
+    observer.observe(currentContainer);
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (currentContainer) {
+        observer.unobserve(currentContainer);
       }
     };
   }, [threshold, rootMargin]);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Performance Monitor Component
  * Display performance metrics (dev mode only)

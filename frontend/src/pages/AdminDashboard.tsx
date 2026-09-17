@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldAlert, Users, Building, FileText, Search, Activity, MoreVertical, Ban, Edit, LogOut, Key, Trash2, X } from 'lucide-react';

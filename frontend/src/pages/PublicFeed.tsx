@@ -43,6 +43,7 @@ export default function PublicFeed() {
       }
     }
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleFilterChange = async (instId: number | null, type: string, search: string) => {

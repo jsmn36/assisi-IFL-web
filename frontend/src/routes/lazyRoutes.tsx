@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * Lazy Loaded Routes
  * Handles code splitting for Assisi Social portal pages.

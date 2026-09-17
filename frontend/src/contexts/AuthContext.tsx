@@ -33,6 +33,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchUserProfile = async (authUser: User) => {
+    try {
+      // In the future, you might want to fetch additional role/profile data from a 'profiles' table
+      // For now, we'll assign a default 'student' role if they log in
+      
+      // Try to get profile from database
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authUser.id)
+        .single();
+
+      setUser({
+        id: authUser.id,
+        email: authUser.email || '',
+        role: profile?.role || 'student', // Default role
+        username: profile?.username || authUser.email?.split('@')[0],
+        first_name: profile?.first_name,
+        last_name: profile?.last_name,
+      });
+    } catch (err) {
+      console.error('Error fetching user profile:', err);
+      // Fallback user
+      setUser({
+        id: authUser.id,
+        email: authUser.email || '',
+        role: 'student',
+      });
+    }
+  };
+
   useEffect(() => {
     // Check active sessions and sets the user
     const initializeAuth = async () => {
@@ -82,36 +113,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const fetchUserProfile = async (authUser: User) => {
-    try {
-      // In the future, you might want to fetch additional role/profile data from a 'profiles' table
-      // For now, we'll assign a default 'student' role if they log in
-      
-      // Try to get profile from database
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', authUser.id)
-        .single();
-
-      setUser({
-        id: authUser.id,
-        email: authUser.email || '',
-        role: profile?.role || 'student', // Default role
-        username: profile?.username || authUser.email?.split('@')[0],
-        first_name: profile?.first_name,
-        last_name: profile?.last_name,
-      });
-    } catch (err) {
-      console.error('Error fetching user profile:', err);
-      // Fallback user
-      setUser({
-        id: authUser.id,
-        email: authUser.email || '',
-        role: 'student',
-      });
-    }
-  };
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);

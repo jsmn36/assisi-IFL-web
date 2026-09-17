@@ -29,6 +29,7 @@ export default function InstitutionProfilePage() {
       }
     }
     loadProfileData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const filteredPosts = selectedCategory

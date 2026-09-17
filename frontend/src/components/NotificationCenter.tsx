@@ -1,9 +1,8 @@
-// @ts-nocheck
 /**
  * Notification Center Component
  * Displays notification history and allows sending notifications
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/Card';
 import { Button } from '@/components/Button';
 import { useToast } from '@/components/Toast';
@@ -36,11 +35,7 @@ export function NotificationCenter({ guestId, reservationId }: NotificationCente
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
 
-  useEffect(() => {
-    loadNotifications();
-  }, [guestId, reservationId]);
-
-  const loadNotifications = async () => {
+  const loadNotifications = useCallback(async () => {
     try {
       const response = await api.getNotificationHistory(guestId, 20);
       setNotifications(response.notifications);
@@ -49,7 +44,11 @@ export function NotificationCenter({ guestId, reservationId }: NotificationCente
     } finally {
       setLoading(false);
     }
-  };
+  }, [guestId]);
+
+  useEffect(() => {
+    loadNotifications();
+  }, [loadNotifications, reservationId]);
 
   const handleSendConfirmation = async () => {
     if (!reservationId) {
@@ -60,8 +59,8 @@ export function NotificationCenter({ guestId, reservationId }: NotificationCente
       await api.sendReservationConfirmation(reservationId);
       showToast('Confirmation email queued!', 'success');
       setTimeout(loadNotifications, 2000);
-    } catch (err: any) {
-      showToast(err.error || 'Failed to send email', 'error');
+    } catch (err: unknown) {
+      showToast((err as { error?: string }).error || 'Failed to send email', 'error');
     }
   };
 
@@ -74,8 +73,8 @@ export function NotificationCenter({ guestId, reservationId }: NotificationCente
       await api.sendCheckInReminder(reservationId);
       showToast('Check-in reminder queued!', 'success');
       setTimeout(loadNotifications, 2000);
-    } catch (err: any) {
-      showToast(err.error || 'Failed to send email', 'error');
+    } catch (err: unknown) {
+      showToast((err as { error?: string }).error || 'Failed to send email', 'error');
     }
   };
 

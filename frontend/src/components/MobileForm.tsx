@@ -21,10 +21,10 @@ interface FormField {
 
 interface MobileFormProps {
   fields: FormField[];
-  onSubmit: (data: any) => void;
+  onSubmit: (data: Record<string, unknown>) => void;
   submitLabel?: string;
   loading?: boolean;
-  initialValues?: any;
+  initialValues?: Record<string, unknown>;
 }
 
 export function MobileForm({
@@ -35,10 +35,10 @@ export function MobileForm({
   initialValues = {},
 }: MobileFormProps) {
   const isMobile = useIsMobile();
-  const [formData, setFormData] = useState(initialValues);
+  const [formData, setFormData] = useState<Record<string, unknown>>(initialValues || {});
 
-  const handleChange = (name: string, value: any) => {
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+  const handleChange = (name: string, value: unknown) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -61,7 +61,7 @@ export function MobileForm({
           
           {field.type === 'select' ? (
             <Select
-              value={formData[field.name] || ''}
+              value={(formData[field.name] as string) || ''}
               onChange={(e) => handleChange(field.name, e.target.value)}
               required={field.required}
               className={inputClassName}
@@ -72,7 +72,7 @@ export function MobileForm({
             />
           ) : field.type === 'textarea' ? (
             <textarea
-              value={formData[field.name] || ''}
+              value={(formData[field.name] as string) || ''}
               onChange={(e) => handleChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}
@@ -82,7 +82,7 @@ export function MobileForm({
           ) : (
             <Input
               type={field.type}
-              value={formData[field.name] || ''}
+              value={(formData[field.name] as string) || ''}
               onChange={(e) => handleChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               required={field.required}

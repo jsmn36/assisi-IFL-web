@@ -15,15 +15,15 @@ interface FilterConfig {
 
 interface AdvancedFiltersProps {
   filters: FilterConfig[];
-  onFilterChange: (filters: Record<string, unknown>) => void;
+  onFilterChange: (filters: Record<string, any>) => void;
   onReset: () => void;
 }
 
 export function AdvancedFilters({ filters, onFilterChange, onReset }: AdvancedFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [filterValues, setFilterValues] = useState<Record<string, unknown>>({});
+  const [filterValues, setFilterValues] = useState<Record<string, any>>({});
 
-  const handleFilterChange = (id: string, value: unknown) => {
+  const handleFilterChange = (id: string, value: any) => {
     const newFilters = { ...filterValues, [id]: value };
     setFilterValues(newFilters);
     onFilterChange(newFilters);
@@ -66,7 +66,7 @@ export function AdvancedFilters({ filters, onFilterChange, onReset }: AdvancedFi
                   {filter.type === 'text' && (
                     <Input
                       id={filter.id}
-                      value={filterValues[filter.id] || ''}
+                      value={filterValues[filter.id] as string || ''}
                       onChange={(e) => handleFilterChange(filter.id, e.target.value)}
                       placeholder={`Filter by ${filter.label.toLowerCase()}...`}
                     />
@@ -74,7 +74,7 @@ export function AdvancedFilters({ filters, onFilterChange, onReset }: AdvancedFi
                   {filter.type === 'select' && filter.options && (
                     <Select
                       id={filter.id}
-                      value={filterValues[filter.id] || ''}
+                      value={filterValues[filter.id] as string || ''}
                       onChange={(e) => handleFilterChange(filter.id, e.target.value)}
                       options={[{ value: '', label: `All ${filter.label}` }, ...filter.options]}
                     />
@@ -83,7 +83,7 @@ export function AdvancedFilters({ filters, onFilterChange, onReset }: AdvancedFi
                     <Input
                       id={filter.id}
                       type="date"
-                      value={filterValues[filter.id] || ''}
+                      value={filterValues[filter.id] as string || ''}
                       onChange={(e) => handleFilterChange(filter.id, e.target.value)}
                     />
                   )}
@@ -91,13 +91,13 @@ export function AdvancedFilters({ filters, onFilterChange, onReset }: AdvancedFi
                     <div className="flex gap-2">
                       <Input
                         type="date"
-                        value={filterValues[`${filter.id}_start`] || ''}
+                        value={filterValues[`${filter.id}_start`] as string || ''}
                         onChange={(e) => handleFilterChange(`${filter.id}_start`, e.target.value)}
                         placeholder="Start"
                       />
                       <Input
                         type="date"
-                        value={filterValues[`${filter.id}_end`] || ''}
+                        value={filterValues[`${filter.id}_end`] as string || ''}
                         onChange={(e) => handleFilterChange(`${filter.id}_end`, e.target.value)}
                         placeholder="End"
                       />

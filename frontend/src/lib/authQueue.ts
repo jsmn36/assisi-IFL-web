@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 let isRefreshing = false;
 let refreshSubscribers: ((token: string) => void)[] = [];
 

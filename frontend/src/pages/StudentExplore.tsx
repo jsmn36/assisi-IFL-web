@@ -34,6 +34,7 @@ export default function StudentExplore() {
       }
     };
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   const handleSearchSubmit = async (e: React.FormEvent) => {

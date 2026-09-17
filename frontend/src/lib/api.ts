@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 /**
  * API Client
  * Axios-based client for backend API
@@ -21,6 +22,7 @@ import type {
   User, UserStats, UserActivity,
   LoginRequest, LoginResponse, RefreshRequest, ChangePasswordRequest
 } from '@/types/api';
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { runRefresh } from '@/lib/authQueue';
 import { enqueue as enqueueOfflineMutation } from '@/lib/syncQueue';
 

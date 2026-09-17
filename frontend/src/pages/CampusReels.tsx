@@ -97,9 +97,20 @@ export default function CampusReels() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { showToast } = useToast();
 
-  useEffect(() => {
-    fetchReels();
-  }, []);
+  const initCounts = (list: ReelPost[]) => {
+    const counts: Record<number, number> = {};
+    const comms: Record<number, string[]> = {};
+    list.forEach((r, idx) => {
+      counts[r.id] = Math.floor(Math.random() * 40) + 12 + idx * 5;
+      comms[r.id] = [
+        "Incredible campus vibe! 🌟",
+        "Proud to be an Assisi student! ❤️",
+        "Great work by the Gurukula team 👏"
+      ];
+    });
+    setLikeCounts(counts);
+    setComments(comms);
+  };
 
   const fetchReels = async () => {
     try {
@@ -135,20 +146,14 @@ export default function CampusReels() {
     }
   };
 
-  const initCounts = (list: ReelPost[]) => {
-    const counts: Record<number, number> = {};
-    const comms: Record<number, string[]> = {};
-    list.forEach((r, idx) => {
-      counts[r.id] = Math.floor(Math.random() * 40) + 12 + idx * 5;
-      comms[r.id] = [
-        "Incredible campus vibe! 🌟",
-        "Proud to be an Assisi student! ❤️",
-        "Great work by the Gurukula team 👏"
-      ];
-    });
-    setLikeCounts(counts);
-    setComments(comms);
-  };
+  useEffect(() => {
+    fetchReels();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+
+
 
   const filteredReels = selectedBranch === 'all' 
     ? reels 

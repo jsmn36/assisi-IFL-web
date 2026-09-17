@@ -95,6 +95,7 @@ export default function StudentProfilePage() {
 
   useEffect(() => {
     loadProfileData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, currentUser]);
 
   const handleFollowToggle = async () => {

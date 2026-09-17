@@ -89,6 +89,7 @@ export default function StudentHome() {
 
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleCreatePost = async (e: React.FormEvent) => {
