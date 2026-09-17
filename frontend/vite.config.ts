@@ -55,4 +55,11 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'axios'],
   },
+  ...(process.env.VITEST && {
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: './vitest.setup.ts',
+    },
+  }),
 })
