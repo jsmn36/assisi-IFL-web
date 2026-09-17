@@ -15,15 +15,15 @@ interface FilterConfig {
 
 interface AdvancedFiltersProps {
   filters: FilterConfig[];
-  onFilterChange: (filters: Record<string, any>) => void;
+  onFilterChange: (filters: Record<string, unknown>) => void;
   onReset: () => void;
 }
 
 export function AdvancedFilters({ filters, onFilterChange, onReset }: AdvancedFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [filterValues, setFilterValues] = useState<Record<string, any>>({});
+  const [filterValues, setFilterValues] = useState<Record<string, unknown>>({});
 
-  const handleFilterChange = (id: string, value: any) => {
+  const handleFilterChange = (id: string, value: unknown) => {
     const newFilters = { ...filterValues, [id]: value };
     setFilterValues(newFilters);
     onFilterChange(newFilters);

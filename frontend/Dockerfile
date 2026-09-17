@@ -18,9 +18,9 @@ FROM node:20-alpine AS builder
 WORKDIR /build
 
 # Install deps with the lockfile for reproducibility.
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN --mount=type=cache,target=/root/.npm \
-    npm ci --no-audit --no-fund
+    npm install --no-audit --no-fund
 
 # Copy source after deps so dep changes don't bust the source layer cache.
 COPY . ./

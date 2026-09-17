@@ -19,6 +19,7 @@ interface State {
   error: Error | null;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export class ErrorBoundary extends Component<Props, State> {
   state: State = { error: null };
 

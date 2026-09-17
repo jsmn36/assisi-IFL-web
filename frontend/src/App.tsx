@@ -47,17 +47,6 @@ function ProtectedRoute({ children, roles }: ProtectedRouteProps) {
   return <>{children}</>;
 }
 
-function ExternalRedirect({ url }: { url: string }) {
-  React.useEffect(() => {
-    window.location.href = url;
-  }, [url]);
-
-  return (
-    <div className="h-screen w-screen bg-slate-900 flex items-center justify-center text-slate-400">
-      Redirecting to portal...
-    </div>
-  );
-}
 
 function PageLoading() {
   return (
