@@ -1041,16 +1041,22 @@ export class ApiClient {
 
 export function getMediaUrl(url?: string | null): string {
   if (!url) return '';
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+
+  if (
+    url.startsWith('http://') ||
+    url.startsWith('https://') ||
+    url.startsWith('data:')
+  ) {
     return url;
   }
-  if (url.startsWith('/static/')) {
-    return `http://localhost:8000${url}`;
-  }
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://assisi-ifl-web.onrender.com';
+
   if (url.startsWith('/')) {
-    return `http://localhost:8000${url}`;
+    return `${baseUrl}${url}`;
   }
-  return `http://localhost:8000/${url}`;
+
+  return `${baseUrl}/${url}`;
 }
 
 export function isVideoMedia(type?: string | null, mediaUrl?: string | null): boolean {
