@@ -65,7 +65,7 @@ export default function BranchDashboard() {
         mediaBlob: selectedFile || null,
         media_url: selectedFile ? URL.createObjectURL(selectedFile) : null,
         institution_name: branchName || 'Assisi Institute',
-        institution_id: 1,
+        institution_id: user?.id || 1,
         hashtags: branchTag ? `#${branchTag.replace(/\s+/g, '')} #Update` : '#AssisiUpdates',
         created_at: new Date().toISOString(),
         type: determinedType,
