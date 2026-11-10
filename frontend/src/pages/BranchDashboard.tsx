@@ -71,7 +71,14 @@ export default function BranchDashboard() {
         type: determinedType,
       };
 
-      await saveUpload(newContent);
+      try {
+        await saveUpload(newContent);
+      } catch (err) {
+        console.error(err);
+        setIsUploading(false);
+        showToast('Upload failed. Please try again.', 'error');
+        return;
+      }
 
       setIsUploading(false);
       setSelectedFile(null);

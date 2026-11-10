@@ -2,9 +2,23 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from .config import settings
-from .database import get_db
+from fastapi.middleware.cors import CORSMiddleware
+from .database import get_db, Base, engine
+from .routers import uploads
 
 app = FastAPI(title="Assisi IFL Web API", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Create tables (uploads) if they don't exist yet
+Base.metadata.create_all(bind=engine)
+
+app.include_router(uploads.router)
 
 @app.get("/")
 def read_root() -> dict[str, str]:
