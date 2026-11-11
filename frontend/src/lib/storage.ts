@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Uploads are stored on the backend (Render + Postgres) so every visitor sees them.
-const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+const API_BASE = (import.meta.env.VITE_API_ROOT_URL || 'https://assisi-ifl-web-1.onrender.com').replace(/\/$/, '');
 
 export async function getUploads(): Promise<any[]> {
   try {
