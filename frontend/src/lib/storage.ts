@@ -24,7 +24,7 @@ export async function saveUpload(newContent: any): Promise<void> {
   if (newContent.mediaBlob) form.append('file', newContent.mediaBlob);
 
   const res = await fetch(`${API_BASE}/uploads`, { method: 'POST', body: form });
-  if (!res.ok) throw new Error(`Upload failed (HTTP ${res.status})`);
+  if (!res.ok) throw new Error(`Upload failed (HTTP ${res.status}): ${await res.text()}`);
 }
 
 export async function deleteUpload(id: number): Promise<void> {
