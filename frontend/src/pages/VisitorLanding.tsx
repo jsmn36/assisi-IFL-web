@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BookOpen, Users, ShieldAlert, ArrowRight, Activity, Calendar, Film, Globe, ChevronRight, Building, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
+import B2WinnersSlideshow from '@/components/B2WinnersSlideshow';
 
 const fadeInUp = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
@@ -258,11 +259,7 @@ export default function VisitorLanding() {
             <div className="absolute -inset-8 bg-gradient-to-tr from-amber-200 dark:from-[#D4AF37]/20 to-transparent rounded-[3rem] blur-2xl opacity-50 dark:opacity-40 transition-colors duration-500" />
             {/* Thick glass border container */}
             <div className="p-4 rounded-[2.5rem] bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/20 backdrop-blur-xl relative z-10 shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
-                alt="Campus Teamwork"
-                className="rounded-[2rem] border border-slate-200 dark:border-white/10 w-full h-[500px] object-cover"
-              />
+              <B2WinnersSlideshow />
               
               {/* Floating element on image */}
               <div className="absolute -bottom-6 -left-6 p-6 rounded-3xl bg-white dark:bg-[#120F0D] border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-4 transition-colors duration-300">

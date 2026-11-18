@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldAlert, Users, Building, FileText, Search, Activity, MoreVertical, Ban, Edit, LogOut, Key, Trash2, X } from 'lucide-react';
+import { ShieldAlert, Users, Building, FileText, Search, Activity, MoreVertical, Ban, Edit, LogOut, Key, Trash2, X, Trophy, Upload, Loader2, Pin, Send, Paperclip } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { mockBranches, mockPosts } from '@/lib/mockData';
 import { useToast } from '@/components/Toast';
+import { getB2Winners, getUploads, saveUpload, deleteUpload, B2_WINNER_TYPE } from '@/lib/storage';
+
+const ADMIN_NOTE_SOURCE = 'Assisi Super Admin';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -20,6 +23,95 @@ export default function AdminDashboard() {
 
   const [editUsername, setEditUsername] = useState('');
   const [editPassword, setEditPassword] = useState('');
+
+  // B2 winners state
+  const [winners, setWinners] = useState<any[]>([]);
+  const [winnerFiles, setWinnerFiles] = useState<File[]>([]);
+  const [winnerName, setWinnerName] = useState('');
+  const [winnerCaption, setWinnerCaption] = useState('');
+  const [uploadingWinners, setUploadingWinners] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const loadWinners = () => getB2Winners().then(setWinners);
+  useEffect(() => { loadWinners(); }, []);
+
+  const handleUploadWinners = async () => {
+    if (winnerFiles.length === 0) return showToast('Select at least one photo');
+    setUploadingWinners(true);
+    try {
+      for (const file of winnerFiles) {
+        const fallbackName = file.name.replace(/\.[^.]+$/, '');
+        await saveUpload({
+          title: winnerName || fallbackName,
+          content: winnerCaption || 'B2 Exam Winner',
+          type: B2_WINNER_TYPE,
+          mediaBlob: file,
+        });
+      }
+      showToast(`${winnerFiles.length} winner photo(s) uploaded`);
+      setWinnerFiles([]);
+      setWinnerName('');
+      setWinnerCaption('');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      await loadWinners();
+    } catch (err) {
+      console.error(err);
+      showToast('Upload failed');
+    } finally {
+      setUploadingWinners(false);
+    }
+  };
+
+  const handleDeleteWinner = async (id: number) => {
+    await deleteUpload(id);
+    setWinners((w) => w.filter((x) => x.id !== id));
+    showToast('Winner photo removed');
+  };
+
+  // Important notes state
+  const [notes, setNotes] = useState<any[]>([]);
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteBody, setNoteBody] = useState('');
+  const [noteFile, setNoteFile] = useState<File | null>(null);
+  const [postingNote, setPostingNote] = useState(false);
+  const noteFileRef = useRef<HTMLInputElement>(null);
+
+  const loadNotes = () =>
+    getUploads().then((all) => setNotes(all.filter((u) => u.type === 'notice' && u.institution_name === ADMIN_NOTE_SOURCE)));
+  useEffect(() => { loadNotes(); }, []);
+
+  const handlePostNote = async () => {
+    if (!noteTitle.trim() || !noteBody.trim()) return showToast('Enter a title and the note text');
+    setPostingNote(true);
+    try {
+      await saveUpload({
+        title: noteTitle.trim(),
+        content: noteBody.trim(),
+        type: 'notice',
+        institution_name: ADMIN_NOTE_SOURCE,
+        institution_id: 0,
+        hashtags: '#important',
+        mediaBlob: noteFile || undefined,
+      });
+      showToast('Important note published');
+      setNoteTitle('');
+      setNoteBody('');
+      setNoteFile(null);
+      if (noteFileRef.current) noteFileRef.current.value = '';
+      await loadNotes();
+    } catch (err) {
+      console.error(err);
+      showToast('Failed to publish note');
+    } finally {
+      setPostingNote(false);
+    }
+  };
+
+  const handleDeleteNote = async (id: number) => {
+    await deleteUpload(id);
+    setNotes((n) => n.filter((x) => x.id !== id));
+    showToast('Note deleted');
+  };
 
   const handleLogout = async () => {
     try {
@@ -226,6 +318,166 @@ export default function AdminDashboard() {
             </div>
           </div>
 
+        </div>
+
+        {/* Important Notes Manager */}
+        <div className="bg-slate-900 border border-white/5 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
+          <div className="p-6 border-b border-white/5 flex items-center justify-between">
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <Pin className="h-5 w-5 text-sky-400" />
+              Important Notes
+            </h3>
+            <span className="text-xs text-slate-400">Shown on Public Notices as Official Notes</span>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6 p-6">
+            <div className="space-y-3">
+              <input
+                id="note-title"
+                value={noteTitle}
+                onChange={(e) => setNoteTitle(e.target.value)}
+                placeholder="Note title e.g. Exam schedule changed"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-sky-400"
+              />
+              <textarea
+                id="note-body"
+                value={noteBody}
+                onChange={(e) => setNoteBody(e.target.value)}
+                rows={5}
+                placeholder="Write the important note for all students and branches..."
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-sky-400 resize-none"
+              />
+              <div className="flex flex-wrap items-center gap-3">
+                <label htmlFor="note-file" className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold cursor-pointer transition">
+                  <Paperclip className="h-4 w-4" />
+                  {noteFile ? noteFile.name : 'Attach PDF / image (optional)'}
+                  <input
+                    id="note-file"
+                    ref={noteFileRef}
+                    type="file"
+                    accept="image/*,application/pdf"
+                    className="hidden"
+                    onChange={(e) => setNoteFile(e.target.files?.[0] || null)}
+                  />
+                </label>
+                <button
+                  id="note-post-btn"
+                  onClick={handlePostNote}
+                  disabled={postingNote}
+                  className="ml-auto flex items-center gap-2 px-5 py-2.5 bg-sky-500 hover:bg-sky-400 disabled:opacity-60 text-slate-900 rounded-xl text-sm font-bold transition"
+                >
+                  {postingNote ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                  {postingNote ? 'Publishing...' : 'Publish Note'}
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+              {notes.length === 0 ? (
+                <p className="text-center text-slate-500 text-sm py-10">No important notes posted yet.</p>
+              ) : (
+                notes.map((n) => (
+                  <div key={n.id} className="group bg-slate-950 border border-slate-800 rounded-xl p-4 flex justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">Important</span>
+                        <span className="text-xs text-slate-500">{n.created_at ? new Date(n.created_at).toLocaleString() : ''}</span>
+                      </div>
+                      <h4 className="text-sm font-bold text-white truncate">{n.title}</h4>
+                      <p className="text-xs text-slate-400 mt-1 line-clamp-2">{n.content}</p>
+                      {n.media_url && (
+                        <a href={n.media_url} target="_blank" rel="noreferrer" className="text-xs text-sky-400 hover:underline mt-1 inline-block">View attachment</a>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => handleDeleteNote(n.id)}
+                      className="self-start p-2 text-slate-500 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition"
+                      title="Delete note"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* B2 Winners Manager */}
+        <div className="bg-slate-900 border border-white/5 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
+          <div className="p-6 border-b border-white/5 flex items-center justify-between">
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <Trophy className="h-5 w-5 text-amber-400" />
+              B2 Winners Showcase
+            </h3>
+            <span className="text-xs text-slate-400">{winners.length} photo(s) on home page</span>
+          </div>
+
+          <div className="p-6 grid md:grid-cols-4 gap-4 border-b border-white/5">
+            <label htmlFor="b2-file-input" className="md:col-span-1 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-slate-700 hover:border-amber-400 rounded-xl p-4 cursor-pointer text-slate-400 hover:text-amber-300 transition">
+              <Upload className="h-6 w-6" />
+              <span className="text-xs font-semibold text-center">
+                {winnerFiles.length ? `${winnerFiles.length} photo(s) selected` : 'Choose student photos'}
+              </span>
+              <input
+                id="b2-file-input"
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={(e) => setWinnerFiles(Array.from(e.target.files || []))}
+              />
+            </label>
+            <input
+              id="b2-winner-name"
+              value={winnerName}
+              onChange={(e) => setWinnerName(e.target.value)}
+              placeholder="Student name (optional – uses file name)"
+              className="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400"
+            />
+            <input
+              id="b2-winner-caption"
+              value={winnerCaption}
+              onChange={(e) => setWinnerCaption(e.target.value)}
+              placeholder="Caption e.g. German B2 – Goethe 2026"
+              className="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400"
+            />
+            <button
+              id="b2-upload-btn"
+              onClick={handleUploadWinners}
+              disabled={uploadingWinners}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-60 text-slate-900 rounded-xl text-sm font-bold transition"
+            >
+              {uploadingWinners ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+              {uploadingWinners ? 'Uploading...' : 'Upload Winners'}
+            </button>
+          </div>
+
+          <div className="p-6">
+            {winners.length === 0 ? (
+              <p className="text-center text-slate-500 text-sm py-6">No B2 winner photos yet. Uploaded photos will rotate on the home page.</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                {winners.map((w) => (
+                  <div key={w.id} className="relative group rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
+                    <img src={w.media_url} alt={w.title} className="w-full h-32 object-cover" />
+                    <div className="p-2">
+                      <p className="text-xs font-bold text-white truncate">{w.title}</p>
+                      <p className="text-[10px] text-slate-500 truncate">{w.content}</p>
+                    </div>
+                    <button
+                      onClick={() => handleDeleteWinner(w.id)}
+                      className="absolute top-2 right-2 p-1.5 bg-rose-600/90 hover:bg-rose-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition"
+                      title="Remove"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </main>
 

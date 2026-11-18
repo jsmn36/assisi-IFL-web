@@ -2,13 +2,30 @@
 // Uploads are stored on the backend (Render + Postgres) so every visitor sees them.
 const API_BASE = 'https://assisi-ifl-web-1.onrender.com';
 
+export const B2_WINNER_TYPE = 'b2_winner';
+
+async function fetchAllUploads(): Promise<any[]> {
+  const res = await fetch(`${API_BASE}/uploads`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.json();
+}
+
 export async function getUploads(): Promise<any[]> {
   try {
-    const res = await fetch(`${API_BASE}/uploads`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
+    const all = await fetchAllUploads();
+    return all.filter((u) => u.type !== B2_WINNER_TYPE);
   } catch (error) {
     console.error('Error getting uploads:', error);
+    return [];
+  }
+}
+
+export async function getB2Winners(): Promise<any[]> {
+  try {
+    const all = await fetchAllUploads();
+    return all.filter((u) => u.type === B2_WINNER_TYPE && u.media_url);
+  } catch (error) {
+    console.error('Error getting B2 winners:', error);
     return [];
   }
 }
