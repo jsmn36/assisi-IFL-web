@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Users, ShieldAlert, ArrowRight, Activity, Calendar, Film, Globe, ChevronRight, Building, Sun, Moon } from 'lucide-react';
+import { BookOpen, ShieldAlert, ArrowRight, Film, Globe, ChevronRight, Building, Sun, Moon, MapPin, Phone, Mail, ExternalLink, GraduationCap, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/contexts/ThemeContext';
 import B2WinnersSlideshow from '@/components/B2WinnersSlideshow';
@@ -38,8 +38,8 @@ export default function VisitorLanding() {
                Student Notes
             </Link>
             <Link to="/public-feed" className="hover:text-slate-900 dark:hover:text-white transition-colors">Public Notices</Link>
-            <a href="tel:+919961246648" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-semibold">Contact</a>
-            <a href="https://maps.google.com/?q=Assisi+Institute+of+Foreign+Languages" target="_blank" rel="noreferrer" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors font-semibold">Location</a>
+            <a href="#instructors" className="hover:text-violet-600 dark:hover:text-white transition-colors flex items-center gap-1">Our Instructors</a>
+            <a href="#contact" className="hover:text-emerald-600 dark:hover:text-white transition-colors font-semibold">Contact Us</a>
           </div>
           
           <div className="flex items-center gap-2">
@@ -205,71 +205,287 @@ export default function VisitorLanding() {
         </div>
       </section>
 
-      {/* 4. Overview Statistics Section */}
-      <section id="about" className="px-6 py-32 relative bg-gradient-to-b from-indigo-50/30 to-amber-50/30 dark:from-[#090A15] dark:to-[#120F0D] transition-colors duration-300">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[700px] h-[700px] bg-amber-100/60 dark:bg-[#423321] rounded-full blur-[150px] opacity-60 dark:opacity-40 pointer-events-none transition-colors duration-500" />
-        
-        <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="space-y-10">
-            <div>
-              <span className="text-xs font-bold text-amber-600 dark:text-[#D4AF37] tracking-widest uppercase mb-3 block">Integrated Platform</span>
-              <h2 className="text-4xl md:text-5xl font-semibold mb-6 tracking-tight text-slate-900 dark:text-white">The Modern Campus Network</h2>
-              <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-light">
-                Assisi Social unites fragmented campus systems under one cohesive environment. From social relations to institutional notices across all 11 Gurukula branches, we offer clean interfaces and robust administration tools.
-              </p>
-            </div>
+      {/* 4. B2 WINNERS SHOWCASE — full width */}
+      <section id="b2winners" className="px-6 py-24 relative bg-gradient-to-b from-indigo-50/30 to-amber-50/30 dark:from-[#090A15] dark:to-[#120F0D] overflow-hidden transition-colors duration-300">
+        {/* Ambient glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-amber-200/40 dark:bg-amber-900/20 rounded-full blur-[160px] opacity-50 pointer-events-none" />
 
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-md shadow-sm">
-                <div className="bg-amber-100 dark:bg-[#D4AF37]/20 p-2.5 rounded-xl border border-amber-200 dark:border-[#D4AF37]/30 text-amber-600 dark:text-[#D4AF37]">
-                  <Calendar className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Organized Events & Calendar</h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Keep students in the loop with events and classroom tasks.</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-md shadow-sm">
-                <div className="bg-amber-100 dark:bg-[#D4AF37]/20 p-2.5 rounded-xl border border-amber-200 dark:border-[#D4AF37]/30 text-amber-600 dark:text-[#D4AF37]">
-                  <Activity className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Real-Time Performance Indicators</h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Provide administrators and institutions with dynamic analytical charts.</p>
-                </div>
-              </div>
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Section header */}
+          <motion.div className="text-center mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-amber-200 dark:border-amber-500/30 text-xs font-semibold text-amber-700 dark:text-amber-300 mb-6 shadow-sm backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span>Celebrating Excellence</span>
             </div>
-
-            {/* Abstract SVG charts underneath to mimic the mockup */}
-            <div className="flex gap-4 pt-4">
-              <div className="flex-1 h-24 rounded-2xl bg-gradient-to-t from-slate-200 dark:from-white/5 to-transparent border border-slate-200 dark:border-white/10 relative overflow-hidden flex items-end">
-                <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="w-full h-full opacity-50 stroke-amber-500 dark:stroke-[#D4AF37] fill-none" strokeWidth="2">
-                  <path d="M0,30 Q10,10 20,25 T40,15 T60,20 T80,5 T100,20" />
-                </svg>
-              </div>
-              <div className="flex-1 h-24 rounded-2xl bg-gradient-to-t from-slate-200 dark:from-white/5 to-transparent border border-slate-200 dark:border-white/10 relative overflow-hidden flex items-end">
-                <svg viewBox="0 0 100 40" preserveAspectRatio="none" className="w-full h-full opacity-50 stroke-amber-500 dark:stroke-[#D4AF37] fill-none" strokeWidth="2">
-                  <path d="M0,20 Q15,35 30,15 T60,25 T80,10 T100,15" />
-                </svg>
-              </div>
-            </div>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-400">B2 Winners</span>
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 text-lg font-light max-w-xl mx-auto">
+              Students who achieved the prestigious B2 level certification at the Assisi Institute of Foreign Languages.
+            </p>
           </motion.div>
 
-          <motion.div className="relative lg:ml-12" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
-            <div className="absolute -inset-8 bg-gradient-to-tr from-amber-200 dark:from-[#D4AF37]/20 to-transparent rounded-[3rem] blur-2xl opacity-50 dark:opacity-40 transition-colors duration-500" />
-            {/* Thick glass border container */}
-            <div className="p-4 rounded-[2.5rem] bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/20 backdrop-blur-xl relative z-10 shadow-2xl">
+          {/* Full-width certificate slideshow */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Glow behind the certificate */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-amber-300/30 dark:from-amber-500/10 to-blue-300/20 dark:to-blue-900/10 rounded-[2.5rem] blur-2xl opacity-70" />
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-amber-200/50 dark:ring-amber-500/20">
               <B2WinnersSlideshow />
-              
-              {/* Floating element on image */}
-              <div className="absolute -bottom-6 -left-6 p-6 rounded-3xl bg-white dark:bg-[#120F0D] border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-4 transition-colors duration-300">
-                <div className="p-3 bg-amber-100 dark:bg-[#D4AF37]/20 rounded-full">
-                  <Users className="h-6 w-6 text-amber-600 dark:text-[#D4AF37]" />
+            </div>
+
+            {/* Stats strip below */}
+            <div className="grid grid-cols-3 gap-4 mt-8">
+              {[
+                { label: 'B2 Certified', value: '200+', color: 'text-amber-600 dark:text-amber-400' },
+                { label: 'Years of Excellence', value: '15+', color: 'text-blue-600 dark:text-blue-400' },
+                { label: 'Active Students', value: '4.2k+', color: 'text-emerald-600 dark:text-emerald-400' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-sm">
+                  <p className={`text-3xl font-black mb-1 ${stat.color}`}>{stat.value}</p>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 5. OUR INSTRUCTORS SECTION */}
+      <section id="instructors" className="px-6 py-32 relative bg-gradient-to-b from-indigo-50/30 to-violet-50/20 dark:from-[#090A15] dark:to-[#0D0A18] overflow-hidden transition-colors duration-300">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-violet-200/40 dark:bg-violet-900/20 rounded-full blur-[150px] opacity-60 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Section Header */}
+          <motion.div className="text-center mb-20" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-violet-700 dark:text-violet-300 mb-6 shadow-sm backdrop-blur-md">
+              <GraduationCap className="h-4 w-4" />
+              <span>Our Skilled &amp; Highly Qualified Faculty</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-500 dark:from-violet-300 dark:to-indigo-400">Instructors</span>
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 text-lg font-light max-w-xl mx-auto">
+              Meet the passionate educators who ignite curiosity and shape the future of our students.
+            </p>
+          </motion.div>
+
+          {/* Instructor Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {[
+              {
+                name: 'Dr. Annie Kurian',
+                role: 'Dean of Studies',
+                badge: 'Dean',
+                badgeColor: 'bg-violet-100 dark:bg-violet-500/20 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-500/30',
+                photo: '/instructors/dr-annie-kurian.jpg',
+                quote: 'It is the supreme art of the instructor to awaken joy in creative expression and knowledge.',
+                accentFrom: 'from-violet-500',
+                accentTo: 'to-indigo-500',
+              },
+              {
+                name: 'Fr. Jacob Chamakkalayil',
+                role: 'Instructor',
+                badge: 'Instructor',
+                badgeColor: 'bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-500/30',
+                photo: '/instructors/fr-jacob-chamakkalayil.jpg',
+                quote: 'Education is not the filling of a pail, but the lighting of a fire.',
+                accentFrom: 'from-blue-500',
+                accentTo: 'to-cyan-500',
+              },
+              {
+                name: 'KJ Thomas',
+                role: 'Instructor',
+                badge: 'Instructor',
+                badgeColor: 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30',
+                photo: '/instructors/kj-thomas.png',
+                quote: 'The greatest good you can do for another is not just share your riches, but reveal to them their own.',
+                accentFrom: 'from-emerald-500',
+                accentTo: 'to-teal-500',
+              },
+              {
+                name: 'Angelika Bochmann',
+                role: 'Guest Faculty',
+                badge: 'Guest Faculty',
+                badgeColor: 'bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-500/30',
+                photo: '/instructors/angelika-bochmann.jpg',
+                quote: 'Without God I can do nothing, with God everything. (Blessed Fr. Karl Leisner)',
+                accentFrom: 'from-rose-500',
+                accentTo: 'to-pink-500',
+              },
+              {
+                name: 'Br. Paulus Terwitte',
+                role: 'Guest Faculty',
+                badge: 'Guest Faculty',
+                badgeColor: 'bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-500/30',
+                photo: '/instructors/br-paulus-terwitte.jpg',
+                quote: 'Teaching is the greatest act of optimism.',
+                accentFrom: 'from-amber-500',
+                accentTo: 'to-orange-500',
+              },
+            ].map((instructor, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative flex flex-col rounded-3xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] shadow-sm hover:shadow-xl dark:hover:shadow-violet-900/20 overflow-hidden transition-all duration-500 hover:-translate-y-1"
+              >
+                {/* Gradient top bar */}
+                <div className={`h-1.5 w-full bg-gradient-to-r ${instructor.accentFrom} ${instructor.accentTo} opacity-80 group-hover:opacity-100 transition-opacity`} />
+
+                {/* Photo */}
+                <div className="relative mx-6 mt-8 mb-4">
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${instructor.accentFrom} ${instructor.accentTo} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`} />
+                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden border-2 border-slate-100 dark:border-white/10 shadow-md">
+                    <img
+                      src={instructor.photo}
+                      alt={instructor.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="px-6 pb-6 flex flex-col flex-1">
+                  <span className={`inline-block self-start text-[10px] font-semibold px-2.5 py-1 rounded-full border mb-3 ${instructor.badgeColor}`}>
+                    {instructor.badge}
+                  </span>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-0.5 leading-snug">{instructor.name}</h3>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-4">{instructor.role}</p>
+
+                  {/* Quote */}
+                  <div className="mt-auto relative">
+                    <Quote className="h-4 w-4 text-slate-300 dark:text-white/20 mb-2" />
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed italic line-clamp-4">
+                      {instructor.quote}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. CONTACT US SECTION */}
+      <section id="contact" className="px-6 py-32 relative bg-gradient-to-b from-violet-50/20 to-slate-50 dark:from-[#0D0A18] dark:to-[#0A0D14] overflow-hidden transition-colors duration-300">
+        <div className="absolute bottom-0 left-0 w-[600px] h-[500px] bg-indigo-200/40 dark:bg-indigo-900/20 rounded-full blur-[150px] opacity-50 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-200/30 dark:bg-emerald-900/15 rounded-full blur-[120px] opacity-50 pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Header */}
+          <motion.div className="text-center mb-16" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-6 shadow-sm backdrop-blur-md">
+              <MapPin className="h-4 w-4" />
+              <span>Find Us</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
+              Contact <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">Us</span>
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 text-lg font-light max-w-lg mx-auto">
+              We'd love to hear from you. Reach out to us at the Assisi Institute of Foreign Languages.
+            </p>
+          </motion.div>
+
+          {/* Contact Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 gap-8"
+          >
+            {/* Info Panel */}
+            <div className="space-y-5">
+              {/* Address */}
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-500/40 transition-all group">
+                <div className="p-3 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 border border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <MapPin className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">4.2k+</p>
-                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Active Students</p>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Address</p>
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white leading-relaxed">
+                    Assisi Institute of Foreign Languages<br />
+                    Opp: St. Alphonsa Shrine,<br />
+                    Bharanaganam – 686578<br />
+                    Kottayam Dt, Kerala.
+                  </p>
                 </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-500/40 transition-all group">
+                <div className="p-3 rounded-xl bg-blue-100 dark:bg-blue-500/20 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 shrink-0">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Phone</p>
+                  <div className="space-y-1">
+                    {['+91 04822 236457', '+91 9961 246648', '+91 7994 376648'].map((num) => (
+                      <a key={num} href={`tel:${num.replace(/\s/g, '')}`} className="block text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        {num}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-violet-300 dark:hover:border-violet-500/40 transition-all group">
+                <div className="p-3 rounded-xl bg-violet-100 dark:bg-violet-500/20 border border-violet-200 dark:border-violet-500/30 text-violet-600 dark:text-violet-400 shrink-0">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Email</p>
+                  <a href="mailto:assisiifl@gmail.com" className="text-sm font-semibold text-slate-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                    assisiifl@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              {/* Website */}
+              <div className="flex items-start gap-4 p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-amber-300 dark:hover:border-amber-500/40 transition-all group">
+                <div className="p-3 rounded-xl bg-amber-100 dark:bg-amber-500/20 border border-amber-200 dark:border-amber-500/30 text-amber-600 dark:text-amber-400 shrink-0">
+                  <Globe className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Website</p>
+                  <a href="https://assisiinstitute.org" target="_blank" rel="noreferrer" className="text-sm font-semibold text-slate-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center gap-1">
+                    assisiinstitute.org <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Map Panel */}
+            <div className="rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-xl relative min-h-[380px]">
+              <iframe
+                title="Assisi Institute of Foreign Languages Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3932.547!2d76.654!3d9.639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07cad8abf4c7c3%3A0x7c4f70f71c9f9b3f!2sAssisi%20Institute%20of%20Foreign%20Languages!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                className="w-full h-full min-h-[380px] border-0"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              {/* Map overlay CTA */}
+              <div className="absolute bottom-4 left-4">
+                <a
+                  href="https://maps.google.com/?q=Assisi+Institute+of+Foreign+Languages,+Bharanaganam,+Kerala"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-slate-900 font-semibold text-xs hover:bg-slate-100 transition-colors shadow-lg"
+                >
+                  <MapPin className="h-3.5 w-3.5 text-emerald-600" />
+                  Open in Google Maps
+                  <ExternalLink className="h-3 w-3 text-slate-400" />
+                </a>
               </div>
             </div>
           </motion.div>
