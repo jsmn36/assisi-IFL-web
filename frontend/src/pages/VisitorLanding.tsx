@@ -1,3 +1,4 @@
+import BrochureSection from '@/components/BrochureSection';
 import GalleryPreview from '@/components/GalleryPreview';
 import NotifyButton from '@/components/NotifyButton';
 import React from 'react';
@@ -173,6 +174,8 @@ export default function VisitorLanding() {
             </div>
           </div>
         </motion.div>
+
+        <BrochureSection />
       </section>
 
       {/* 3. Gurukula Branches Section */}
