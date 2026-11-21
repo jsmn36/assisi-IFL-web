@@ -1,7 +1,9 @@
 import BrochureSection from '@/components/BrochureSection';
 import GalleryPreview from '@/components/GalleryPreview';
 import NotifyButton from '@/components/NotifyButton';
-import React from 'react';
+import RegistrationModal from '@/components/RegistrationModal';
+import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BookOpen, ShieldAlert, ArrowRight, Film, Globe, ChevronRight, Building, Sun, Moon, MapPin, Phone, Mail, ExternalLink, GraduationCap, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -13,6 +15,7 @@ const staggerContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transi
 
 export default function VisitorLanding() {
   const { theme, setTheme } = useTheme();
+  const [showRegister, setShowRegister] = useState(false);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'light' : 'dark');
@@ -60,6 +63,13 @@ export default function VisitorLanding() {
           
           <div className="flex items-center gap-2">
             <NotifyButton />
+            <button
+              id="open-register"
+              onClick={() => setShowRegister(true)}
+              className="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white text-sm font-bold shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 hover:scale-[1.03] transition-all whitespace-nowrap"
+            >
+              Register
+            </button>
             <Link to="/admin-login" className="px-4 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm whitespace-nowrap">
               Admin Login
             </Link>
@@ -482,6 +492,23 @@ export default function VisitorLanding() {
         <p>Contact Us: <a href="tel:+919961246648" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">9961246648</a>, <a href="tel:+917994376648" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">7994376648</a></p>
         <p>&copy; {new Date().getFullYear()} Assisi Social Platform. All rights reserved.</p>
       </footer>
+
+      {/* Floating Register Button */}
+      <motion.button
+        id="floating-register"
+        onClick={() => setShowRegister(true)}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2 }}
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold text-sm shadow-2xl shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 transition-all"
+      >
+        <ShieldAlert className="h-4 w-4" /> Register Now
+      </motion.button>
+
+      {/* Registration Modal */}
+      <AnimatePresence>
+        {showRegister && <RegistrationModal onClose={() => setShowRegister(false)} />}
+      </AnimatePresence>
     </div>
   );
 }
