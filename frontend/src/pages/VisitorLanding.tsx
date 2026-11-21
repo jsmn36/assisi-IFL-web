@@ -200,7 +200,7 @@ export default function VisitorLanding() {
                 <div className="p-2 bg-blue-100 dark:bg-blue-500/20 rounded-lg border border-blue-200 dark:border-blue-500/30">
                   <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 </div>
-                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Our 11 Gurukula Institution Branches</h2>
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Our 13 Gurukula Institution Branches</h2>
               </div>
               <div className="hidden md:flex gap-4">
                 <button className="p-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-white">
@@ -226,6 +226,8 @@ export default function VisitorLanding() {
               { name: "Assisi Mount Gurukula", location: "Melampara", code: "assisimount", tag: "Sports & Excellence" },
               { name: "Mitraniketan Boys", location: "Vagamon", code: "assisivagamon", tag: "Residential Campus" },
               { name: "Thopramkudy Gurukula", location: "Thopramkudy", code: "thopramkudy", tag: "Digital & Technical" },
+              { name: "Online Batch", location: "Anywhere · Remote", code: "online_batch", tag: "Flexible Schedule" },
+              { name: "Offline Institute", location: "Bharanaganam", code: "offline_institute", tag: "In-Person Classes" },
             ].map((branch, idx) => (
               <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }} viewport={{ once: true }} className="group p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] hover:border-blue-400 dark:hover:border-blue-500/50 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all backdrop-blur-sm cursor-pointer flex flex-col justify-between min-h-[160px] shadow-sm hover:shadow-md">
                 <div>

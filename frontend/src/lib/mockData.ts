@@ -10,6 +10,8 @@ export const mockBranches = [
   { id: 9, name: 'Assisi Mount Gurukula', location: 'Melampara', username: 'assisimount', password: 'AssisiMount@2026', tag: 'Sports & Excellence' },
   { id: 10, name: 'Mitraniketan Boys Gurukula', location: 'Vagamon', username: 'assisivagamon', password: 'Mitraniketan@2026', tag: 'Residential Campus' },
   { id: 11, name: 'Thopramkudy Gurukula', location: 'Thopramkudy', username: 'thopramkudy', password: 'Thopramkudy@2026', tag: 'Digital & Technical' },
+  { id: 12, name: 'Online Batch', location: 'Anywhere · Remote', username: 'online_batch', password: 'OnlineBatch@2026', tag: 'Flexible Schedule' },
+  { id: 13, name: 'Offline Institute', location: 'Bharanaganam', username: 'offline_institute', password: 'OfflineIFL@2026', tag: 'In-Person Classes' },
 ];
 
 export const mockPosts = [
