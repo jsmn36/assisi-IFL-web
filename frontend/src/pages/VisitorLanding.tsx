@@ -127,22 +127,27 @@ export default function VisitorLanding() {
 
             <div className="pt-4">
               <h3 className="text-sm font-semibold text-slate-800 dark:text-white mb-4">Language Offerings</h3>
-              <div className="grid grid-cols-3 gap-4">
-                {/* Language Cards */}
-                <div className="p-4 rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all cursor-pointer group shadow-sm">
-                  <span className="text-2xl mb-3 block">🇩🇪</span>
+              <div className="p-4 rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all cursor-pointer group shadow-sm flex items-center gap-4">
+                <span className="text-3xl">🇩🇪</span>
+                <div>
                   <h4 className="text-slate-900 dark:text-white font-medium text-sm mb-1">German</h4>
                   <p className="text-xs text-slate-500 group-hover:text-emerald-700 dark:group-hover:text-emerald-200/70 transition-colors">Beginner and advanced levels.</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all cursor-pointer group shadow-sm">
-                  <span className="text-2xl mb-3 block">🇫🇷</span>
-                  <h4 className="text-slate-900 dark:text-white font-medium text-sm mb-1">French</h4>
-                  <p className="text-xs text-slate-500 group-hover:text-emerald-700 dark:group-hover:text-emerald-200/70 transition-colors">Immersive cultural program.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-emerald-500/50 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all cursor-pointer group shadow-sm">
-                  <span className="text-2xl mb-3 block">🇬🇧</span>
-                  <h4 className="text-slate-900 dark:text-white font-medium text-sm mb-1">English</h4>
-                  <p className="text-xs text-slate-500 group-hover:text-emerald-700 dark:group-hover:text-emerald-200/70 transition-colors">Business and conversational.</p>
+              </div>
+            </div>
+
+            {/* B2 Winners panel */}
+            <div id="b2winners" className="pt-4">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                <h3 className="text-sm font-semibold text-slate-800 dark:text-white">
+                  Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-400">B2 Winners</span>
+                </h3>
+              </div>
+              <div className="relative">
+                <div className="absolute -inset-2 bg-gradient-to-tr from-amber-300/30 dark:from-amber-500/10 to-transparent rounded-3xl blur-xl opacity-70" />
+                <div className="relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-amber-200/50 dark:ring-amber-500/20">
+                  <B2WinnersSlideshow />
                 </div>
               </div>
             </div>
@@ -216,57 +221,6 @@ export default function VisitorLanding() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 4. B2 WINNERS SHOWCASE — full width */}
-      <section id="b2winners" className="px-6 py-24 relative bg-gradient-to-b from-indigo-50/30 to-amber-50/30 dark:from-[#090A15] dark:to-[#120F0D] overflow-hidden transition-colors duration-300">
-        {/* Ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-amber-200/40 dark:bg-amber-900/20 rounded-full blur-[160px] opacity-50 pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          {/* Section header */}
-          <motion.div className="text-center mb-14" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-amber-200 dark:border-amber-500/30 text-xs font-semibold text-amber-700 dark:text-amber-300 mb-6 shadow-sm backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-              <span>Celebrating Excellence</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
-              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-400">B2 Winners</span>
-            </h2>
-            <p className="text-slate-500 dark:text-slate-400 text-lg font-light max-w-xl mx-auto">
-              Students who achieved the prestigious B2 level certification at the Assisi Institute of Foreign Languages.
-            </p>
-          </motion.div>
-
-          {/* Full-width certificate slideshow */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            {/* Glow behind the certificate */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-amber-300/30 dark:from-amber-500/10 to-blue-300/20 dark:to-blue-900/10 rounded-[2.5rem] blur-2xl opacity-70" />
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-amber-200/50 dark:ring-amber-500/20">
-              <B2WinnersSlideshow />
-            </div>
-
-            {/* Stats strip below */}
-            <div className="grid grid-cols-3 gap-4 mt-8">
-              {[
-                { label: 'B2 Certified', value: '200+', color: 'text-amber-600 dark:text-amber-400' },
-                { label: 'Years of Excellence', value: '15+', color: 'text-blue-600 dark:text-blue-400' },
-                { label: 'Active Students', value: '4.2k+', color: 'text-emerald-600 dark:text-emerald-400' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center p-5 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 shadow-sm">
-                  <p className={`text-3xl font-black mb-1 ${stat.color}`}>{stat.value}</p>
-                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
