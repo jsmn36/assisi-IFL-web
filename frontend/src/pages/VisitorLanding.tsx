@@ -1,3 +1,4 @@
+import GalleryPreview from '@/components/GalleryPreview';
 import NotifyButton from '@/components/NotifyButton';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -51,6 +52,7 @@ export default function VisitorLanding() {
                Student Notes
             </Link>
             <Link to="/public-feed" className="hover:text-slate-900 dark:hover:text-white transition-colors">Public Notices</Link>
+            <Link to="/gallery" className="hover:text-emerald-600 dark:hover:text-white transition-colors">Gallery</Link>
             <a href="#instructors" className="hover:text-violet-600 dark:hover:text-white transition-colors flex items-center gap-1">Our Instructors</a>
             <a href="#contact" className="hover:text-emerald-600 dark:hover:text-white transition-colors font-semibold">Contact Us</a>
           </div>
@@ -150,6 +152,8 @@ export default function VisitorLanding() {
             </div>
           </motion.div>
         </div>
+
+        <GalleryPreview />
 
         {/* B2 Winners panel — full width */}
         <motion.div id="b2winners" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="max-w-7xl mx-auto relative z-10 mt-20">

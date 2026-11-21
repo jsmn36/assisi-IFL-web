@@ -5,6 +5,7 @@ import { ShieldAlert, Users, Building, FileText, Search, Activity, MoreVertical,
 import { useAuth } from '@/contexts/AuthContext';
 import { mockBranches, mockPosts } from '@/lib/mockData';
 import { useToast } from '@/components/Toast';
+import AdminGalleryManager from '@/components/AdminGalleryManager';
 import { getB2Winners, getUploads, saveUpload, deleteUpload, B2_WINNER_TYPE } from '@/lib/storage';
 
 const ADMIN_NOTE_SOURCE = 'Assisi Super Admin';
@@ -402,6 +403,8 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+
+        <AdminGalleryManager />
 
         {/* B2 Winners Manager */}
         <div className="bg-slate-900 border border-white/5 rounded-2xl overflow-hidden shadow-xl shadow-black/20">

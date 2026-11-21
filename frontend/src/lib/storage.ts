@@ -3,6 +3,67 @@
 const API_BASE = 'https://assisi-ifl-web-1.onrender.com';
 
 export const B2_WINNER_TYPE = 'b2_winner';
+export const GALLERY_TYPE = 'gallery';
+export type GalleryAlbum = 'gallery' | 'tschuss';
+export type GalleryKind = 'photo' | 'video' | 'youtube';
+
+export interface GalleryItem {
+  id: number;
+  title: string;
+  album: GalleryAlbum;
+  kind: GalleryKind;
+  media_url: string | null;
+  youtube_id: string | null;
+  created_at: string | null;
+}
+
+export function parseYouTubeId(url: string): string | null {
+  const m = url.trim().match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/);
+  return m ? m[1] : /^[\w-]{11}$/.test(url.trim()) ? url.trim() : null;
+}
+
+function toGalleryItem(u: any): GalleryItem {
+  const [album, kind] = String(u.hashtags || 'gallery:photo').split(':') as [GalleryAlbum, GalleryKind];
+  return {
+    id: u.id,
+    title: u.title,
+    album: album === 'tschuss' ? 'tschuss' : 'gallery',
+    kind: kind === 'youtube' || kind === 'video' ? kind : 'photo',
+    media_url: u.media_url,
+    youtube_id: kind === 'youtube' ? parseYouTubeId(u.content || '') : null,
+    created_at: u.created_at,
+  };
+}
+
+export async function getGallery(album?: GalleryAlbum): Promise<GalleryItem[]> {
+  try {
+    const all = await fetchAllUploads();
+    return all
+      .filter((u) => u.type === GALLERY_TYPE)
+      .map(toGalleryItem)
+      .filter((g) => (!album || g.album === album) && (g.media_url || g.youtube_id));
+  } catch (error) {
+    console.error('Error getting gallery:', error);
+    return [];
+  }
+}
+
+export async function saveGalleryItem(opts: {
+  album: GalleryAlbum;
+  title: string;
+  file?: File;
+  youtubeUrl?: string;
+}): Promise<void> {
+  const kind: GalleryKind = opts.youtubeUrl ? 'youtube' : opts.file?.type.startsWith('video/') ? 'video' : 'photo';
+  await saveUpload({
+    title: opts.title || 'Untitled',
+    content: opts.youtubeUrl || '',
+    type: GALLERY_TYPE,
+    institution_name: opts.album === 'tschuss' ? 'Tschüss Gallery' : 'Assisi Gallery',
+    hashtags: `${opts.album}:${kind}`,
+    mediaBlob: opts.file,
+  });
+}
 
 async function fetchAllUploads(): Promise<any[]> {
   const res = await fetch(`${API_BASE}/uploads`);
@@ -13,7 +74,7 @@ async function fetchAllUploads(): Promise<any[]> {
 export async function getUploads(): Promise<any[]> {
   try {
     const all = await fetchAllUploads();
-    return all.filter((u) => u.type !== B2_WINNER_TYPE);
+    return all.filter((u) => u.type !== B2_WINNER_TYPE && u.type !== GALLERY_TYPE);
   } catch (error) {
     console.error('Error getting uploads:', error);
     return [];

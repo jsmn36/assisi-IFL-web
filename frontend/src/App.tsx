@@ -14,6 +14,7 @@ import BranchDashboard from '@/pages/BranchDashboard';
 
 // Lazy-loaded private student social platform pages
 const CampusReels = lazy(() => import('@/pages/CampusReels'));
+const GalleryPage = lazy(() => import('@/pages/GalleryPage'));
 const StudentHome = lazy(() => import('@/pages/StudentHome'));
 const StudentProfilePage = lazy(() => import('@/pages/StudentProfilePage'));
 const StudentChat = lazy(() => import('@/pages/StudentChat'));
@@ -65,6 +66,7 @@ function AppRoutes() {
         <Route path="/public-feed" element={<PublicFeed />} />
         <Route path="/notes" element={<PublicFeed />} />
         <Route path="/reels" element={<CampusReels />} />
+        <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/institutions/:id" element={<InstitutionProfilePage />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/branch-login" element={<BranchLogin />} />

@@ -18,6 +18,7 @@ PUSH_LABELS = {
     "b2_winner": ("New B2 Winner", "/"),
     "image": ("New Campus Photo", "/public-feed"),
     "notice": ("New Notice", "/public-feed"),
+    "gallery": ("New in Gallery", "/gallery"),
 }
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
