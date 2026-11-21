@@ -112,3 +112,38 @@ export async function deleteUpload(id: number): Promise<void> {
     console.error('Error deleting upload:', error);
   }
 }
+
+// ── Reviews ─────────────────────────────────────────────────────────────────
+export const REVIEW_TYPE = 'review';
+
+export interface Review {
+  id: number;
+  name: string;
+  text: string;
+  rating: number;
+  created_at: string | null;
+}
+
+function toReview(u: any): Review {
+  const rating = parseInt(String(u.hashtags || '5').replace('rating:', ''), 10) || 5;
+  return { id: u.id, name: u.title, text: u.content, rating: Math.min(5, Math.max(1, rating)), created_at: u.created_at };
+}
+
+export async function getReviews(): Promise<Review[]> {
+  try {
+    const all = await fetchAllUploads();
+    return all.filter((u) => u.type === REVIEW_TYPE).map(toReview);
+  } catch (e) { console.error('Error fetching reviews:', e); return []; }
+}
+
+export async function saveReview(name: string, text: string, rating: number): Promise<void> {
+  await saveUpload({ title: name, content: text, type: REVIEW_TYPE, institution_name: 'Visitor Review', hashtags: `rating:${rating}` });
+}
+
+export async function updateReview(id: number, name: string, text: string, rating: number): Promise<void> {
+  await fetch(`${API_BASE}/uploads/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: name, content: text, hashtags: `rating:${rating}` }),
+  });
+}

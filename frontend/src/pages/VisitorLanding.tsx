@@ -1,3 +1,4 @@
+import ReviewSection from '@/components/ReviewSection';
 import BrochureSection from '@/components/BrochureSection';
 import GalleryPreview from '@/components/GalleryPreview';
 import NotifyButton from '@/components/NotifyButton';
@@ -486,6 +487,8 @@ export default function VisitorLanding() {
         <span className="hidden md:inline">•</span>
         <Link to="/branch-login" className="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1"><Building className="h-4 w-4" /> Institution Portal</Link>
       </section>
+
+      <ReviewSection />
 
       {/* Footer */}
       <footer className="px-6 py-8 text-center text-slate-500 dark:text-slate-600 text-xs bg-slate-50 dark:bg-[#0A0D14] transition-colors duration-300 space-y-2">

@@ -1,3 +1,4 @@
+import AdminReviewManager from '@/components/AdminReviewManager';
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
@@ -405,6 +406,8 @@ export default function AdminDashboard() {
         </div>
 
         <AdminGalleryManager />
+
+        <AdminReviewManager />
 
         {/* B2 Winners Manager */}
         <div className="bg-slate-900 border border-white/5 rounded-2xl overflow-hidden shadow-xl shadow-black/20">

@@ -118,6 +118,27 @@ def get_media(upload_id: int, db: Session = Depends(get_db)) -> Response:
     )
 
 
+@router.patch("/{upload_id}")
+def update_upload(upload_id: int, body: dict, db: Session = Depends(get_db)) -> dict:
+    from fastapi import Request as _Req
+    u = db.get(Upload, upload_id)
+    if not u:
+        raise HTTPException(status_code=404, detail="Not found")
+    if "title" in body:
+        u.title = body["title"]
+    if "content" in body:
+        u.content = body["content"]
+    db.commit()
+    db.refresh(u)
+    # Build a minimal response without needing a Request object
+    return {
+        "id": u.id, "title": u.title, "content": u.content,
+        "type": u.type, "hashtags": u.hashtags,
+        "institution_name": u.institution_name,
+        "created_at": u.created_at.isoformat() if u.created_at else None,
+    }
+
+
 @router.delete("/{upload_id}")
 def delete_upload(upload_id: int, db: Session = Depends(get_db)) -> dict:
     u = db.get(Upload, upload_id)
