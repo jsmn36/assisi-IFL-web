@@ -19,7 +19,19 @@ export default function VisitorLanding() {
     <div className="min-h-screen bg-slate-50 dark:bg-[#0A0D14] text-slate-900 dark:text-white font-sans selection:bg-indigo-500 selection:text-white overflow-hidden transition-colors duration-300">
       
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-20 px-6">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-20 px-6 overflow-hidden">
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          src="/hero-bg.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-white/60 dark:bg-[#0A0D14]/70 pointer-events-none transition-colors duration-300" />
         {/* Background glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-slate-300 dark:bg-[#2E3C58] rounded-full blur-[120px] opacity-40 dark:opacity-30 pointer-events-none transition-colors duration-500" />
         
