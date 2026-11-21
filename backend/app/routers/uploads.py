@@ -1,12 +1,24 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import Response
 from sqlalchemy import Column, DateTime, Integer, LargeBinary, String, Text
 from sqlalchemy.orm import Session
 
 from ..database import Base, get_db
+from .push import send_to_all
+
+# type -> (label, page url) used for push notifications
+PUSH_LABELS = {
+    "reel": ("New Campus Reel", "/reels"),
+    "video": ("New Campus Reel", "/reels"),
+    "note": ("New Student Notes", "/notes"),
+    "notes": ("New Student Notes", "/notes"),
+    "b2_winner": ("New B2 Winner", "/"),
+    "image": ("New Campus Photo", "/public-feed"),
+    "notice": ("New Notice", "/public-feed"),
+}
 
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
@@ -59,6 +71,7 @@ def list_uploads(request: Request, db: Session = Depends(get_db)) -> list[dict]:
 @router.post("")
 async def create_upload(
     request: Request,
+    background_tasks: BackgroundTasks,
     title: str = Form(...),
     content: str = Form(""),
     type: str = Form("media"),
@@ -87,6 +100,8 @@ async def create_upload(
     db.add(u)
     db.commit()
     db.refresh(u)
+    label, url = PUSH_LABELS.get((type or "").lower(), ("New Update", "/public-feed"))
+    background_tasks.add_task(send_to_all, f"{label} • {u.institution_name}", title, url)
     return _serialize(u, request)
 
 

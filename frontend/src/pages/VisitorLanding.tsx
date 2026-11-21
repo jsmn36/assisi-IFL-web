@@ -1,3 +1,4 @@
+import NotifyButton from '@/components/NotifyButton';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, ShieldAlert, ArrowRight, Film, Globe, ChevronRight, Building, Sun, Moon, MapPin, Phone, Mail, ExternalLink, GraduationCap, Quote } from 'lucide-react';
@@ -55,6 +56,7 @@ export default function VisitorLanding() {
           </div>
           
           <div className="flex items-center gap-2">
+            <NotifyButton />
             <Link to="/admin-login" className="px-4 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-sm whitespace-nowrap">
               Admin Login
             </Link>

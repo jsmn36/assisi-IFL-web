@@ -4,7 +4,7 @@ from sqlalchemy import text
 from .config import settings
 from fastapi.middleware.cors import CORSMiddleware
 from .database import get_db, Base, engine
-from .routers import uploads
+from .routers import uploads, push
 
 app = FastAPI(title="Assisi IFL Web API", version="0.1.0")
 
@@ -19,6 +19,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(uploads.router)
+app.include_router(push.router)
 
 @app.get("/")
 def read_root() -> dict[str, str]:

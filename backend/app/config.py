@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "default-insecure-secret-key-change-in-production"
     JWT_SECRET_KEY: str = "default-insecure-jwt-key-change-in-production"
     DATABASE_URL: str = "sqlite:///./test.db"
+    VAPID_PUBLIC_KEY: str = ""
+    VAPID_PRIVATE_KEY: str = ""
+    VAPID_SUBJECT: str = "mailto:admin@assisiinstituteifl.com"
 
     @model_validator(mode="after")
     def validate_secrets(self) -> "Settings":
