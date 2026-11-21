@@ -135,22 +135,6 @@ export default function VisitorLanding() {
                 </div>
               </div>
             </div>
-
-            {/* B2 Winners panel */}
-            <div id="b2winners" className="pt-4">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                <h3 className="text-sm font-semibold text-slate-800 dark:text-white">
-                  Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-400">B2 Winners</span>
-                </h3>
-              </div>
-              <div className="relative">
-                <div className="absolute -inset-2 bg-gradient-to-tr from-amber-300/30 dark:from-amber-500/10 to-transparent rounded-3xl blur-xl opacity-70" />
-                <div className="relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-amber-200/50 dark:ring-amber-500/20">
-                  <B2WinnersSlideshow />
-                </div>
-              </div>
-            </div>
           </motion.div>
           
           <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="relative">
@@ -166,6 +150,25 @@ export default function VisitorLanding() {
             </div>
           </motion.div>
         </div>
+
+        {/* B2 Winners panel — full width */}
+        <motion.div id="b2winners" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="max-w-7xl mx-auto relative z-10 mt-20">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-amber-200 dark:border-amber-500/30 text-xs font-semibold text-amber-700 dark:text-amber-300 mb-5 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span>Celebrating Excellence</span>
+            </div>
+            <h3 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-400">B2 Winners</span>
+            </h3>
+          </div>
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-amber-300/30 dark:from-amber-500/10 to-blue-300/20 dark:to-blue-900/10 rounded-[2.5rem] blur-2xl opacity-70" />
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-amber-200/50 dark:ring-amber-500/20">
+              <B2WinnersSlideshow />
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* 3. Gurukula Branches Section */}
